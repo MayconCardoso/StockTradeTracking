@@ -1,0 +1,29 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    implementation project(path: submodulesPlatform.domain)
+
+    implementation globalDependencies.kotlinStdLib
+    implementation globalDependencies.kotlinCoroutinesCore
+    implementation globalDependencies.kotlinCoroutinesAndroid
+
+    implementation globalDependencies.koin
+
+    implementation globalDependencies.okHttp
+    implementation globalDependencies.okHttpLoggin
+    implementation globalDependencies.retrofit
+    implementation globalDependencies.retrofitGsonConverter
+
+    implementation globalDependencies.roomRuntime
+    implementation globalDependencies.roomKtx
+    kapt globalDependencies.roomCompiler
+
+    testImplementation globalTestDependencies.jUnit
+    testImplementation globalTestDependencies.assertJ
+    testImplementation globalTestDependencies.coroutines
+    testImplementation globalTestDependencies.mockitoKotlin
+    testImplementation globalTestDependencies.testArqCor
+}
