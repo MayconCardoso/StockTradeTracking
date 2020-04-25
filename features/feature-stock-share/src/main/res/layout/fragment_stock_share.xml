@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:padding="24dp"
+	android:layout_height="match_parent">
+
+	<TextView
+		android:layout_width="match_parent"
+		android:gravity="center"
+		android:textStyle="bold"
+		android:textSize="24sp"
+		android:text="If this code has helped you! Give me a star on Github.\n\n:)"
+		android:layout_height="match_parent"/>
+
+</FrameLayout>
