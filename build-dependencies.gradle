@@ -37,6 +37,10 @@ ext {
 
     submodulesFeatures = [
     ]
+
+    submodulesTest = [
+            dataFactory                     : ':testing:testing-data-factory',
+    ]
     //==============================================================================================
     //
     //

@@ -17,6 +17,20 @@ android {
 }
 
 dependencies {
+    implementation project(path: submodulesPlatform.domain)
+    implementation project(path: submodulesPlatform.data)
+
+    implementation project(path: submodulesLibraries.logger)
+    implementation project(path: submodulesLibraries.loggerAndroid)
+
     implementation globalDependencies.appCompact
     implementation globalDependencies.constraintLayout
+
+    // Navigation
+    implementation globalDependencies.navigationFragment
+    implementation globalDependencies.navigationFragmentUi
+
+    // Koin
+    implementation globalDependencies.koin
+    implementation globalDependencies.koinViewModel
 }

@@ -1,0 +1,7 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation project(path: submodulesPlatform.domain)
+    implementation globalDependencies.kotlinStdLib
+    implementation globalTestDependencies.coroutines
+}

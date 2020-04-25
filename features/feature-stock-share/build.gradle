@@ -23,8 +23,16 @@ dependencies {
 	implementation globalDependencies.lifeCycleViewModel
 	implementation globalDependencies.lifeCycleLiveData
 
+	// Navigation
+	implementation globalDependencies.navigationFragment
+	implementation globalDependencies.navigationFragmentUi
+
 	// View
 	implementation globalDependencies.recyclerView
 	implementation globalDependencies.materialDesign
 	implementation globalDependencies.constraintLayout
+
+	// Koin
+	implementation globalDependencies.koin
+	implementation globalDependencies.koinViewModel
 }

@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 import com.mctech.architecture.mvvm.x.core.BaseViewModel
 import com.mctech.architecture.mvvm.x.core.ComponentState
+import com.mctech.architecture.mvvm.x.core.UserInteraction
 
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.interaction.GetStockShareListCase
@@ -23,5 +24,9 @@ class StockShareViewModel constructor(
 
 	private val _shareList : MutableLiveData<ComponentState<StockShare>> = MutableLiveData(ComponentState.Initializing)
 	val shareList : LiveData<ComponentState<StockShare>> = _shareList
+
+	override suspend fun handleUserInteraction(interaction: UserInteraction) {
+		super.handleUserInteraction(interaction)
+	}
 
 }

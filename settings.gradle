@@ -4,5 +4,10 @@ include ':app'
 include ':domain'
 include ':data'
 
+include ':testing:testing-data-factory'
+
 include ':libraries:library-architecture-code-generator'
+include ':libraries:library-logger'
+include ':libraries:library-logger-android'
+
 include ':features:feature-stock-share'

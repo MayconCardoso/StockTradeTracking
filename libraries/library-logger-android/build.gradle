@@ -1,0 +1,9 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+
+dependencies {
+    implementation globalDependencies.kotlinStdLib
+    implementation project(path: submodulesLibraries.logger)
+}

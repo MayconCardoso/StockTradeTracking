@@ -39,10 +39,19 @@ class StockTradeFeatureGradleModuleTemplate(moduleFilePath: ModuleFilePath) : Gr
         output.printTabulate("implementation globalDependencies.lifeCycleLiveData")
         output.blankLine()
 
+        output.printTabulate("// Navigation")
+        output.printTabulate("implementation globalDependencies.navigationFragment")
+        output.printTabulate("implementation globalDependencies.navigationFragmentUi")
+        output.blankLine()
+
         output.printTabulate("// View")
         output.printTabulate("implementation globalDependencies.recyclerView")
         output.printTabulate("implementation globalDependencies.materialDesign")
         output.printTabulate("implementation globalDependencies.constraintLayout")
+
+        output.printTabulate("// KOIN")
+        output.printTabulate("implementation globalDependencies.koin")
+        output.printTabulate("implementation globalDependencies.koinViewModel")
         output.println("}")
     }
 }
