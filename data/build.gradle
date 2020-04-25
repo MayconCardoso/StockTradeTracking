@@ -6,21 +6,27 @@ apply plugin: 'kotlin-kapt'
 dependencies {
     implementation project(path: submodulesPlatform.domain)
 
+    // Kotlin
     implementation globalDependencies.kotlinStdLib
     implementation globalDependencies.kotlinCoroutinesCore
     implementation globalDependencies.kotlinCoroutinesAndroid
 
+    // Dependency injection
     implementation globalDependencies.koin
 
+    // Networking
+    implementation globalDependencies.mvvmArchitectureCoreNetworking
     implementation globalDependencies.okHttp
     implementation globalDependencies.okHttpLoggin
     implementation globalDependencies.retrofit
     implementation globalDependencies.retrofitGsonConverter
 
+    // Database
     implementation globalDependencies.roomRuntime
     implementation globalDependencies.roomKtx
     kapt globalDependencies.roomCompiler
 
+    // Testing
     testImplementation globalTestDependencies.jUnit
     testImplementation globalTestDependencies.assertJ
     testImplementation globalTestDependencies.coroutines
