@@ -23,6 +23,9 @@ dependencies {
     implementation project(path: submodulesLibraries.logger)
     implementation project(path: submodulesLibraries.loggerAndroid)
 
+    // Features
+    implementation project(path: submodulesFeatures.stockShare)
+
     implementation globalDependencies.appCompact
     implementation globalDependencies.constraintLayout
 

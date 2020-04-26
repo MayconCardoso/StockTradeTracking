@@ -1,3 +1,4 @@
 <resources>
 
+    <string name="no_item_on_filter">There is no item for this filter.</string>
 </resources>

@@ -4,7 +4,9 @@ import android.app.Application
 import com.mctech.stocktradetracking.data.database.databaseModule
 import com.mctech.stocktradetracking.data.stock_share.di.stockShareDataModule
 import com.mctech.stocktradetracking.di.loggingModule
+import com.mctech.stocktradetracking.di.navigatorModule
 import com.mctech.stocktradetracking.di.useCasesModule
+import com.mctech.stocktradetracking.feature.stock_share.di.stockShareViewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -27,9 +29,11 @@ class App : Application() {
 
                     // App
                     useCasesModule,
+                    navigatorModule,
 
                     // Features
-                    stockShareDataModule
+                    stockShareDataModule,
+                    stockShareViewModelModule
                 )
             )
         }

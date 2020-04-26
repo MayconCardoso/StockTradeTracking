@@ -14,7 +14,7 @@ ext {
     ROOM                            = '2.2.4'
 
     MCTECH_KEYBOARD                 = '1.0.6'
-    MCTECH_MVVM_ARCHITECTURE        = '1.2.1'
+    MCTECH_MVVM_ARCHITECTURE        = '1.4.1'
     //==============================================================================================
     //
     //
@@ -36,6 +36,7 @@ ext {
     ]
 
     submodulesFeatures = [
+            stockShare                      : ':features:feature-stock-share',
     ]
 
     submodulesTest = [
