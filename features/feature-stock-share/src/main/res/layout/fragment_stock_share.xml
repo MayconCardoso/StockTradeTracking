@@ -16,22 +16,24 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:animatedShowOnLoadingFromEmpty="@{viewModel.shareList}"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:showOnLoading="@{viewModel.shareList}"
             tools:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:animatedShowOnSuccessWithNotEmptyData="@{viewModel.shareList}"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:showOnSuccessWithNotEmptyData="@{viewModel.shareList}"
             tools:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -41,11 +43,12 @@
             android:gravity="center"
             android:text="@string/no_item_on_filter"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-			app:animatedShowOnSuccessWithEmptyData="@{viewModel.shareList}"
-			app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            app:showOnSuccessWithEmptyData="@{viewModel.shareList}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/startFlow"
-    android:id="@+id/stock_trade_navigation_graph">
+    android:id="@+id/stock_trade_navigation_graph"
+    app:startDestination="@id/stock_share_navigation_graph">
 
     <include
-        android:id="@+id/startFlow"
         app:graph="@navigation/stock_share_navigation_graph" />
 </navigation>

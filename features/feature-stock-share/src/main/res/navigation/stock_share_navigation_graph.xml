@@ -8,5 +8,5 @@
     <fragment
         android:id="@+id/stockShareListFragment"
         android:name="com.mctech.stocktradetracking.feature.stock_share.view.StockShareListFragment"
-        android:label="StockShareListFragment" />
+        android:label="Stock Share" />
 </navigation>

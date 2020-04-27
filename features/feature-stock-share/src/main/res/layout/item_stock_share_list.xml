@@ -1,0 +1,86 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.mctech.stocktradetracking.domain.stock_share.entity.StockShare" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/stockIndicator"
+                android:layout_width="8dp"
+                android:layout_height="0dp"
+                android:background="#007E33"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/itemCode"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="12dp"
+                android:layout_height="wrap_content"
+                android:text="@{item.code}"
+                app:layout_goneMarginTop="12dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/stockIndicator"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="MGLU3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/itemInvestment"
+                android:text="@{item.getBuyDescription()}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/itemCode"
+                app:layout_constraintTop_toBottomOf="@id/itemCode"
+                tools:text="BUY 300 @ R$26,91" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/itemFinalPrice"
+                android:layout_width="wrap_content"
+                android:text="@{item.getBalanceDescription()}"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="#007E33"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/itemCode"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/itemCode"
+                tools:text="R$23.490,00" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/itemPercent"
+                android:layout_width="wrap_content"
+                android:textColor="#007E33"
+                android:layout_height="wrap_content"
+                android:text="@{item.getVariationDescription()}"
+                app:layout_constraintEnd_toEndOf="@id/itemFinalPrice"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintTop_toBottomOf="@id/itemFinalPrice"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="8dp"
+                tools:text="5.43%" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

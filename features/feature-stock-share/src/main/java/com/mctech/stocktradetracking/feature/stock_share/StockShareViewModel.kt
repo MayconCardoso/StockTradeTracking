@@ -14,6 +14,7 @@ import com.mctech.stocktradetracking.domain.stock_share.interaction.BuyStockShar
 import com.mctech.stocktradetracking.domain.stock_share.interaction.EditStockShareValueCase
 import com.mctech.stocktradetracking.domain.stock_share.interaction.GetStockShareListCase
 import com.mctech.stocktradetracking.domain.stock_share.interaction.SellStockShareCase
+import kotlinx.coroutines.delay
 
 class StockShareViewModel constructor(
 	private val getStockShareListCase	: GetStockShareListCase,
@@ -34,6 +35,7 @@ class StockShareViewModel constructor(
 	private suspend fun loadStockShareListInteraction() {
 		_shareList.changeToListLoadingState()
 
+		delay(2000)
 		when(val result = getStockShareListCase.execute()){
 			is Result.Success -> {
 				_shareList.changeToSuccessState(result.result)

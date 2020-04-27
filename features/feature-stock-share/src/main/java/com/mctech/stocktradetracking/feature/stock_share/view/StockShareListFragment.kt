@@ -5,13 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-
+import androidx.recyclerview.widget.DiffUtil
 import com.mctech.architecture.mvvm.x.core.ComponentState
 import com.mctech.architecture.mvvm.x.core.ktx.bindState
+import com.mctech.library.view.ktx.attachSimpleData
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.feature.stock_share.StockShareInteraction
 import com.mctech.stocktradetracking.feature.stock_share.StockShareViewModel
 import com.mctech.stocktradetracking.feature.stock_share.databinding.FragmentStockShareBinding
+import com.mctech.stocktradetracking.feature.stock_share.databinding.ItemStockShareListBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class StockShareListFragment : Fragment() {
@@ -29,7 +31,6 @@ class StockShareListFragment : Fragment() {
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
 		bindState(viewModel.shareList){ handleShareListState(it) }
 	}
 
@@ -38,6 +39,34 @@ class StockShareListFragment : Fragment() {
 			is ComponentState.Initializing -> {
 				viewModel.interact(StockShareInteraction.List.LoadStockShare)
 			}
+			is ComponentState.Success -> {
+				renderStockList(state.result)
+			}
 		}
+	}
+
+	private fun renderStockList(result: List<StockShare>) {
+		binding?.recyclerView?.attachSimpleData(
+			items = result,
+			viewBindingCreator = { parent, inflater ->
+				ItemStockShareListBinding.inflate(inflater, parent, false)
+			},
+			prepareHolder = { item, viewBinding, _ ->
+				viewBinding.item = item
+				viewBinding.root.setOnClickListener {
+					viewModel.interact(StockShareInteraction.List.OpenStockShareDetails(item))
+				}
+			},
+			updateCallback = object : DiffUtil.ItemCallback<StockShare>() {
+				override fun areItemsTheSame(left: StockShare, right: StockShare) = left.id == right.id
+
+				override fun areContentsTheSame(left: StockShare, right: StockShare): Boolean {
+					return left.code == right.code
+							&& left.getBuyDescription() == right.getBuyDescription()
+							&& left.getBalanceDescription() == right.getBalanceDescription()
+							&& left.getVariationDescription() == right.getVariationDescription()
+				}
+			}
+		)
 	}
 }
