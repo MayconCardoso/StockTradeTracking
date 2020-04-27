@@ -5,7 +5,7 @@ import com.mctech.stocktradetracking.domain.extentions.round
 import java.util.*
 
 data class StockShare(
-    val id: Long,
+    val id: Long? = null,
     val code: String,
     val shareAmount: Int,
     val purchasePrice: Double,
@@ -47,6 +47,9 @@ data class StockShare(
     }
 
     fun getVariation(): Double {
+        if(getOriginalStockPrice() == 0.0){
+            return 0.0
+        }
         return (getBalance() / getOriginalStockPrice() * 100).round(2)
     }
 

@@ -7,5 +7,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:defaultNavHost="true"
-    tools:layout="@layout/fragment_stock_share"
+    tools:layout="@layout/fragment_stock_share_list"
     app:navGraph="@navigation/stock_trade_navigation_graph" />

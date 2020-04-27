@@ -20,7 +20,7 @@ import java.util.*
 )
 data class StockShareDatabaseEntity(
     @PrimaryKey
-    val id: Long,
+    val id: Long? = null,
     val code : String,
     val shareAmount : Int,
     val purchasePrice : Double,

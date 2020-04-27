@@ -31,4 +31,76 @@ object StockShareDataFactory {
         saleDate = saleDate,
         isPositionOpened = isPositionOpened
     )
+
+    fun finalBalancePositiveList(): List<StockShare> {
+        return mutableListOf<StockShare>().apply {
+            add(
+                StockShare(
+                    code = "MGLU3",
+                    purchasePrice = 10.0,
+                    salePrice = 12.0,
+                    shareAmount = 100,
+                    purchaseDate =  Calendar.getInstance().time
+                )
+            )
+
+            add(
+                StockShare(
+                    code = "MGLU3",
+                    purchasePrice = 10.0,
+                    salePrice = 12.0,
+                    shareAmount = 100,
+                    purchaseDate =  Calendar.getInstance().time
+                )
+            )
+        }
+    }
+
+    fun finalBalanceNegativeList(): List<StockShare> {
+        return mutableListOf<StockShare>().apply {
+            add(
+                StockShare(
+                    code = "MGLU3",
+                    purchasePrice = 10.0,
+                    salePrice = 8.0,
+                    shareAmount = 100,
+                    purchaseDate =  Calendar.getInstance().time
+                )
+            )
+
+            add(
+                StockShare(
+                    code = "MGLU3",
+                    purchasePrice = 10.0,
+                    salePrice = 8.0,
+                    shareAmount = 100,
+                    purchaseDate =  Calendar.getInstance().time
+                )
+            )
+        }
+    }
+
+    fun finalBalanceNeutralList(): List<StockShare> {
+        return mutableListOf<StockShare>().apply {
+            add(
+                StockShare(
+                    code = "MGLU3",
+                    purchasePrice = 10.0,
+                    salePrice = 10.0,
+                    shareAmount = 100,
+                    purchaseDate =  Calendar.getInstance().time
+                )
+            )
+
+            add(
+                StockShare(
+                    code = "MGLU3",
+                    purchasePrice = 10.0,
+                    salePrice = 10.0,
+                    shareAmount = 100,
+                    purchaseDate =  Calendar.getInstance().time
+                )
+            )
+        }
+    }
 }

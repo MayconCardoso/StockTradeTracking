@@ -1,4 +1,9 @@
 <resources>
 
     <string name="no_item_on_filter">There is no item for this filter.</string>
+    <string name="share_code">Code</string>
+    <string name="share_amount">Amount</string>
+    <string name="share_price">Price</string>
+    <string name="add_position">Add position</string>
+    <string name="final_balance">Final Balance</string>
 </resources>

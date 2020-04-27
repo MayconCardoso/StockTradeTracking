@@ -5,24 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import com.mctech.architecture.mvvm.x.core.ComponentState
 import com.mctech.architecture.mvvm.x.core.ktx.bindState
 import com.mctech.library.view.ktx.attachSimpleData
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
+import com.mctech.stocktradetracking.domain.stock_share.entity.StockShareFinalBalance
+import com.mctech.stocktradetracking.feature.stock_share.R
 import com.mctech.stocktradetracking.feature.stock_share.StockShareInteraction
 import com.mctech.stocktradetracking.feature.stock_share.StockShareViewModel
-import com.mctech.stocktradetracking.feature.stock_share.databinding.FragmentStockShareBinding
+import com.mctech.stocktradetracking.feature.stock_share.databinding.FragmentStockShareListBinding
 import com.mctech.stocktradetracking.feature.stock_share.databinding.ItemStockShareListBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class StockShareListFragment : Fragment() {
 
 	private val viewModel : StockShareViewModel by sharedViewModel()
-	private var binding   : FragmentStockShareBinding? = null
+	private var binding   : FragmentStockShareListBinding? = null
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-		return FragmentStockShareBinding.inflate(inflater, container, false).let {
+		return FragmentStockShareListBinding.inflate(inflater, container, false).let {
 			binding = it
 			binding?.viewModel = viewModel
 			binding?.lifecycleOwner = this
@@ -32,6 +35,17 @@ class StockShareListFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		bindState(viewModel.shareList){ handleShareListState(it) }
+		bindState(viewModel.stockShareFinalBalance){ handleFinalBalanceState(it) }
+		bindListeners()
+	}
+
+	private fun handleFinalBalanceState(state: ComponentState<StockShareFinalBalance>) {
+		when(state){
+			is ComponentState.Success -> {
+				binding?.finalBalance = state.result
+				binding?.executePendingBindings()
+			}
+		}
 	}
 
 	private fun handleShareListState(state: ComponentState<List<StockShare>>) {
@@ -68,5 +82,13 @@ class StockShareListFragment : Fragment() {
 				}
 			}
 		)
+	}
+
+	private fun bindListeners() {
+		binding?.btBuy?.setOnClickListener {
+			findNavController().navigate(
+				R.id.action_stockShareListFragment_to_stockShareBuyFragment
+			)
+		}
 	}
 }
