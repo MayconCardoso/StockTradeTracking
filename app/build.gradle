@@ -22,6 +22,7 @@ dependencies {
 
     implementation project(path: submodulesLibraries.logger)
     implementation project(path: submodulesLibraries.loggerAndroid)
+    implementation project(path: submodulesLibraries.designSystem)
 
     // Features
     implementation project(path: submodulesFeatures.stockShare)

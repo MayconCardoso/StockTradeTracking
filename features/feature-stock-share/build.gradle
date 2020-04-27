@@ -5,6 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 dependencies {
 	implementation project(path: submodulesPlatform.domain)
+	implementation project(path: submodulesLibraries.designSystem)
 
 	// Personal libs
 	implementation globalDependencies.mvvmArchitectureCore

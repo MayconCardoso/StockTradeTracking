@@ -9,5 +9,6 @@ include ':testing:testing-data-factory'
 include ':libraries:library-architecture-code-generator'
 include ':libraries:library-logger'
 include ':libraries:library-logger-android'
+include ':libraries:library-design-system'
 
 include ':features:feature-stock-share'
