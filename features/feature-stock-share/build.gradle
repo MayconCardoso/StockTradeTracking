@@ -13,6 +13,8 @@ dependencies {
 	implementation globalDependencies.mvvmArchitectureViewKtx
 	implementation globalDependencies.mvvmArchitectureCoreDatabinding
 	implementation globalDependencies.mvvmArchitectureCoreTesting
+	implementation globalDependencies.keyboardMonitor
+	implementation globalDependencies.keyboardMonitorKtx
 
 	// Platform
 	implementation globalDependencies.appCompact

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mctech.architecture.mvvm.x.core.ViewCommand
 import com.mctech.architecture.mvvm.x.core.ktx.bindCommand
+import com.mctech.library.keyboard.visibilitymonitor.extentions.closeKeyboard
 import com.mctech.library.view.ktx.getValue
 import com.mctech.stocktradetracking.feature.stock_share.StockShareCommand
 import com.mctech.stocktradetracking.feature.stock_share.StockShareInteraction
@@ -52,6 +53,8 @@ class StockShareBuyFragment : Fragment() {
 						binding.etSharePrice.getValue().toDouble()
 					)
 				)
+
+				context?.closeKeyboard()
 			}
 		}
 	}

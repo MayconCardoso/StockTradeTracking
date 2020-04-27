@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/stockShareListFragment"
         android:name="com.mctech.stocktradetracking.feature.stock_share.view.StockShareListFragment"
-        android:label="Stock Share"
+        android:label="Stock Share Tracking"
         tools:layout="@layout/fragment_stock_share_list">
 
         <action
@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/stockShareBuyFragment"
         android:name="com.mctech.stocktradetracking.feature.stock_share.view.StockShareBuyFragment"
-        android:label="StockShareBuyFragment"
+        android:label="Add Position"
         tools:layout="@layout/fragment_stock_share_buy" />
 
 </navigation>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_dailynews"
+        android:icon="@drawable/ic_trending_up_24dp"
+        android:title="Stock" />
+    <item
+        android:id="@+id/nav_mynews"
+        android:icon="@drawable/ic_timeline_timeline_24dp"
+        android:title="Timeline" />
+
+    <item
+        android:id="@+id/nav_hidden_option"
+        android:icon="@drawable/ic_today_24dp"
+        android:checked="true"
+        android:title="Today" />
+
+    <item
+        android:id="@+id/nav_gallery"
+        android:icon="@drawable/ic_attach_money_24dp"
+        android:title="Closed" />
+
+    <item
+        android:id="@+id/nav_more"
+        android:icon="@drawable/ic_more_horiz_24dp"
+        android:title="More" />
+
+</menu>

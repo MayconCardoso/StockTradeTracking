@@ -1,9 +1,7 @@
 package com.mctech.stocktradetracking.feature.stock_share.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -25,6 +23,8 @@ class StockShareListFragment : Fragment() {
 	private var binding   : FragmentStockShareListBinding? = null
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+		setHasOptionsMenu(true)
+
 		return FragmentStockShareListBinding.inflate(inflater, container, false).let {
 			binding = it
 			binding?.viewModel = viewModel
@@ -39,6 +39,15 @@ class StockShareListFragment : Fragment() {
 		bindListeners()
 	}
 
+	override fun onResume() {
+		super.onResume()
+		viewModel.interact(StockShareInteraction.List.LoadStockShare)
+	}
+
+	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+		inflater.inflate(R.menu.stock_share_tracking_menu, menu)
+	}
+
 	private fun handleFinalBalanceState(state: ComponentState<StockShareFinalBalance>) {
 		when(state){
 			is ComponentState.Success -> {
@@ -50,9 +59,6 @@ class StockShareListFragment : Fragment() {
 
 	private fun handleShareListState(state: ComponentState<List<StockShare>>) {
 		when(state){
-			is ComponentState.Initializing -> {
-				viewModel.interact(StockShareInteraction.List.LoadStockShare)
-			}
 			is ComponentState.Success -> {
 				renderStockList(state.result)
 			}

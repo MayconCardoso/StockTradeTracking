@@ -6,4 +6,5 @@
     <string name="share_price">Price</string>
     <string name="add_position">Add position</string>
     <string name="final_balance">Final Balance</string>
+    <string name="menu_filter">Filter</string>
 </resources>

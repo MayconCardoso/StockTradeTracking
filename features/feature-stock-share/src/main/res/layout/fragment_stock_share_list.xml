@@ -26,7 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showOnLoading="@{viewModel.shareList}"
+            app:showOnLoadingFromEmpty="@{viewModel.shareList}"
             tools:visibility="gone" />
 
         <com.google.android.material.card.MaterialCardView
