@@ -11,12 +11,16 @@ interface StockShareDao {
 
     @Transaction
     @Query("SELECT * FROM stock_share WHERE isPositionOpened = 1 AND code = :code LIMIT 1")
-    suspend fun loadStockSharePosition(code : String): StockShare?
+    suspend fun loadStockSharePosition(code: String): StockShare?
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun save(photos: StockShareDatabaseEntity)
+    suspend fun save(stockShare: StockShareDatabaseEntity)
+
+    @Transaction
+    @Delete
+    suspend fun delete(stockShare: StockShareDatabaseEntity)
 
     @Query("UPDATE stock_share SET salePrice = :currentPrice WHERE code = :code")
-    suspend fun editStockSharePrice(code : String, currentPrice : Double)
+    suspend fun editStockSharePrice(code: String, currentPrice: Double)
 }

@@ -27,6 +27,10 @@ class LocalStockShareDataSource(
 		stockShareDao.save(share.toDatabaseEntity())
 	}
 
+	override suspend fun deleteStockShare(share: StockShare) {
+		stockShareDao.delete(share.toDatabaseEntity())
+	}
+
 	override suspend fun editStockShareValue(shareCode: String, value: Double) {
 		stockShareDao.editStockSharePrice(shareCode, value)
 	}

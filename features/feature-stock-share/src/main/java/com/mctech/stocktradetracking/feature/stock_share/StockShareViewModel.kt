@@ -25,8 +25,8 @@ class StockShareViewModel constructor(
 
 	private val saveStockShareCase		: SaveStockShareCase,
 	private val sellStockShareCase		: SellStockShareCase,
-	private val editStockShareValueCase	: EditStockShareValueCase
-
+	private val editStockShareValueCase	: EditStockShareValueCase,
+	private val deleteStockShareCase	: DeleteStockShareCase
 ) : BaseViewModel() {
 
 	private val _shareList : MutableLiveData<ComponentState<List<StockShare>>> = MutableLiveData(ComponentState.Initializing)
@@ -61,6 +61,7 @@ class StockShareViewModel constructor(
 				interaction.purchasePrice,
 				interaction.currentPrice
 			)
+			is StockShareInteraction.DeleteStockShare				-> deleteCurrentStockShareInteraction()
 		}
 	}
 
@@ -100,6 +101,20 @@ class StockShareViewModel constructor(
 		// Send command to get back
 		sendCommand(StockShareCommand.Back.FromBuy)
 	}
+
+	private suspend fun deleteCurrentStockShareInteraction() {
+		// Delete position
+		currentStock?.run {
+			deleteStockShareCase.execute(this)
+		}
+
+		// Update list
+		loadStockShareListInteraction()
+
+		// Send command to get back
+		sendCommand(StockShareCommand.Back.FromEdit)
+	}
+
 
 
 	private suspend fun updateStockPriceInteraction(

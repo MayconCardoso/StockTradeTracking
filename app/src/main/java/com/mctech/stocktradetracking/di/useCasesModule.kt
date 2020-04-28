@@ -6,6 +6,7 @@ import org.koin.dsl.module
 val useCasesModule = module {
     // Stock Share
     single { SaveStockShareCase(service = get(), logger = get()) }
+    single { DeleteStockShareCase(service = get(), logger = get()) }
     single { EditStockShareValueCase(service = get(), logger = get()) }
     single { GetStockShareListCase(service = get(), logger = get()) }
     single { SellStockShareCase(service = get(), logger = get()) }
