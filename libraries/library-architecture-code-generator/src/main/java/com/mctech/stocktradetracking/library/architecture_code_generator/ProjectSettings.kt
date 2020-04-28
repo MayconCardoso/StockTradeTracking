@@ -19,7 +19,8 @@ object ProjectSettings {
             projectSettings = ProjectSettings(
                 basePackageName = Package("com.mctech.stocktradetracking")
             ),
-            fileDuplicatedStrategy = FileDuplicatedStrategy.Ignore
+            fileDuplicatedStrategy = FileDuplicatedStrategy.Ignore,
+            featureDuplicatedStrategy = FileDuplicatedStrategy.Ignore
         )
     }
 
