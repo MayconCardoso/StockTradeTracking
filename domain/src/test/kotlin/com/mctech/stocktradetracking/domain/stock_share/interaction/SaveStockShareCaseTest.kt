@@ -10,18 +10,18 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class BuyStockShareCaseTest{
+class SaveStockShareCaseTest{
     private val service         = mock<StockShareService>()
     private val logger          = mock<Logger>()
 
     private val expectedError   = RuntimeException()
     private val expectedSingle  = StockShareDataFactory.single()
 
-    private lateinit var useCase: BuyStockShareCase
+    private lateinit var useCase: SaveStockShareCase
 
     @Before
     fun `before each test`() {
-        useCase = BuyStockShareCase(service, logger)
+        useCase = SaveStockShareCase(service, logger)
     }
 
     @Test
@@ -30,7 +30,7 @@ class BuyStockShareCaseTest{
             useCase.execute(expectedSingle)
         },
         assertions = {
-            verify(service).buyStockShare(expectedSingle)
+            verify(service).saveStockShare(expectedSingle)
             verifyNoMoreInteractions(service)
         }
     )
@@ -38,7 +38,7 @@ class BuyStockShareCaseTest{
     @Test
     fun `should log error`() = testScenario(
         scenario = {
-            whenever(service.buyStockShare(any())).thenThrow(expectedError)
+            whenever(service.saveStockShare(any())).thenThrow(expectedError)
         },
         action = {
             useCase.execute(expectedSingle)

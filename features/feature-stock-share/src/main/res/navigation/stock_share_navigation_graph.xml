@@ -39,6 +39,6 @@
         android:id="@+id/stockShareEditPriceFragment"
         tools:layout="@layout/fragment_stock_share_edit_price"
         android:name="com.mctech.stocktradetracking.feature.stock_share.view.StockShareEditPriceFragment"
-        android:label="StockShareEditPriceFragment" />
+        android:label="Current position" />
 
 </navigation>

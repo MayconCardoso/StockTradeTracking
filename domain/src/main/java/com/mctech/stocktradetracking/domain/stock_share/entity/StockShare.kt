@@ -6,9 +6,9 @@ import java.util.*
 
 data class StockShare(
     val id: Long? = null,
-    val code: String,
+    var code: String,
     var shareAmount: Int,
-    val purchasePrice: Double,
+    var purchasePrice: Double,
     var salePrice: Double = purchasePrice,
     val purchaseDate: Date,
     var saleDate: Date? = null,

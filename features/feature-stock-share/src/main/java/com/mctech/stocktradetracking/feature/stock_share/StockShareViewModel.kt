@@ -23,7 +23,7 @@ class StockShareViewModel constructor(
 	private val getWorstStockShareCase	: GetWorstStockShareCase,
 	private val getBestStockShareCase	: GetBestStockShareCase,
 
-	private val buyStockShareCase		: BuyStockShareCase,
+	private val saveStockShareCase		: SaveStockShareCase,
 	private val sellStockShareCase		: SellStockShareCase,
 	private val editStockShareValueCase	: EditStockShareValueCase
 
@@ -42,7 +42,9 @@ class StockShareViewModel constructor(
 	val worstStockShare : LiveData<ComponentState<StockShare>> = _worstStockShare
 
 	private val _currentStockShare : MutableLiveData<StockShare> = MutableLiveData()
+	private var currentStock : StockShare? = null
 	val currentStockShare : LiveData<StockShare> = _currentStockShare
+
 
 	override suspend fun handleUserInteraction(interaction: UserInteraction) {
 		when(interaction){
@@ -55,7 +57,9 @@ class StockShareViewModel constructor(
 			)
 			is StockShareInteraction.UpdateStockPrice				-> updateStockPriceInteraction(
 				interaction.code,
-				interaction.price
+				interaction.amount,
+				interaction.purchasePrice,
+				interaction.currentPrice
 			)
 		}
 	}
@@ -76,11 +80,12 @@ class StockShareViewModel constructor(
 
 	private fun openStockShareInteraction(item: StockShare) {
 		_currentStockShare.value = item
+		currentStock = item
 	}
 
 	private suspend fun addStockPositionInteraction(code: String, amount: Int, price: Double) {
 		// Save new position
-		buyStockShareCase.execute(
+		saveStockShareCase.execute(
 			StockShare(
 				code = code.toUpperCase(Locale.getDefault()),
 				shareAmount = amount,
@@ -96,11 +101,26 @@ class StockShareViewModel constructor(
 		sendCommand(StockShareCommand.Back.FromBuy)
 	}
 
-	private suspend fun updateStockPriceInteraction(code: String, price: Double) {
+
+	private suspend fun updateStockPriceInteraction(
+		code: String,
+		amount: Int,
+		purchasePrice: Double,
+		currentPrice: Double
+	) {
+		// Save item
+		currentStock?.run {
+			this.code = code
+			this.shareAmount = amount
+			this.purchasePrice = purchasePrice
+
+			saveStockShareCase.execute(this)
+		}
+
 		// Update stock price
 		editStockShareValueCase.execute(
 			shareCode = code,
-			value = price
+			value = currentPrice
 		)
 
 		// Update list

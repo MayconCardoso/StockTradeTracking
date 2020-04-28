@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mctech.architecture.mvvm.x.core.ViewCommand
@@ -53,10 +54,17 @@ class StockShareEditPriceFragment : Fragment() {
 				viewModel.interact(
 					StockShareInteraction.UpdateStockPrice(
 						binding.etShareCode.getValue(),
+						binding.etShareAmount.getValue().toInt(),
+						binding.etSharePurchasePrice.getValue().toDouble(),
 						binding.etSharePrice.getValue().toDouble()
 					)
 				)
-				context?.closeKeyboard()
+
+				activity?.currentFocus?.run {
+					if(this is EditText){
+						context?.closeKeyboard(this)
+					}
+				}
 			}
 		}
 	}

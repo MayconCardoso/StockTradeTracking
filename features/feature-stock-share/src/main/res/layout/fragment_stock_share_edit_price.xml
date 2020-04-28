@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="stockShare"
             type="com.mctech.stocktradetracking.domain.stock_share.entity.StockShare" />
@@ -26,12 +27,55 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                tools:text="MGLU3"
                 android:lines="1"
+                android:maxLength="10"
+                android:singleLine="true"
                 android:text="@{stockShare.code}"
                 android:textAllCaps="true"
+                tools:text="MGLU3" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tlShareAmount"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/share_amount"
+            app:layout_constraintTop_toBottomOf="@id/tlShareCode">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etShareAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned"
+                android:lines="1"
+                android:text='@{stockShare.shareAmount + ""}'
                 android:maxLength="10"
+                tools:text="300"
                 android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tlSharePurchasePrice"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/share_purchase_price"
+            app:layout_constraintTop_toBottomOf="@id/tlShareAmount">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSharePurchasePrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:maxLength="10"
+                android:singleLine="true"
+                android:text='@{stockShare.purchasePrice +""}'
+                tools:text="50,21" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -41,19 +85,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="@string/share_price"
-            app:layout_constraintTop_toBottomOf="@id/tlShareCode">
+            android:hint="@string/share_current_price"
+            app:layout_constraintTop_toBottomOf="@id/tlSharePurchasePrice">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSharePrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
-                tools:text="50,21"
-                android:text='@{stockShare.salePrice +""}'
                 android:lines="1"
                 android:maxLength="10"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:text='@{stockShare.salePrice +""}'
+                tools:text="50,21" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton

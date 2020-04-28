@@ -8,7 +8,7 @@ val stockShareViewModelModule = module {
     viewModel {
         StockShareViewModel(
             getStockShareListCase = get(),
-            buyStockShareCase = get(),
+            saveStockShareCase = get(),
             sellStockShareCase = get(),
             editStockShareValueCase = get(),
             getFinalBalanceCase = get(),

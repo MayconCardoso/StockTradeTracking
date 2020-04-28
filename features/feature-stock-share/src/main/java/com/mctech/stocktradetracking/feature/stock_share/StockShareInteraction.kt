@@ -17,6 +17,8 @@ sealed class StockShareInteraction : UserInteraction {
 
     data class UpdateStockPrice(
         val code : String,
-        val price : Double
+        val amount: Int,
+        val purchasePrice : Double,
+        val currentPrice : Double
     ) : StockShareInteraction()
 }
