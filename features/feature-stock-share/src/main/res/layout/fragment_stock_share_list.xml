@@ -12,11 +12,26 @@
             name="finalBalance"
             type="com.mctech.stocktradetracking.domain.stock_share.entity.StockShareFinalBalance" />
 
+        <variable
+            name="bestStock"
+            type="com.mctech.stocktradetracking.domain.stock_share.entity.StockShare" />
+
+        <variable
+            name="worstStock"
+            type="com.mctech.stocktradetracking.domain.stock_share.entity.StockShare" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -90,6 +105,158 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/bestPositionCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="6dp"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="@id/balanceCard"
+            app:layout_constraintTop_toBottomOf="@id/balanceCard"
+            app:showOnSuccessWithNotEmptyData="@{viewModel.shareList}">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBestPosition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Best Stock"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBestPositionCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{bestStock.code}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvBestPosition"
+                    app:layout_constraintTop_toBottomOf="@id/tvBestPosition"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_goneMarginTop="12dp"
+                    tools:text="MGLU3" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/bestStockFinalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="@{bestStock.balanceDescription}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvBestPosition"
+                    app:layout_constraintTop_toBottomOf="@id/tvBestPositionCode"
+                    app:priceTextColor="@{bestStock.variation}"
+                    tools:text="R$23.490,00"
+                    tools:textColor="#007E33" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/bestStockPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="@{bestStock.variationDescription}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/bestStockFinalPrice"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/bestStockFinalPrice"
+                    app:priceTextColor="@{bestStock.variation}"
+                    tools:text="5.43%"
+                    tools:textColor="#007E33" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/worstPositionCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/bestPositionCard"
+            app:layout_constraintEnd_toEndOf="@id/balanceCard"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/bestPositionCard"
+            app:showOnSuccessWithNotEmptyData="@{viewModel.shareList}">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvWorstPosition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Worst Stock"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvWorstPositionCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{worstStock.code}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvWorstPosition"
+                    app:layout_constraintTop_toBottomOf="@id/tvWorstPosition"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_goneMarginTop="12dp"
+                    tools:text="MGLU3" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/worstStockFinalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="@{worstStock.balanceDescription}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvWorstPosition"
+                    app:layout_constraintTop_toBottomOf="@id/tvWorstPositionCode"
+                    app:priceTextColor="@{worstStock.variation}"
+                    tools:text="R$23.490,00"
+                    tools:textColor="#007E33" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/WorstStockPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="@{worstStock.variationDescription}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/worstStockFinalPrice"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/worstStockFinalPrice"
+                    app:priceTextColor="@{worstStock.variation}"
+                    tools:text="5.43%"
+                    tools:textColor="#007E33" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
@@ -98,8 +265,10 @@
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/balanceCard"
+            app:layout_constraintTop_toBottomOf="@id/bestPositionCard"
+            app:layout_constraintVertical_bias="1.0"
             app:showOnSuccessWithNotEmptyData="@{viewModel.shareList}"
             tools:itemCount="20"
             tools:listitem="@layout/item_stock_share_list"
@@ -119,16 +288,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:showOnSuccessWithEmptyData="@{viewModel.shareList}" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btBuy"
-            style="@style/Widget.MaterialComponents.FloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            app:backgroundTint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_add_24dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

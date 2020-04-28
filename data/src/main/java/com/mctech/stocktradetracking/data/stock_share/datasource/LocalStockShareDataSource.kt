@@ -13,7 +13,14 @@ class LocalStockShareDataSource(
 	}
 
 	override suspend fun buyStockShare(share: StockShare) {
-		stockShareDao.save(share.toDatabaseEntity())
+		val databaseEntity  = share.toDatabaseEntity()
+
+		// Try to load the same position to update the right price.s
+		stockShareDao.loadStockSharePosition(share.code)?.let {
+			databaseEntity.salePrice = it.salePrice
+		}
+
+		stockShareDao.save(databaseEntity)
 	}
 
 	override suspend fun sellStockShare(share: StockShare) {

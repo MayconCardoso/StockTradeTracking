@@ -10,4 +10,7 @@ val useCasesModule = module {
     single { GetStockShareListCase(service = get(), logger = get()) }
     single { SellStockShareCase(service = get(), logger = get()) }
     single { GetFinalBalanceCase() }
+    single { GroupStockShareListCase() }
+    single { GetWorstStockShareCase(groupStockShareListCase = get()) }
+    single { GetBestStockShareCase(groupStockShareListCase = get()) }
 }

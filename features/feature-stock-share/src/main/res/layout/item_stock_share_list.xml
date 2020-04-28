@@ -19,6 +19,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
+            android:id="@+id/cardItem"
             android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"

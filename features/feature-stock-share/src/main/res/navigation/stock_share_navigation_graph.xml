@@ -19,11 +19,26 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_stockShareListFragment_to_stockShareEditPriceFragment"
+            app:destination="@id/stockShareEditPriceFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
+
     <fragment
         android:id="@+id/stockShareBuyFragment"
         android:name="com.mctech.stocktradetracking.feature.stock_share.view.StockShareBuyFragment"
         android:label="Add Position"
         tools:layout="@layout/fragment_stock_share_buy" />
+
+    <fragment
+        android:id="@+id/stockShareEditPriceFragment"
+        tools:layout="@layout/fragment_stock_share_edit_price"
+        android:name="com.mctech.stocktradetracking.feature.stock_share.view.StockShareEditPriceFragment"
+        android:label="StockShareEditPriceFragment" />
 
 </navigation>

@@ -6,8 +6,12 @@ import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 @Dao
 interface StockShareDao {
     @Transaction
-    @Query("SELECT * FROM stock_share WHERE isPositionOpened = 1 ORDER BY code, purchasePrice ASC")
+    @Query("SELECT * FROM stock_share WHERE isPositionOpened = 1 ORDER BY code")
     suspend fun loadAllOpenedPosition(): List<StockShare>
+
+    @Transaction
+    @Query("SELECT * FROM stock_share WHERE isPositionOpened = 1 AND code = :code LIMIT 1")
+    suspend fun loadStockSharePosition(code : String): StockShare?
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)

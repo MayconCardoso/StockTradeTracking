@@ -24,7 +24,7 @@ data class StockShareDatabaseEntity(
     val code : String,
     val shareAmount : Int,
     val purchasePrice : Double,
-    val salePrice : Double = purchasePrice,
+    var salePrice : Double = purchasePrice,
     val purchaseDate : Date,
     val saleDate : Date? = null,
     val isPositionOpened : Boolean = true

@@ -36,7 +36,8 @@ class StockShareListFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		bindState(viewModel.shareList){ handleShareListState(it) }
 		bindState(viewModel.stockShareFinalBalance){ handleFinalBalanceState(it) }
-		bindListeners()
+		bindState(viewModel.bestStockShare){ handleBestStockState(it) }
+		bindState(viewModel.worstStockShare){ handleWorstStockState(it) }
 	}
 
 	override fun onResume() {
@@ -48,10 +49,40 @@ class StockShareListFragment : Fragment() {
 		inflater.inflate(R.menu.stock_share_tracking_menu, menu)
 	}
 
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		when(item.itemId){
+			R.id.menu_add -> {
+				findNavController().navigate(
+					R.id.action_stockShareListFragment_to_stockShareBuyFragment
+				)
+			}
+		}
+
+		return true
+	}
+
 	private fun handleFinalBalanceState(state: ComponentState<StockShareFinalBalance>) {
 		when(state){
 			is ComponentState.Success -> {
 				binding?.finalBalance = state.result
+				binding?.executePendingBindings()
+			}
+		}
+	}
+
+	private fun handleWorstStockState(state: ComponentState<StockShare>) {
+		when(state){
+			is ComponentState.Success -> {
+				binding?.worstStock = state.result
+				binding?.executePendingBindings()
+			}
+		}
+	}
+
+	private fun handleBestStockState(state: ComponentState<StockShare>) {
+		when(state){
+			is ComponentState.Success -> {
+				binding?.bestStock = state.result
 				binding?.executePendingBindings()
 			}
 		}
@@ -73,8 +104,9 @@ class StockShareListFragment : Fragment() {
 			},
 			prepareHolder = { item, viewBinding, _ ->
 				viewBinding.item = item
-				viewBinding.root.setOnClickListener {
+				viewBinding.cardItem.setOnClickListener {
 					viewModel.interact(StockShareInteraction.List.OpenStockShareDetails(item))
+					findNavController().navigate(R.id.action_stockShareListFragment_to_stockShareEditPriceFragment)
 				}
 			},
 			updateCallback = object : DiffUtil.ItemCallback<StockShare>() {
@@ -88,13 +120,5 @@ class StockShareListFragment : Fragment() {
 				}
 			}
 		)
-	}
-
-	private fun bindListeners() {
-		binding?.btBuy?.setOnClickListener {
-			findNavController().navigate(
-				R.id.action_stockShareListFragment_to_stockShareBuyFragment
-			)
-		}
 	}
 }

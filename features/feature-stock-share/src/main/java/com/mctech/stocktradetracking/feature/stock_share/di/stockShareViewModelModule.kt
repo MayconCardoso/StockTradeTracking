@@ -11,7 +11,9 @@ val stockShareViewModelModule = module {
             buyStockShareCase = get(),
             sellStockShareCase = get(),
             editStockShareValueCase = get(),
-            getFinalBalanceCase = get()
+            getFinalBalanceCase = get(),
+            getWorstStockShareCase = get(),
+            getBestStockShareCase = get()
         )
     }
 }
