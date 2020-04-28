@@ -4,5 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 
 dependencies {
     implementation globalDependencies.kotlinStdLib
-    implementation 'com.mctech.architecture:generator:1.0.4'
+    implementation globalDependencies.featureArchitectureGenerator
+
 }
