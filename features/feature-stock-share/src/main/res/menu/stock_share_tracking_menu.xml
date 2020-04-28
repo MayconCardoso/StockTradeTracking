@@ -8,6 +8,12 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/menu_chart"
+        android:icon="@drawable/ic_pie_chart_24dp"
+        android:title="@string/stock_chart"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/menu_filter"
         android:icon="@drawable/ic_filter_list_filter_24dp"
         android:title="@string/menu_filter"

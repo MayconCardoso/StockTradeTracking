@@ -12,4 +12,5 @@
     <string name="share_current_price">Current price</string>
     <string name="delete">Delete</string>
     <string name="investment">Investment</string>
+    <string name="stock_chart">Chart</string>
 </resources>

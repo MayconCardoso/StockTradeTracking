@@ -8,6 +8,8 @@ sealed class StockShareInteraction : UserInteraction {
     sealed class List : StockShareInteraction() {
         object LoadStockShare : List()
         data class OpenStockShareDetails(val item: StockShare) : List()
+
+        data class ChangeListFilter(val groupShares : Boolean) : List()
     }
 
     data class AddPosition(

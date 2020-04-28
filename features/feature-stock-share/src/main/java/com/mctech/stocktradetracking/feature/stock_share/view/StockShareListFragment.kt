@@ -56,6 +56,9 @@ class StockShareListFragment : Fragment() {
 					R.id.action_stockShareListFragment_to_stockShareBuyFragment
 				)
 			}
+			R.id.menu_filter -> {
+				viewModel.interact(StockShareInteraction.List.ChangeListFilter(true))
+			}
 		}
 
 		return true
