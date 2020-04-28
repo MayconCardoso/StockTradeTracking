@@ -84,7 +84,7 @@ class StockShareViewModel constructor(
 		currentStock = item
 	}
 
-	private suspend fun addStockPositionInteraction(code: String, amount: Int, price: Double) {
+	private suspend fun addStockPositionInteraction(code: String, amount: Long, price: Double) {
 		// Save new position
 		saveStockShareCase.execute(
 			StockShare(
@@ -119,7 +119,7 @@ class StockShareViewModel constructor(
 
 	private suspend fun updateStockPriceInteraction(
 		code: String,
-		amount: Int,
+		amount: Long,
 		purchasePrice: Double,
 		currentPrice: Double
 	) {

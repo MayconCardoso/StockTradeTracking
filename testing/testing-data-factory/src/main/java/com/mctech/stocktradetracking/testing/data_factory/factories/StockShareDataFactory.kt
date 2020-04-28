@@ -15,7 +15,7 @@ object StockShareDataFactory {
     fun single(
         id: Long = 0,
         code: String = "",
-        shareAmount: Int = 100,
+        shareAmount: Long = 100,
         purchasePrice: Double = 0.0,
         salePrice: Double = 0.0,
         purchaseDate: Date = Calendar.getInstance().time,
@@ -97,6 +97,70 @@ object StockShareDataFactory {
                     code = "MGLU3",
                     purchasePrice = 10.0,
                     salePrice = 10.0,
+                    shareAmount = 100,
+                    purchaseDate =  Calendar.getInstance().time
+                )
+            )
+        }
+    }
+
+    fun ungroupedList(): List<StockShare> {
+        return mutableListOf<StockShare>().apply {
+            add(
+                StockShare(
+                    code = "MGLU3",
+                    purchasePrice = 2.0,
+                    salePrice = 10.0,
+                    shareAmount = 100,
+                    purchaseDate =  Calendar.getInstance().time
+                )
+            )
+
+            add(
+                StockShare(
+                    code = "MGLU3",
+                    purchasePrice = 5.0,
+                    salePrice = 10.0,
+                    shareAmount = 400,
+                    purchaseDate =  Calendar.getInstance().time
+                )
+            )
+
+            add(
+                StockShare(
+                    code = "MGLU3",
+                    purchasePrice = 15.0,
+                    salePrice = 10.0,
+                    shareAmount = 200,
+                    purchaseDate =  Calendar.getInstance().time
+                )
+            )
+
+            add(
+                StockShare(
+                    code = "WEGE3",
+                    purchasePrice = 5.0,
+                    salePrice = 2.0,
+                    shareAmount = 400,
+                    purchaseDate =  Calendar.getInstance().time
+                )
+            )
+
+            add(
+                StockShare(
+                    code = "WEGE3",
+                    purchasePrice = 1.0,
+                    salePrice = 2.0,
+                    shareAmount = 200,
+                    purchaseDate =  Calendar.getInstance().time
+                )
+            )
+
+            add(
+                StockShare(
+                    code = "SQIA3",
+                    purchasePrice = 1.0,
+                    salePrice = 1.1,
                     shareAmount = 100,
                     purchaseDate =  Calendar.getInstance().time
                 )

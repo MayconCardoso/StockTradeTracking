@@ -9,7 +9,7 @@ class GetFinalBalanceCase {
         var investment = 0.0
 
         for (stock in stockShareList) {
-            investment += stock.getOriginalStockPrice()
+            investment += stock.getInvestmentValue()
             balance += stock.getBalance()
         }
 

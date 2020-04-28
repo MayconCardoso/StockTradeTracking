@@ -33,7 +33,7 @@ class StockShareFinalBalanceTest{
     }
 
     @Test
-    fun `should format final investment description`(){
+    fun `should format investment description`(){
         Assertions.assertThat(expectedValue.getInvestmentDescription()).isEqualTo("R$16.140,20")
         Assertions.assertThat(expectedNegativeValue.getInvestmentDescription()).isEqualTo("R$10.000,00")
         Assertions.assertThat(expectedEmpty.getInvestmentDescription()).isEqualTo("R$0,00")
@@ -44,6 +44,13 @@ class StockShareFinalBalanceTest{
         Assertions.assertThat(expectedValue.getVariationDescription()).isEqualTo("26.12%")
         Assertions.assertThat(expectedNegativeValue.getVariationDescription()).isEqualTo("-33.11%")
         Assertions.assertThat(expectedEmpty.getVariationDescription()).isEqualTo("0.0%")
+    }
+
+    @Test
+    fun `should format final value description`(){
+        Assertions.assertThat(expectedValue.getFinalValueDescription()).isEqualTo("R$20.356,17")
+        Assertions.assertThat(expectedNegativeValue.getFinalValueDescription()).isEqualTo("R$6.689,03")
+        Assertions.assertThat(expectedEmpty.getFinalValueDescription()).isEqualTo("R$0,00")
     }
 
     @Test

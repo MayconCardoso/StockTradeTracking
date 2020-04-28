@@ -15,6 +15,10 @@ data class StockShareFinalBalance(
         return investment.formatBrazilianCurrency()
     }
 
+    fun getFinalValueDescription(): String {
+        return (investment + balance).formatBrazilianCurrency()
+    }
+
     fun getVariant() : Double {
         if(investment == 0.0){
             return 0.0

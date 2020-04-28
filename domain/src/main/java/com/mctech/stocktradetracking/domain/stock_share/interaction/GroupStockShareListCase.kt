@@ -11,7 +11,7 @@ class GroupStockShareListCase {
                 StockShare(
                     code = stockShare.code,
                     shareAmount = acc.shareAmount + stockShare.shareAmount,
-                    purchasePrice = (acc.getOriginalStockPrice() + stockShare.getOriginalStockPrice()) / (acc.shareAmount + stockShare.shareAmount),
+                    purchasePrice = (acc.getInvestmentValue() + stockShare.getInvestmentValue()) / (acc.shareAmount + stockShare.shareAmount),
                     purchaseDate = stockShare.purchaseDate,
                     salePrice = stockShare.salePrice
                 )

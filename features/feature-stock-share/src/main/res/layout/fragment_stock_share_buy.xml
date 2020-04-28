@@ -1,5 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -27,9 +28,9 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:lines="1"
-                android:textAllCaps="true"
                 android:maxLength="10"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textAllCaps="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -71,6 +72,26 @@
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/itemInvestment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/investment"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintTop_toBottomOf="@id/tlSharePrice"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/itemInvestmentAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintTop_toBottomOf="@id/itemInvestment"
+            tools:text="R$8.981,00" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btBuy"
             style="@style/Widget.MaterialComponents.Button"
@@ -78,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="@string/add_position"
-            app:layout_constraintTop_toBottomOf="@id/tlSharePrice" />
+            app:layout_constraintTop_toBottomOf="@id/itemInvestmentAmount" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

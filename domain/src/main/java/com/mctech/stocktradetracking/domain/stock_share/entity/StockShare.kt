@@ -7,10 +7,10 @@ import java.util.*
 data class StockShare(
     val id: Long? = null,
     var code: String,
-    var shareAmount: Int,
+    var shareAmount: Long,
     var purchasePrice: Double,
     var salePrice: Double = purchasePrice,
-    val purchaseDate: Date,
+    val purchaseDate: Date = Calendar.getInstance().time,
     var saleDate: Date? = null,
     var isPositionOpened: Boolean = true
 ) {
@@ -22,7 +22,7 @@ data class StockShare(
         return "SELL $shareAmount @ ${salePrice.formatBrazilianCurrency()}"
     }
 
-    fun getOriginalStockPrice(): Double {
+    fun getInvestmentValue(): Double {
         return shareAmount * purchasePrice
     }
 
@@ -30,8 +30,8 @@ data class StockShare(
         return shareAmount * salePrice
     }
 
-    fun getOriginalStockPriceDescription(): String {
-        return getOriginalStockPrice().formatBrazilianCurrency()
+    fun getInvestmentValueDescription(): String {
+        return getInvestmentValue().formatBrazilianCurrency()
     }
 
     fun getFinalStockPriceDescription(): String {
@@ -39,7 +39,7 @@ data class StockShare(
     }
 
     fun getBalance() : Double{
-        return getFinalStockPrice() - getOriginalStockPrice()
+        return getFinalStockPrice() - getInvestmentValue()
     }
 
     fun getBalanceDescription() : String{
@@ -47,10 +47,10 @@ data class StockShare(
     }
 
     fun getVariation(): Double {
-        if(getOriginalStockPrice() == 0.0){
+        if(getInvestmentValue() == 0.0){
             return 0.0
         }
-        return (getBalance() / getOriginalStockPrice() * 100).round(2)
+        return (getBalance() / getInvestmentValue() * 100).round(2)
     }
 
     fun getVariationDescription(): String {

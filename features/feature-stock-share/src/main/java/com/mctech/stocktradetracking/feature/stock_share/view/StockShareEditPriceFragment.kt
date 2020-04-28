@@ -70,7 +70,7 @@ class StockShareEditPriceFragment : Fragment() {
 				viewModel.interact(
 					StockShareInteraction.UpdateStockPrice(
 						binding.etShareCode.getValue(),
-						binding.etShareAmount.getValue().toInt(),
+						binding.etShareAmount.getValue().toLong(),
 						binding.etSharePurchasePrice.getValue().toDouble(),
 						binding.etSharePrice.getValue().toDouble()
 					)

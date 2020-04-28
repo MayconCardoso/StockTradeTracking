@@ -11,4 +11,5 @@
     <string name="share_purchase_price">Purchase price</string>
     <string name="share_current_price">Current price</string>
     <string name="delete">Delete</string>
+    <string name="investment">Investment</string>
 </resources>

@@ -86,10 +86,10 @@ class StockShareTest{
 
     @Test
     fun `should compute original price`(){
-        assertThat(expectedValue.getOriginalStockPrice()).isEqualTo(5584.0)
-        assertThat(expectedDefaultValue.getOriginalStockPrice()).isEqualTo(5584.0)
-        assertThat(expectedNegativeValue.getOriginalStockPrice()).isEqualTo(9006.0)
-        assertThat(expectedEmpty.getOriginalStockPrice()).isEqualTo(0.0)
+        assertThat(expectedValue.getInvestmentValue()).isEqualTo(5584.0)
+        assertThat(expectedDefaultValue.getInvestmentValue()).isEqualTo(5584.0)
+        assertThat(expectedNegativeValue.getInvestmentValue()).isEqualTo(9006.0)
+        assertThat(expectedEmpty.getInvestmentValue()).isEqualTo(0.0)
     }
 
     @Test
@@ -102,10 +102,10 @@ class StockShareTest{
 
     @Test
     fun `should format original price description`(){
-        assertThat(expectedValue.getOriginalStockPriceDescription()).isEqualTo("R$5.584,00")
-        assertThat(expectedDefaultValue.getOriginalStockPriceDescription()).isEqualTo("R$5.584,00")
-        assertThat(expectedNegativeValue.getOriginalStockPriceDescription()).isEqualTo("R$9.006,00")
-        assertThat(expectedEmpty.getOriginalStockPriceDescription()).isEqualTo("R$0,00")
+        assertThat(expectedValue.getInvestmentValueDescription()).isEqualTo("R$5.584,00")
+        assertThat(expectedDefaultValue.getInvestmentValueDescription()).isEqualTo("R$5.584,00")
+        assertThat(expectedNegativeValue.getInvestmentValueDescription()).isEqualTo("R$9.006,00")
+        assertThat(expectedEmpty.getInvestmentValueDescription()).isEqualTo("R$0,00")
     }
 
     @Test

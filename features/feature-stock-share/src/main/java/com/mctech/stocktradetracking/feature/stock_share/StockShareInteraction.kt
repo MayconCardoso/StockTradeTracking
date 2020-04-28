@@ -12,13 +12,13 @@ sealed class StockShareInteraction : UserInteraction {
 
     data class AddPosition(
         val code : String,
-        val amount : Int,
+        val amount : Long,
         val price : Double
     ) : StockShareInteraction()
 
     data class UpdateStockPrice(
         val code : String,
-        val amount: Int,
+        val amount: Long,
         val purchasePrice : Double,
         val currentPrice : Double
     ) : StockShareInteraction()
