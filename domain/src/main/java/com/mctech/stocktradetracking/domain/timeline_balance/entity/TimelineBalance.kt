@@ -6,11 +6,12 @@ import com.mctech.stocktradetracking.domain.extentions.toPercent
 import java.util.*
 
 data class TimelineBalance(
-    val periodTag : String,
-    val parentPeriodTag: String?,
+    val id : Long? = null,
+    var periodTag : String,
+    var parentPeriodId: Long? = null,
     val startDate: Date = Calendar.getInstance().time,
-    val periodInvestment: Double = 0.0,
-    val periodProfit: Double = 0.0,
+    var periodInvestment: Double = 0.0,
+    var periodProfit: Double = 0.0,
     var parent: TimelineBalance? = null
 ){
     fun getFinalInvestmentBalance() : Double{
@@ -22,13 +23,16 @@ data class TimelineBalance(
     }
 
     fun getFinalBalance() : Double {
-        return (parent?.getFinalBalance() ?: 0.0 ) + periodInvestment + periodProfit
+        return ((parent?.getFinalBalance() ?: 0.0 ) + periodInvestment + periodProfit).round(2)
     }
 
     fun getPeriodVariation() : Double {
         return try{
             (periodProfit / (parent?.getFinalBalance() ?: getFinalBalance()) * 100).round(2)
         }catch (ex : ArithmeticException){
+            0.0
+        }
+        catch (ex : NumberFormatException){
             0.0
         }
     }
@@ -55,5 +59,9 @@ data class TimelineBalance(
 
     fun getPeriodVariationDescription() : String {
         return getPeriodVariation().toPercent()
+    }
+
+    fun computeProfitByFinalBalance(finalBalance : Double) : Double{
+        return (finalBalance - (parent?.getFinalBalance() ?: 0.0 ) - periodInvestment).round(2)
     }
 }

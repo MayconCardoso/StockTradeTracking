@@ -1,16 +1,42 @@
 package com.mctech.stocktradetracking.domain.timeline_balance.interaction
 
+import com.mctech.library.logger.Logger
 import com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBalance
 import com.mctech.stocktradetracking.domain.timeline_balance.service.TimelineBalanceService
 
-class EditPeriodCase(private val service : TimelineBalanceService){
-	suspend fun execute(period: TimelineBalance) {
+class EditPeriodCase(
+	private val service : TimelineBalanceService,
+	private val logger  : Logger
+){
+	suspend fun execute(period: TimelineBalance, newValue : TimelineBalance, finalBalance : Double) {
 		try{
+			// Flow control
+			var changingInitialInvestment = false
+			var changingFinalBalance = false
+
+			if(period.periodInvestment != newValue.periodInvestment){
+				changingInitialInvestment = true
+			}
+			if(period.getFinalBalance() != finalBalance){
+				changingFinalBalance = true
+			}
+
+
+			// Update period.
+			period.periodTag = newValue.periodTag
+			if(changingInitialInvestment){
+				period.periodInvestment = newValue.periodInvestment
+			}
+			if(changingFinalBalance){
+				period.periodProfit = period.computeProfitByFinalBalance(finalBalance)
+			}
+			else{
+				period.periodProfit = newValue.periodProfit
+			}
 			service.editPeriod(period)
 		}
 		catch (ex : Exception){
-			ex.printStackTrace()
-			TODO("You must handle the error here.")
+			logger.e(e = ex)
 		}
 	}
 }

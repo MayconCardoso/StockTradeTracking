@@ -1,7 +1,5 @@
 package com.mctech.stocktradetracking.di
 
-import com.mctech.stocktradetracking.domain.stock_share.interaction.*
-import com.mctech.stocktradetracking.domain.timeline_balance.interaction.*
 import org.koin.dsl.module
 
 val useCasesModule = module {
@@ -18,7 +16,7 @@ val useCasesModule = module {
 
     // Timeline
     single { CreatePeriodCase(service = get(), logger = get()) }
-    single { EditPeriodCase(service = get()) }
+    single { EditPeriodCase(service = get(), logger = get()) }
     single { GetCurrentPeriodBalanceCase(service = get(), logger = get()) }
     single { GetPeriodTransactionsCase(service = get()) }
     single { DepositMoneyCase(service = get()) }

@@ -59,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Total Investment"
+                    android:text="@string/total_invested"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     app:layout_constraintStart_toStartOf="@+id/itemCode"
                     app:layout_constraintTop_toBottomOf="@id/itemCode" />
@@ -82,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Month Investment"
+                    android:text="@string/month_investment"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     app:layout_constraintStart_toStartOf="@+id/itemCode"
                     app:layout_constraintTop_toBottomOf="@id/itemInvestment" />
@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:layout_marginTop="12dp"
-                    android:text="Final Balance"
+                    android:text="@string/final_balance"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintStart_toStartOf="@+id/itemCode"
                     app:layout_constraintTop_toBottomOf="@id/monthInvestment" />

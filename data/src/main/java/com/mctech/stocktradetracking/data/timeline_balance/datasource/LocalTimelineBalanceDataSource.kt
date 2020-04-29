@@ -14,7 +14,7 @@ class LocalTimelineBalanceDataSource(
 	}
 
 	override suspend fun editPeriod(period: TimelineBalance){
-		TODO()
+		dao.save(period.toDatabaseEntity())
 	}
 
 	override suspend fun getListOfPeriodsBalance(): List<TimelineBalance> {

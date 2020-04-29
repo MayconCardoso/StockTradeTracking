@@ -4,8 +4,9 @@ import com.mctech.stocktradetracking.data.timeline_balance.database.TimelineBala
 import com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBalance
 
 fun TimelineBalance.toDatabaseEntity() = TimelineBalanceDatabaseEntity(
+    id = id,
     periodTag = periodTag,
-    parentPeriodTag = parentPeriodTag,
+    parentPeriodId = parentPeriodId,
     startDate = startDate,
     periodInvestment = periodInvestment,
     periodProfit = periodProfit
@@ -13,8 +14,9 @@ fun TimelineBalance.toDatabaseEntity() = TimelineBalanceDatabaseEntity(
 
 fun TimelineBalanceDatabaseEntity.toBusinessEntity() : TimelineBalance{
     return TimelineBalance(
+        id = id,
         periodTag = periodTag,
-        parentPeriodTag = parentPeriodTag,
+        parentPeriodId = parentPeriodId,
         startDate = startDate,
         periodInvestment = periodInvestment,
         periodProfit = periodProfit

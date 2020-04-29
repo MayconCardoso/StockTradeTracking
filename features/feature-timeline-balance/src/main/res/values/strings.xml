@@ -6,4 +6,8 @@
     <string name="month_investment">Month investment</string>
     <string name="month_profit">Month profit</string>
     <string name="balance">Balance</string>
+    <string name="save">Save</string>
+    <string name="total_invested">Total investment</string>
+    <string name="final_balance">Final Balance</string>
+    <string name="edit_period">Edit period</string>
 </resources>

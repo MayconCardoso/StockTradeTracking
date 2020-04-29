@@ -17,7 +17,7 @@ class GetCurrentPeriodBalanceCase(
 			// Set the parent period to each item.
 			periodList.forEach { period ->
 				period.parent = periodList.findLast {
-					it.periodTag == period.parentPeriodTag
+					it.id == period.parentPeriodId
 				}
 			}
 

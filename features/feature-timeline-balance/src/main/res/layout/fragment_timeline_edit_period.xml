@@ -3,111 +3,112 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="stockShare"
-            type="com.mctech.stocktradetracking.domain.stock_share.entity.StockShare" />
+            name="period"
+            type="com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBalance" />
     </data>
-
+    
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tlShareCode"
+            android:id="@+id/tvPeriodTag"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/share_code"
+            android:hint="@string/timeline_period"
+            app:helperText="E.g: 2020-04"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etShareCode"
+                android:id="@+id/etPeriodTag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:lines="1"
-                android:maxLength="10"
+                android:text="@{period.periodTag}"
+                tools:text="2020-04"
+                android:maxLength="30"
                 android:singleLine="true"
-                android:text="@{stockShare.code}"
-                android:textAllCaps="true"
-                tools:text="MGLU3" />
+                android:textAllCaps="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tlShareAmount"
+            android:id="@+id/tvInvestment"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="@string/share_amount"
-            app:layout_constraintTop_toBottomOf="@id/tlShareCode">
+            android:hint="@string/month_investment"
+            app:layout_constraintTop_toBottomOf="@id/tvPeriodTag">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etShareAmount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberSigned"
-                android:lines="1"
-                android:text='@{stockShare.shareAmount + ""}'
-                android:maxLength="10"
-                tools:text="300"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tlSharePurchasePrice"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="@string/share_purchase_price"
-            app:layout_constraintTop_toBottomOf="@id/tlShareAmount">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSharePurchasePrice"
+                android:id="@+id/etInvestment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:text='@{period.periodInvestment + ""}'
+                tools:text="15000"
                 android:lines="1"
                 android:maxLength="10"
                 android:singleLine="true"
-                android:text='@{stockShare.purchasePrice +""}'
-                tools:text="50,21" />
+                android:textAllCaps="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tlSharePrice"
+            android:id="@+id/tvProfit"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="@string/share_current_price"
-            app:layout_constraintTop_toBottomOf="@id/tlSharePurchasePrice">
+            android:hint="@string/month_profit"
+            app:layout_constraintTop_toBottomOf="@id/tvInvestment">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSharePrice"
+                android:id="@+id/etProfit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
+                android:inputType ="numberDecimal|numberSigned"
                 android:lines="1"
+                android:text='@{period.periodProfit + ""}'
+                tools:text="2000"
                 android:maxLength="10"
                 android:singleLine="true"
-                android:text='@{stockShare.salePrice +""}'
-                tools:text="50,21" />
+                android:textAllCaps="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tvFinalBalance"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/final_balance"
+            app:layout_constraintTop_toBottomOf="@id/tvProfit">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etFinalBalance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType ="numberDecimal|numberSigned"
+                android:lines="1"
+                android:text='@{period.finalBalance + ""}'
+                tools:text="200000"
+                android:maxLength="10"
+                android:singleLine="true"
+                android:textAllCaps="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btUpdateStockPrice"
+            android:id="@+id/btSave"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="@string/save"
-            app:layout_constraintTop_toBottomOf="@id/tlSharePrice" />
+            app:layout_constraintTop_toBottomOf="@id/tvFinalBalance" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

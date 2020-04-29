@@ -10,14 +10,16 @@ import java.util.*
     indices = [
         Index(
             value = ["periodTag"],
-            name = "timeline_balance_period_tag"
+            name = "timeline_balance_period_tag",
+            unique = true
         )
     ]
 )
 data class TimelineBalanceDatabaseEntity(
     @PrimaryKey
+    val id : Long? = null,
     val periodTag : String,
-    val parentPeriodTag : String?,
+    val parentPeriodId : Long?,
     val startDate : Date,
     val periodInvestment : Double,
     val periodProfit : Double

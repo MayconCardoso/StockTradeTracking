@@ -50,7 +50,7 @@ class TimelineBalanceFragment : Fragment() {
 		bindListeners()
 	}
 
-	private fun handleFinalBalanceState(finalBalanceState: ComponentState<TimelineBalance>) {
+	private fun handleFinalBalanceState(finalBalanceState: ComponentState<TimelineBalance?>) {
 		when(finalBalanceState){
 			is ComponentState.Success -> {
 				binding?.finalBalance = finalBalanceState.result
@@ -80,7 +80,7 @@ class TimelineBalanceFragment : Fragment() {
 				viewBinding.item = item
 				viewBinding.cardItem.setOnClickListener {
 					viewModel.interact(TimelineBalanceInteraction.OpenPeriodDetails(item))
-					//findNavController().navigate(R.id.action_stockShareListFragment_to_stockShareEditPriceFragment)
+					findNavController().navigate(R.id.action_timelineBalanceFragment_to_timelineBalanceEditPeriodFragment)
 				}
 			},
 			updateCallback = object : DiffUtil.ItemCallback<TimelineBalance>() {

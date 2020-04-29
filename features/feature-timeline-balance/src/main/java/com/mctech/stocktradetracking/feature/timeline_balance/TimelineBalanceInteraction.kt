@@ -13,6 +13,13 @@ sealed class TimelineBalanceInteraction : UserInteraction {
         val monthProfit : Double
     ) : TimelineBalanceInteraction()
 
+    data class EditPeriod(
+        val period: String,
+        val monthInvestment : Double,
+        val monthProfit : Double,
+        val finalBalance : Double
+    ) : TimelineBalanceInteraction()
+
     data class OpenPeriodDetails(
         val period: TimelineBalance
     ) : TimelineBalanceInteraction()
