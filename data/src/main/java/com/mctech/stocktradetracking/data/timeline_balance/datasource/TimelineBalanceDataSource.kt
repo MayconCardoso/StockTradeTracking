@@ -1,0 +1,5 @@
+package com.mctech.stocktradetracking.data.timeline_balance.datasource
+
+import com.mctech.stocktradetracking.domain.timeline_balance.service.TimelineBalanceService
+
+interface TimelineBalanceDataSource : TimelineBalanceService

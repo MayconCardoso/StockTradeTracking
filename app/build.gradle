@@ -8,6 +8,7 @@ android {
         applicationId "com.mctech.stocktradetracking"
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -26,6 +27,7 @@ dependencies {
 
     // Features
     implementation project(path: submodulesFeatures.stockShare)
+    implementation project(path: submodulesFeatures.timelineBalance)
 
     implementation globalDependencies.appCompact
     implementation globalDependencies.constraintLayout

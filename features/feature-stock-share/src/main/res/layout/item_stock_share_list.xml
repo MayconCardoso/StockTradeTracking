@@ -12,9 +12,9 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="6dp"
+        android:paddingStart="12dp"
         android:paddingTop="3dp"
-        android:paddingEnd="6dp"
+        android:paddingEnd="12dp"
         android:paddingBottom="3dp">
 
         <com.google.android.material.card.MaterialCardView

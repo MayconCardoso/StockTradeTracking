@@ -22,24 +22,13 @@ object TimelineBalanceFeature {
             presentationBuildGradle         = ProjectSettings.presentationBuildGradle
             baseArchitecturePath            = ProjectSettings.baseArchitecturePath
 
-
             addUseCase {
                 UseCaseBuilder(
                     isDaggerInjectable = false,
-                    name = "GetStockShareListCase",
-                    returnType = Type.ResultOf(
-                        Type.GeneratedEntity
-                    )
-                )
-            }
-
-            addUseCase {
-                UseCaseBuilder(
-                    isDaggerInjectable = false,
-                    name = "BuyStockShareCase",
+                    name = "CreatePeriodCase",
                     parameters = listOf(
                         Parameter(
-                            name = "share",
+                            name = "period",
                             type = Type.GeneratedEntity
                         )
                     ),
@@ -50,14 +39,50 @@ object TimelineBalanceFeature {
             addUseCase {
                 UseCaseBuilder(
                     isDaggerInjectable = false,
-                    name = "SellStockShareCase",
+                    name = "EditPeriodCase",
                     parameters = listOf(
                         Parameter(
-                            name = "share",
+                            name = "period",
                             type = Type.GeneratedEntity
-                        ),
+                        )
+                    ),
+                    returnType = Type.Unit
+                )
+            }
+
+            addUseCase {
+                UseCaseBuilder(
+                    isDaggerInjectable = false,
+                    name = "GetListOfPeriodsBalanceCase",
+                    returnType = Type.ResultOf(
+                        Type.ListOfGeneratedEntity
+                    )
+                )
+            }
+
+            addUseCase {
+                UseCaseBuilder(
+                    isDaggerInjectable = false,
+                    name = "GetPeriodTransactionsCase",
+                    parameters = listOf(
                         Parameter(
-                            name = "value",
+                            name = "period",
+                            type = Type.GeneratedEntity
+                        )
+                    ),
+                    returnType = Type.ResultOf(
+                        Type.ListOfGeneratedEntity
+                    )
+                )
+            }
+
+            addUseCase {
+                UseCaseBuilder(
+                    isDaggerInjectable = false,
+                    name = "DepositMoneyCase",
+                    parameters = listOf(
+                        Parameter(
+                            name = "amount",
                             type = Type.Double
                         )
                     ),
@@ -68,14 +93,10 @@ object TimelineBalanceFeature {
             addUseCase {
                 UseCaseBuilder(
                     isDaggerInjectable = false,
-                    name = "EditStockShareValueCase",
+                    name = "WithdrawMoneyCase",
                     parameters = listOf(
                         Parameter(
-                            name = "shareCode",
-                            type = Type.String
-                        ),
-                        Parameter(
-                            name = "value",
+                            name = "amount",
                             type = Type.Double
                         )
                     ),
@@ -85,8 +106,8 @@ object TimelineBalanceFeature {
 
             addComponentState {
                 ComponentStateBuilder(
-                    name = "shareList",
-                    type = Type.GeneratedEntity
+                    name = "periodList",
+                    type = Type.ListOfGeneratedEntity
                 )
             }
         }

@@ -116,9 +116,6 @@ class StockShareViewModel constructor(
 			deleteStockShareCase.execute(this)
 		}
 
-		// Update list
-		loadStockShareListInteraction()
-
 		// Send command to get back
 		sendCommand(StockShareCommand.Back.FromEdit)
 	}
@@ -143,9 +140,6 @@ class StockShareViewModel constructor(
 			shareCode = code,
 			value = currentPrice
 		)
-
-		// Update list
-		loadStockShareListInteraction()
 
 		// Send command to get back
 		sendCommand(StockShareCommand.Back.FromEdit)

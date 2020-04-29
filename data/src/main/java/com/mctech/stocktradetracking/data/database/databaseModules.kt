@@ -17,4 +17,9 @@ val databaseModule = module {
         val database: AppDatabase = get()
         database.stockShareDao()
     }
+
+    single {
+        val database: AppDatabase = get()
+        database.timelineBalanceDao()
+    }
 }

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_dailynews"
+        android:id="@+id/nav_stock"
         android:icon="@drawable/ic_trending_up_24dp"
         android:title="Stock" />
     <item
-        android:id="@+id/nav_mynews"
+        android:id="@+id/nav_timeline"
         android:icon="@drawable/ic_timeline_timeline_24dp"
         android:title="Timeline" />
 
     <item
-        android:id="@+id/nav_hidden_option"
+        android:id="@+id/nav_today_position"
         android:icon="@drawable/ic_today_24dp"
         android:checked="true"
         android:title="Today" />
 
     <item
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_closed_position"
         android:icon="@drawable/ic_attach_money_24dp"
         android:title="Closed" />
 

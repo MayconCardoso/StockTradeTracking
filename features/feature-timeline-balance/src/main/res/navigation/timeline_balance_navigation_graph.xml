@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/timeline_balance_navigation_graph"
+    app:startDestination="@id/timelineBalanceFragment"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/timelineBalanceFragment"
+        tools:layout="@layout/fragment_timeline_balance"
+        android:name="com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceFragment"
+        android:label="Timeline balance" />
+</navigation>

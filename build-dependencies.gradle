@@ -37,6 +37,7 @@ ext {
 
     submodulesFeatures = [
             stockShare                      : ':features:feature-stock-share',
+            timelineBalance                 : ':features:feature-timeline-balance',
     ]
 
     submodulesTest = [
@@ -52,7 +53,7 @@ ext {
     //==============================================================================================
     globalDependencies = [
             // PERSONAL LIBS
-            featureArchitectureGenerator        : "com.mctech.architecture:generator:1.1.0",
+            featureArchitectureGenerator        : "com.mctech.architecture:generator:1.1.4",
             keyboardMonitor                     : "com.mctech.library.keyboard:visibilitymonitor:$MCTECH_KEYBOARD",
             keyboardMonitorKtx                  : "com.mctech.library.keyboard:visibilitymonitor-ktx:$MCTECH_KEYBOARD",
             mvvmArchitectureCore                : "com.mctech.architecture.mvvm:x-core:$MCTECH_MVVM_ARCHITECTURE",

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/stock_trade_navigation_graph"
-    app:startDestination="@id/stock_share_navigation_graph">
+    app:startDestination="@id/stock_share_navigation_graph"
+    tools:ignore="UnusedNavigation">
 
-    <include
-        app:graph="@navigation/stock_share_navigation_graph" />
+    <include app:graph="@navigation/stock_share_navigation_graph" />
+
+    <include app:graph="@navigation/timeline_balance_navigation_graph" />
+
 </navigation>

@@ -17,6 +17,7 @@ class StockTradeFeatureGradleModuleTemplate(moduleFilePath: ModuleFilePath) : Gr
 
         output.println("dependencies {")
         output.printTabulate("implementation project(path: submodulesPlatform.domain)")
+        output.printTabulate("implementation project(path: submodulesLibraries.designSystem)")
         output.blankLine()
 
         output.printTabulate("// Personal libs")
