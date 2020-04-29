@@ -9,7 +9,7 @@ val timelineBalanceViewModel = module {
         TimelineBalanceViewModel(
             createPeriodCase = get(),
             editPeriodCase = get(),
-            getListOfPeriodsBalanceCase = get(),
+            getCurrentPeriodBalanceCase = get(),
             getPeriodTransactionsCase = get(),
             depositMoneyCase = get(),
             withdrawMoneyCase = get()

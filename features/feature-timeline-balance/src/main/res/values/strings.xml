@@ -1,3 +1,9 @@
 <resources>
-
+    <string name="add_timeline">Add period</string>
+    <string name="timeline_period">Period tag</string>
+    <string name="title_timeline_balance">Timeline Balance</string>
+    <string name="no_opened_position">There is no opened position yet.\nOpen a month position to follow your profit.</string>
+    <string name="month_investment">Month investment</string>
+    <string name="month_profit">Month profit</string>
+    <string name="balance">Balance</string>
 </resources>

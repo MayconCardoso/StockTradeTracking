@@ -1,14 +1,108 @@
-<layout>
-	<data>
-		<variable
-			name="viewModel"
-			type="com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceViewModel" />
-	</data>
-	<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="match_parent"
-		android:padding="24dp"
-		android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceViewModel" />
+
+        <variable
+            name="finalBalance"
+            type="com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBalance" />
+
+    </data>
 
 
-	</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showOnLoadingFromEmpty="@{viewModel.periodList}"
+            tools:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNoItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:gravity="center"
+            android:text="@string/no_opened_position"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.45"
+            app:showOnSuccessWithEmptyData="@{viewModel.periodList}" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btAddPeriod"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/add_timeline"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNoItem"
+            app:showOnSuccessWithEmptyData="@{viewModel.periodList}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tbBalanceTotalDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:gravity="center"
+            android:text="@string/balance"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showOnSuccessWithNotEmptyData="@{viewModel.periodList}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tbBalanceTotal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{finalBalance.finalProfitDescription}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/tbBalanceTotalDesc"
+            app:layout_constraintStart_toStartOf="@+id/tbBalanceTotalDesc"
+            app:layout_constraintTop_toBottomOf="@id/tbBalanceTotalDesc"
+            app:priceTextColor="@{finalBalance.finalProfit}"
+            app:showOnSuccessWithNotEmptyData="@{viewModel.periodList}"
+            tools:text="R$7.000,00"
+            tools:textColor="#007E33" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="22dp"
+            android:overScrollMode="never"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tbBalanceTotal"
+            app:showOnSuccessWithNotEmptyData="@{viewModel.periodList}"
+            tools:itemCount="20"
+            tools:listitem="@layout/item_timeline_period_list"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

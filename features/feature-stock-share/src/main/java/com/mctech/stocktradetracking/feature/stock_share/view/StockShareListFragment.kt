@@ -38,6 +38,7 @@ class StockShareListFragment : Fragment() {
 		bindState(viewModel.stockShareFinalBalance){ handleFinalBalanceState(it) }
 		bindState(viewModel.bestStockShare){ handleBestStockState(it) }
 		bindState(viewModel.worstStockShare){ handleWorstStockState(it) }
+		bindListeners()
 	}
 
 	override fun onResume() {
@@ -52,9 +53,7 @@ class StockShareListFragment : Fragment() {
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when(item.itemId){
 			R.id.menu_add -> {
-				findNavController().navigate(
-					R.id.action_stockShareListFragment_to_stockShareBuyFragment
-				)
+				navigateToBuyFlow()
 			}
 			R.id.menu_filter -> {
 				viewModel.interact(StockShareInteraction.List.ChangeListFilter(true))
@@ -122,6 +121,18 @@ class StockShareListFragment : Fragment() {
 							&& left.getVariationDescription() == right.getVariationDescription()
 				}
 			}
+		)
+	}
+
+	private fun bindListeners() {
+		binding?.btBuy?.setOnClickListener {
+			navigateToBuyFlow()
+		}
+	}
+
+	private fun navigateToBuyFlow() {
+		findNavController().navigate(
+			R.id.action_stockShareListFragment_to_stockShareBuyFragment
 		)
 	}
 }

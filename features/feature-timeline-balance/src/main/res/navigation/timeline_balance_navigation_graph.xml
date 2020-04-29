@@ -8,7 +8,20 @@
 
     <fragment
         android:id="@+id/timelineBalanceFragment"
-        tools:layout="@layout/fragment_timeline_balance"
-        android:name="com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceFragment"
-        android:label="Timeline balance" />
+        android:name="com.mctech.stocktradetracking.feature.timeline_balance.view.TimelineBalanceFragment"
+        android:label="@string/title_timeline_balance"
+        tools:layout="@layout/fragment_timeline_balance">
+        <action
+            android:id="@+id/action_timelineBalanceFragment_to_timelineBalanceAddPeriodFragment"
+            app:destination="@id/timelineBalanceAddPeriodFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/timelineBalanceAddPeriodFragment"
+        tools:layout="@layout/fragment_timeline_add_period"
+        android:name="com.mctech.stocktradetracking.feature.timeline_balance.view.TimelineBalanceAddPeriodFragment"
+        android:label="@string/add_timeline" />
 </navigation>

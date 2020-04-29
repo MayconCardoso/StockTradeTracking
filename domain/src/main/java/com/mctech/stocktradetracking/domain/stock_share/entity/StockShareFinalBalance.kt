@@ -2,6 +2,7 @@ package com.mctech.stocktradetracking.domain.stock_share.entity
 
 import com.mctech.stocktradetracking.domain.extentions.formatBrazilianCurrency
 import com.mctech.stocktradetracking.domain.extentions.round
+import com.mctech.stocktradetracking.domain.extentions.toPercent
 
 data class StockShareFinalBalance(
     val balance: Double,
@@ -27,6 +28,6 @@ data class StockShareFinalBalance(
     }
 
     fun getVariationDescription(): String {
-        return "${getVariant().round(2)}%"
+        return getVariant().round(2).toPercent()
     }
 }

@@ -273,6 +273,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="9dp"
+            android:overScrollMode="never"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -286,6 +287,7 @@
             tools:visibility="visible" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNoItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="24dp"
@@ -298,6 +300,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:showOnSuccessWithEmptyData="@{viewModel.shareList}" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btBuy"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/add_position"
+            android:visibility="gone"
+            app:showOnSuccessWithEmptyData="@{viewModel.shareList}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNoItem" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

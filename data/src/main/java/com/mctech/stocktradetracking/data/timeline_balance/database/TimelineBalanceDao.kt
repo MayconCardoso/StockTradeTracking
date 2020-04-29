@@ -5,8 +5,8 @@ import androidx.room.*
 @Dao
 interface TimelineBalanceDao {
     @Transaction
-    @Query("SELECT * FROM timeline_balance ORDER BY periodTag DESC")
-    suspend fun loadCurrentPeriod(): TimelineBalanceEmbedded?
+    @Query("SELECT * FROM timeline_balance ORDER BY startDate DESC")
+    suspend fun loadCurrentPeriod(): List<TimelineBalanceDatabaseEntity>
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -17,9 +17,9 @@ val useCasesModule = module {
     single { GetBestStockShareCase(groupStockShareListCase = get()) }
 
     // Timeline
-    single { CreatePeriodCase(service = get()) }
+    single { CreatePeriodCase(service = get(), logger = get()) }
     single { EditPeriodCase(service = get()) }
-    single { GetListOfPeriodsBalanceCase(service = get()) }
+    single { GetCurrentPeriodBalanceCase(service = get(), logger = get()) }
     single { GetPeriodTransactionsCase(service = get()) }
     single { DepositMoneyCase(service = get()) }
     single { WithdrawMoneyCase(service = get()) }

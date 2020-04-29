@@ -1,0 +1,163 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBalance" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="12dp"
+        android:paddingTop="3dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="3dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/stockIndicator"
+                    android:layout_width="8dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:priceBackgroundColor="@{item.periodVariation}"
+                    tools:background="#007E33" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/itemCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@{item.periodTag}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/stockIndicator"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_goneMarginTop="12dp"
+                    tools:text="2019-04" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/labelInvestment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Total Investment"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintStart_toStartOf="@+id/itemCode"
+                    app:layout_constraintTop_toBottomOf="@id/itemCode" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/itemInvestment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{item.finalInvestmentBalanceDescription}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/itemCode"
+                    app:layout_constraintTop_toBottomOf="@id/labelInvestment"
+                    tools:text="R$100.000,00" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/lbMonthInvestment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Month Investment"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintStart_toStartOf="@+id/itemCode"
+                    app:layout_constraintTop_toBottomOf="@id/itemInvestment" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/monthInvestment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{item.periodInvestmentDescription}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/itemCode"
+                    app:layout_constraintTop_toBottomOf="@id/lbMonthInvestment"
+                    tools:text="R$5.000,00" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/lbFinalBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginTop="12dp"
+                    android:text="Final Balance"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintStart_toStartOf="@+id/itemCode"
+                    app:layout_constraintTop_toBottomOf="@id/monthInvestment" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/finalBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="@{item.finalBalanceDescription}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textStyle="bold"
+                    app:priceTextColor="@{item.finalProfit}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/itemCode"
+                    app:layout_constraintTop_toBottomOf="@id/lbFinalBalance"
+                    tools:text="R$107.000,00"
+                    tools:textColor="#007E33" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/itemFinalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="@{item.getPeriodProfitDescription()}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/finalBalance"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/finalBalance"
+                    app:priceTextColor="@{item.periodVariation}"
+                    tools:text="R$2.000,00"
+                    tools:textColor="#007E33" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/itemPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@{item.periodVariationDescription}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintBottom_toTopOf="@+id/itemFinalPrice"
+                    app:layout_constraintEnd_toEndOf="@id/itemFinalPrice"
+                    app:priceTextColor="@{item.periodVariation}"
+                    tools:text="5.43%"
+                    tools:textColor="#007E33" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+</layout>

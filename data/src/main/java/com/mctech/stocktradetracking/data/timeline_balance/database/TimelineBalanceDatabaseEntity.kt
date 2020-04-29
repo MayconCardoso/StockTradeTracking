@@ -1,6 +1,8 @@
 package com.mctech.stocktradetracking.data.timeline_balance.database
 
-import androidx.room.*
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity(
@@ -19,13 +21,4 @@ data class TimelineBalanceDatabaseEntity(
     val startDate : Date,
     val periodInvestment : Double,
     val periodProfit : Double
-)
-
-data class TimelineBalanceEmbedded(
-    @Embedded val period: TimelineBalanceDatabaseEntity,
-    @Relation(
-        parentColumn = "periodTag",
-        entityColumn = "parentPeriodTag"
-    )
-    val library: TimelineBalanceDatabaseEntity?
 )

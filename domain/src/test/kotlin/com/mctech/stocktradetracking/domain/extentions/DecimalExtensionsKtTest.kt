@@ -21,4 +21,12 @@ class DecimalExtensionsKtTest{
         assertThat(10.0049.round(3)).isEqualTo(10.005)
         assertThat(10.004921.round(6)).isEqualTo(10.004921)
     }
+
+    @Test
+    fun `should format percent`(){
+        assertThat(0.0091.round().toPercent()).isEqualTo("0.01%")
+        assertThat(0.0040.round().toPercent()).isEqualTo("0.0%")
+        assertThat(10.0049.round(3).toPercent()).isEqualTo("10.005%")
+        assertThat(10.004921.round(6).toPercent()).isEqualTo("10.004921%")
+    }
 }
