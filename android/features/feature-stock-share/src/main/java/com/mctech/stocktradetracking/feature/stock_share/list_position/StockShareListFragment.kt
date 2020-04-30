@@ -1,4 +1,4 @@
-package com.mctech.stocktradetracking.feature.stock_share.list
+package com.mctech.stocktradetracking.feature.stock_share.list_position
 
 import android.os.Bundle
 import android.view.*

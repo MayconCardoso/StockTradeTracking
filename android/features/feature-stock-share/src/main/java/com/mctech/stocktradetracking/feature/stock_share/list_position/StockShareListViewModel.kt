@@ -1,4 +1,4 @@
-package com.mctech.stocktradetracking.feature.stock_share.list
+package com.mctech.stocktradetracking.feature.stock_share.list_position
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

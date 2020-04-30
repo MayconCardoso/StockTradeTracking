@@ -2,7 +2,7 @@ package com.mctech.stocktradetracking.feature.stock_share
 
 import com.mctech.stocktradetracking.feature.stock_share.add_position.StockShareBuyViewModel
 import com.mctech.stocktradetracking.feature.stock_share.edit_position.StockShareEditPositionViewModel
-import com.mctech.stocktradetracking.feature.stock_share.list.StockShareListViewModel
+import com.mctech.stocktradetracking.feature.stock_share.list_position.StockShareListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
