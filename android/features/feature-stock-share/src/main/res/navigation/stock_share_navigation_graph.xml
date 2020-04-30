@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/stockShareListFragment"
-        android:name="com.mctech.stocktradetracking.feature.stock_share.view.StockShareListFragment"
+        android:name="com.mctech.stocktradetracking.feature.stock_share.list.StockShareListFragment"
         android:label="Stock Share Tracking"
         tools:layout="@layout/fragment_stock_share_list">
 
@@ -31,14 +31,20 @@
 
     <fragment
         android:id="@+id/stockShareBuyFragment"
-        android:name="com.mctech.stocktradetracking.feature.stock_share.view.StockShareBuyFragment"
+        android:name="com.mctech.stocktradetracking.feature.stock_share.add_position.StockShareBuyFragment"
         android:label="Add Position"
         tools:layout="@layout/fragment_stock_share_buy" />
 
     <fragment
         android:id="@+id/stockShareEditPriceFragment"
         tools:layout="@layout/fragment_stock_share_edit_price"
-        android:name="com.mctech.stocktradetracking.feature.stock_share.view.StockShareEditPriceFragment"
-        android:label="Current position" />
+        android:name="com.mctech.stocktradetracking.feature.stock_share.edit_position.StockShareEditPositionFragment"
+        android:label="Current position" >
+
+        <argument
+            android:name="stockShare"
+            app:argType="com.mctech.stocktradetracking.domain.stock_share.entity.StockShare" />
+
+    </fragment>
 
 </navigation>

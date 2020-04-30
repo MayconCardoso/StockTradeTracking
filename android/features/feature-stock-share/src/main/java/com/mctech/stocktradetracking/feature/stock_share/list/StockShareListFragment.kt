@@ -1,4 +1,4 @@
-package com.mctech.stocktradetracking.feature.stock_share.view
+package com.mctech.stocktradetracking.feature.stock_share.list
 
 import android.os.Bundle
 import android.view.*
@@ -12,14 +12,13 @@ import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShareFinalBalance
 import com.mctech.stocktradetracking.feature.stock_share.R
 import com.mctech.stocktradetracking.feature.stock_share.StockShareInteraction
-import com.mctech.stocktradetracking.feature.stock_share.StockShareViewModel
 import com.mctech.stocktradetracking.feature.stock_share.databinding.FragmentStockShareListBinding
 import com.mctech.stocktradetracking.feature.stock_share.databinding.ItemStockShareListBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class StockShareListFragment : Fragment() {
 
-	private val viewModel : StockShareViewModel by sharedViewModel()
+	private val viewModel : StockShareListViewModel by sharedViewModel()
 	private var binding   : FragmentStockShareListBinding? = null
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -107,8 +106,7 @@ class StockShareListFragment : Fragment() {
 			prepareHolder = { item, viewBinding, _ ->
 				viewBinding.item = item
 				viewBinding.cardItem.setOnClickListener {
-					viewModel.interact(StockShareInteraction.List.OpenStockShareDetails(item))
-					findNavController().navigate(R.id.action_stockShareListFragment_to_stockShareEditPriceFragment)
+					openStockShare(item)
 				}
 			},
 			updateCallback = object : DiffUtil.ItemCallback<StockShare>() {
@@ -135,8 +133,14 @@ class StockShareListFragment : Fragment() {
 	}
 
 	private fun navigateToBuyFlow() {
-		findNavController().navigate(
-			R.id.action_stockShareListFragment_to_stockShareBuyFragment
+		val destination = StockShareListFragmentDirections.actionStockShareListFragmentToStockShareBuyFragment()
+		findNavController().navigate(destination)
+	}
+
+	private fun openStockShare(stockShare: StockShare) {
+		val destination = StockShareListFragmentDirections.actionStockShareListFragmentToStockShareEditPriceFragment(
+			stockShare
 		)
+		findNavController().navigate(destination)
 	}
 }

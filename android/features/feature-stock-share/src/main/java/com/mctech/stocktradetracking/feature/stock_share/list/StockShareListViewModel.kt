@@ -1,4 +1,4 @@
-package com.mctech.stocktradetracking.feature.stock_share
+package com.mctech.stocktradetracking.feature.stock_share.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,29 +13,23 @@ import com.mctech.architecture.mvvm.x.core.ktx.changeToSuccessState
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShareFinalBalance
 import com.mctech.stocktradetracking.domain.stock_share.interaction.*
+import com.mctech.stocktradetracking.feature.stock_share.StockShareInteraction
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
-import java.util.*
 
-class StockShareViewModel constructor(
+class StockShareListViewModel constructor(
 	private val observeStockListCase	: ObserveStockShareListCase,
 	private val getFinalBalanceCase		: GetFinalBalanceCase,
 	private val getWorstStockShareCase	: GetWorstStockShareCase,
 	private val getBestStockShareCase	: GetBestStockShareCase,
 	private val groupStockShareListCase	: GroupStockShareListCase,
-
-	private val saveStockShareCase		: SaveStockShareCase,
-	private val sellStockShareCase		: SellStockShareCase,
-	private val editStockShareValueCase	: EditStockShareValueCase,
-	private val deleteStockShareCase	: DeleteStockShareCase,
 	private val syncStockSharePriceCase	: SyncStockSharePriceCase
 ) : BaseViewModel() {
 
 	private val originalStockList 	= mutableListOf<StockShare>()
 	private var groupedStockList 	: List<StockShare>? = null
-	private var currentStock 		: StockShare? = null
 	private var isShowingOriginal	= true
 
 	private val _shareList : MutableLiveData<ComponentState<List<StockShare>>> = MutableLiveData(ComponentState.Initializing)
@@ -50,29 +44,13 @@ class StockShareViewModel constructor(
 	private val _worstStockShare : MutableLiveData<ComponentState<StockShare>> = MutableLiveData(ComponentState.Initializing)
 	val worstStockShare : LiveData<ComponentState<StockShare>> = _worstStockShare
 
-	private val _currentStockShare : MutableLiveData<StockShare> = MutableLiveData()
-	val currentStockShare : LiveData<StockShare> = _currentStockShare
-
 	override suspend fun handleUserInteraction(interaction: UserInteraction) {
 		when(interaction){
-			is StockShareInteraction.List.LoadStockShare 			-> loadStockShareListInteraction()
-			is StockShareInteraction.List.ChangeListFilter			-> applyStockShareListFilterInteraction(
+			is StockShareInteraction.List.LoadStockShare 	-> loadStockShareListInteraction()
+			is StockShareInteraction.SyncStockPrice 		-> syncStockPriceInteraction()
+			is StockShareInteraction.List.ChangeListFilter 	-> applyStockShareListFilterInteraction(
 				interaction.groupShares
 			)
-			is StockShareInteraction.List.OpenStockShareDetails		-> openStockShareInteraction(interaction.item)
-			is StockShareInteraction.AddPosition					-> addStockPositionInteraction(
-				interaction.code,
-				interaction.amount,
-				interaction.price
-			)
-			is StockShareInteraction.UpdateStockPrice				-> updateStockPriceInteraction(
-				interaction.code,
-				interaction.amount,
-				interaction.purchasePrice,
-				interaction.currentPrice
-			)
-			is StockShareInteraction.DeleteStockShare				-> deleteCurrentStockShareInteraction()
-			is StockShareInteraction.SyncStockPrice					-> syncStockPriceInteraction()
 		}
 	}
 
@@ -89,63 +67,8 @@ class StockShareViewModel constructor(
 			}
 	}
 
-	private fun openStockShareInteraction(item: StockShare) {
-		_currentStockShare.value = item
-		currentStock = item
-	}
-
-	private suspend fun addStockPositionInteraction(code: String, amount: Long, price: Double) {
-		// Save new position
-		saveStockShareCase.execute(
-			StockShare(
-				code = code.toUpperCase(Locale.getDefault()),
-				shareAmount = amount,
-				purchasePrice = price,
-				purchaseDate = Calendar.getInstance().time
-			)
-		)
-
-		// Send command to get back
-		sendCommand(StockShareCommand.Back.FromBuy)
-	}
-
-	private suspend fun deleteCurrentStockShareInteraction() {
-		// Delete position
-		currentStock?.run {
-			deleteStockShareCase.execute(this)
-		}
-
-		// Send command to get back
-		sendCommand(StockShareCommand.Back.FromEdit)
-	}
-
 	private suspend fun syncStockPriceInteraction() {
 		syncStockSharePriceCase.execute()
-	}
-
-	private suspend fun updateStockPriceInteraction(
-		code: String,
-		amount: Long,
-		purchasePrice: Double,
-		currentPrice: Double
-	) {
-		// Save item
-		currentStock?.run {
-			this.code = code
-			this.shareAmount = amount
-			this.purchasePrice = purchasePrice
-
-			saveStockShareCase.execute(this)
-		}
-
-		// Update stock price
-		editStockShareValueCase.execute(
-			shareCode = code,
-			value = currentPrice
-		)
-
-		// Send command to get back
-		sendCommand(StockShareCommand.Back.FromEdit)
 	}
 
 	private fun applyStockShareListFilterInteraction(groupShares: Boolean) {

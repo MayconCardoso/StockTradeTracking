@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.mctech.stocktradetracking.feature.stock_share.StockShareViewModel" />
+            type="com.mctech.stocktradetracking.feature.stock_share.list.StockShareListViewModel" />
 
         <variable
             name="finalBalance"

@@ -1,4 +1,4 @@
-package com.mctech.stocktradetracking.feature.stock_share.view
+package com.mctech.stocktradetracking.feature.stock_share.add_position
 
 import android.os.Bundle
 import android.text.Editable
@@ -16,13 +16,12 @@ import com.mctech.library.view.ktx.getValue
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.feature.stock_share.StockShareCommand
 import com.mctech.stocktradetracking.feature.stock_share.StockShareInteraction
-import com.mctech.stocktradetracking.feature.stock_share.StockShareViewModel
 import com.mctech.stocktradetracking.feature.stock_share.databinding.FragmentStockShareBuyBinding
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StockShareBuyFragment : Fragment() {
 
-	private val viewModel 	: StockShareViewModel by sharedViewModel()
+	private val viewModel 	: StockShareBuyViewModel by viewModel()
 	private var binding   	: FragmentStockShareBuyBinding? = null
 	private val textWatcher = object : TextWatcher{
 		override fun afterTextChanged(p0: Editable?) = Unit
@@ -35,7 +34,6 @@ class StockShareBuyFragment : Fragment() {
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 		return FragmentStockShareBuyBinding.inflate(inflater, container, false).let {
 			binding = it
-			binding?.viewModel = viewModel
 			binding?.lifecycleOwner = this
 			it.root
 		}

@@ -3,6 +3,7 @@ package com.mctech.stocktradetracking.domain.stock_share.entity
 import com.mctech.stocktradetracking.domain.extentions.formatBrazilianCurrency
 import com.mctech.stocktradetracking.domain.extentions.round
 import com.mctech.stocktradetracking.domain.extentions.toPercent
+import java.io.Serializable
 import java.util.*
 
 data class StockShare(
@@ -14,7 +15,7 @@ data class StockShare(
     val purchaseDate: Date = Calendar.getInstance().time,
     var saleDate: Date? = null,
     var isPositionOpened: Boolean = true
-) {
+)  : Serializable {
     fun getBuyDescription(): String {
         return "BUY $shareAmount @ ${purchasePrice.formatBrazilianCurrency()}"
     }
