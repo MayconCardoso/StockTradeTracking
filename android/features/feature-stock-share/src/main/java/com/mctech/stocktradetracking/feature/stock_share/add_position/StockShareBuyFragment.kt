@@ -14,8 +14,6 @@ import com.mctech.architecture.mvvm.x.core.ktx.bindCommand
 import com.mctech.library.keyboard.visibilitymonitor.extentions.closeKeyboard
 import com.mctech.library.view.ktx.getValue
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
-import com.mctech.stocktradetracking.feature.stock_share.StockShareCommand
-import com.mctech.stocktradetracking.feature.stock_share.StockShareInteraction
 import com.mctech.stocktradetracking.feature.stock_share.databinding.FragmentStockShareBuyBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -53,7 +51,7 @@ class StockShareBuyFragment : Fragment() {
 
 	private fun handleCommands(command: ViewCommand) {
 		when(command){
-			is StockShareCommand.Back.FromBuy -> {
+			is StockShareBuyCommand.NavigateBack -> {
 				findNavController().popBackStack()
 			}
 		}
@@ -66,7 +64,7 @@ class StockShareBuyFragment : Fragment() {
 		binding?.let { binding ->
 			binding.btBuy.setOnClickListener {
 				viewModel.interact(
-					StockShareInteraction.AddPosition(
+					StockShareBuyInteraction.AddPosition(
 						binding.etShareCode.getValue(),
 						binding.etShareAmount.getValue().toLong(),
 						binding.etSharePrice.getValue().toDouble()

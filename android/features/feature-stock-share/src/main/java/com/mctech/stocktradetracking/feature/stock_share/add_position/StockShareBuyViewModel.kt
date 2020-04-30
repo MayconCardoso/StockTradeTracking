@@ -4,8 +4,6 @@ import com.mctech.architecture.mvvm.x.core.BaseViewModel
 import com.mctech.architecture.mvvm.x.core.UserInteraction
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.interaction.SaveStockShareCase
-import com.mctech.stocktradetracking.feature.stock_share.StockShareCommand
-import com.mctech.stocktradetracking.feature.stock_share.StockShareInteraction
 import java.util.*
 
 class StockShareBuyViewModel constructor(
@@ -14,7 +12,7 @@ class StockShareBuyViewModel constructor(
 
     override suspend fun handleUserInteraction(interaction: UserInteraction) {
         when (interaction) {
-            is StockShareInteraction.AddPosition -> addStockPositionInteraction(
+            is StockShareBuyInteraction.AddPosition -> addStockPositionInteraction(
                 interaction.code,
                 interaction.amount,
                 interaction.price
@@ -34,6 +32,6 @@ class StockShareBuyViewModel constructor(
         )
 
         // Send command to get back
-        sendCommand(StockShareCommand.Back.FromBuy)
+        sendCommand(StockShareBuyCommand.NavigateBack)
     }
 }

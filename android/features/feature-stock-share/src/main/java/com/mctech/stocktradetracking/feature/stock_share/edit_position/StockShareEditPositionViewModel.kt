@@ -10,8 +10,6 @@ import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.interaction.DeleteStockShareCase
 import com.mctech.stocktradetracking.domain.stock_share.interaction.EditStockShareValueCase
 import com.mctech.stocktradetracking.domain.stock_share.interaction.SaveStockShareCase
-import com.mctech.stocktradetracking.feature.stock_share.StockShareCommand
-import com.mctech.stocktradetracking.feature.stock_share.StockShareInteraction
 
 class StockShareEditPositionViewModel constructor(
 	private val saveStockShareCase		: SaveStockShareCase,
@@ -25,16 +23,16 @@ class StockShareEditPositionViewModel constructor(
 
 	override suspend fun handleUserInteraction(interaction: UserInteraction) {
 		when(interaction){
-			is StockShareInteraction.List.OpenStockShareDetails -> openStockShareInteraction(
+			is StockShareEditPositionInteraction.OpenStockShareDetails -> openStockShareInteraction(
 				interaction.item
 			)
-			is StockShareInteraction.UpdateStockPrice -> updateStockPriceInteraction(
+			is StockShareEditPositionInteraction.UpdateStockPrice -> updateStockPriceInteraction(
 				interaction.code,
 				interaction.amount,
 				interaction.purchasePrice,
 				interaction.currentPrice
 			)
-			is StockShareInteraction.DeleteStockShare -> deleteCurrentStockShareInteraction()
+			is StockShareEditPositionInteraction.DeleteStockShare -> deleteCurrentStockShareInteraction()
 		}
 	}
 
@@ -50,7 +48,7 @@ class StockShareEditPositionViewModel constructor(
 		}
 
 		// Send command to get back
-		sendCommand(StockShareCommand.Back.FromEdit)
+		sendCommand(StockShareEditPositionCommand.NavigateBack)
 	}
 
 	private suspend fun updateStockPriceInteraction(
@@ -75,6 +73,6 @@ class StockShareEditPositionViewModel constructor(
 		)
 
 		// Send command to get back
-		sendCommand(StockShareCommand.Back.FromEdit)
+		sendCommand(StockShareEditPositionCommand.NavigateBack)
 	}
 }

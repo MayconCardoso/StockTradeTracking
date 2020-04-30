@@ -13,7 +13,6 @@ import com.mctech.architecture.mvvm.x.core.ktx.changeToSuccessState
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShareFinalBalance
 import com.mctech.stocktradetracking.domain.stock_share.interaction.*
-import com.mctech.stocktradetracking.feature.stock_share.StockShareInteraction
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -46,9 +45,9 @@ class StockShareListViewModel constructor(
 
 	override suspend fun handleUserInteraction(interaction: UserInteraction) {
 		when(interaction){
-			is StockShareInteraction.List.LoadStockShare 	-> loadStockShareListInteraction()
-			is StockShareInteraction.SyncStockPrice 		-> syncStockPriceInteraction()
-			is StockShareInteraction.List.ChangeListFilter 	-> applyStockShareListFilterInteraction(
+			is StockShareListInteraction.List.LoadStockShare 	-> loadStockShareListInteraction()
+			is StockShareListInteraction.SyncStockPrice 		-> syncStockPriceInteraction()
+			is StockShareListInteraction.List.ChangeListFilter 	-> applyStockShareListFilterInteraction(
 				interaction.groupShares
 			)
 		}

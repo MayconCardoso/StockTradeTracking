@@ -13,8 +13,6 @@ import com.mctech.library.keyboard.visibilitymonitor.extentions.closeKeyboard
 import com.mctech.library.view.ktx.getValue
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.feature.stock_share.R
-import com.mctech.stocktradetracking.feature.stock_share.StockShareCommand
-import com.mctech.stocktradetracking.feature.stock_share.StockShareInteraction
 import com.mctech.stocktradetracking.feature.stock_share.databinding.FragmentStockShareEditPriceBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -39,10 +37,24 @@ class StockShareEditPositionFragment : Fragment() {
 		bindListeners()
 	}
 
+	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+		inflater.inflate(R.menu.stock_share_delete_menu, menu)
+	}
+
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		when(item.itemId){
+			R.id.menu_delete -> {
+				viewModel.interact(StockShareEditPositionInteraction.DeleteStockShare)
+			}
+		}
+
+		return true
+	}
+
 	private fun handleStockShareState(state: ComponentState<StockShare>) {
 		when(state){
 			is ComponentState.Initializing -> {
-				viewModel.interact(StockShareInteraction.List.OpenStockShareDetails(
+				viewModel.interact(StockShareEditPositionInteraction.OpenStockShareDetails(
 					StockShareEditPositionFragmentArgs.fromBundle(requireArguments()).stockShare
 				))
 			}
@@ -53,23 +65,9 @@ class StockShareEditPositionFragment : Fragment() {
 		}
 	}
 
-	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-		inflater.inflate(R.menu.stock_share_delete_menu, menu)
-	}
-
-	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		when(item.itemId){
-			R.id.menu_delete -> {
-				viewModel.interact(StockShareInteraction.DeleteStockShare)
-			}
-		}
-
-		return true
-	}
-
 	private fun handleCommands(command: ViewCommand) {
 		when(command){
-			is StockShareCommand.Back.FromEdit -> {
+			is StockShareEditPositionCommand.NavigateBack -> {
 				findNavController().popBackStack()
 			}
 		}
@@ -79,7 +77,7 @@ class StockShareEditPositionFragment : Fragment() {
 		binding?.let { binding ->
 			binding.btUpdateStockPrice.setOnClickListener {
 				viewModel.interact(
-					StockShareInteraction.UpdateStockPrice(
+					StockShareEditPositionInteraction.UpdateStockPrice(
 						binding.etShareCode.getValue(),
 						binding.etShareAmount.getValue().toLong(),
 						binding.etSharePurchasePrice.getValue().toDouble(),

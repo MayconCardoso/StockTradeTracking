@@ -11,7 +11,6 @@ import com.mctech.library.view.ktx.attachSimpleData
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShareFinalBalance
 import com.mctech.stocktradetracking.feature.stock_share.R
-import com.mctech.stocktradetracking.feature.stock_share.StockShareInteraction
 import com.mctech.stocktradetracking.feature.stock_share.databinding.FragmentStockShareListBinding
 import com.mctech.stocktradetracking.feature.stock_share.databinding.ItemStockShareListBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -50,7 +49,7 @@ class StockShareListFragment : Fragment() {
 				navigateToBuyFlow()
 			}
 			R.id.menu_filter -> {
-				viewModel.interact(StockShareInteraction.List.ChangeListFilter(true))
+				viewModel.interact(StockShareListInteraction.List.ChangeListFilter(true))
 			}
 		}
 
@@ -89,7 +88,7 @@ class StockShareListFragment : Fragment() {
 
 		when(state){
 			is ComponentState.Initializing -> {
-				viewModel.interact(StockShareInteraction.List.LoadStockShare)
+				viewModel.interact(StockShareListInteraction.List.LoadStockShare)
 			}
 			is ComponentState.Success -> {
 				renderStockList(state.result)
@@ -128,7 +127,7 @@ class StockShareListFragment : Fragment() {
 		}
 
 		binding?.swipeRefreshLayout?.setOnRefreshListener {
-			viewModel.interact(StockShareInteraction.SyncStockPrice)
+			viewModel.interact(StockShareListInteraction.SyncStockPrice)
 		}
 	}
 
