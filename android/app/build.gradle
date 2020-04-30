@@ -28,6 +28,7 @@ dependencies {
 
     // Features
     implementation project(path: submodulesFeatures.stockShare)
+    implementation project(path: submodulesFeatures.stockDailyVariation)
     implementation project(path: submodulesFeatures.timelineBalance)
 
     implementation globalDependencies.appCompact
