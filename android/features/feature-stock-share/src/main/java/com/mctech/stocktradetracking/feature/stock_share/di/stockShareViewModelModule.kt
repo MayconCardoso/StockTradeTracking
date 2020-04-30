@@ -7,7 +7,7 @@ import org.koin.dsl.module
 val stockShareViewModelModule = module {
     viewModel {
         StockShareViewModel(
-            getStockShareListCase       = get(),
+            observeStockListCase        = get(),
             getFinalBalanceCase         = get(),
             getWorstStockShareCase      = get(),
             getBestStockShareCase       = get(),

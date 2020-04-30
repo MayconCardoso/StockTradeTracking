@@ -29,7 +29,6 @@ class SingleContainerActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         currentGraph?.run {
             outState.putInt("currentNavigation", this)
-
         }
     }
 
@@ -45,6 +44,16 @@ class SingleContainerActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return getNavigationController().navigateUp()
+    }
+
+    override fun onBackPressed() {
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation_main)
+        if(bottomNavigation.selectedItemId != R.id.nav_stock){
+            bottomNavigation.selectedItemId = R.id.nav_stock
+            return
+        }
+
+        super.onBackPressed()
     }
 
     private fun getNavigationController() = Navigation.findNavController(this, R.id.nav_host_fragment)

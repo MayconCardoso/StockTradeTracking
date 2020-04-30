@@ -10,15 +10,17 @@ import com.mctech.architecture.mvvm.x.core.ktx.changeToErrorState
 import com.mctech.architecture.mvvm.x.core.ktx.changeToListLoadingState
 import com.mctech.architecture.mvvm.x.core.ktx.changeToLoadingState
 import com.mctech.architecture.mvvm.x.core.ktx.changeToSuccessState
-import com.mctech.stocktradetracking.domain.Result
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShareFinalBalance
 import com.mctech.stocktradetracking.domain.stock_share.interaction.*
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onStart
 import java.util.*
 
 class StockShareViewModel constructor(
-	private val getStockShareListCase	: GetStockShareListCase,
+	private val observeStockListCase	: ObserveStockShareListCase,
 	private val getFinalBalanceCase		: GetFinalBalanceCase,
 	private val getWorstStockShareCase	: GetWorstStockShareCase,
 	private val getBestStockShareCase	: GetBestStockShareCase,
@@ -75,18 +77,16 @@ class StockShareViewModel constructor(
 	}
 
 	private suspend fun loadStockShareListInteraction() {
-		_shareList.changeToListLoadingState()
-
-		when(val result = getStockShareListCase.execute()){
-			is Result.Success -> {
-				computeStockScore(result.result)
-
-				organizeStockListBeforeShowIt(result.result)
+		observeStockListCase.execute()
+			.onStart {
+				_shareList.changeToListLoadingState()
 			}
-			is Result.Failure -> {
-				_shareList.changeToErrorState(result.throwable)
+			.catch { exception ->
+				_shareList.changeToErrorState(exception)
+			}.collect { result ->
+				computeStockScore(result)
+				organizeStockListBeforeShowIt(result)
 			}
-		}
 	}
 
 	private fun openStockShareInteraction(item: StockShare) {
@@ -105,9 +105,6 @@ class StockShareViewModel constructor(
 			)
 		)
 
-		// Update list
-		loadStockShareListInteraction()
-
 		// Send command to get back
 		sendCommand(StockShareCommand.Back.FromBuy)
 	}
@@ -124,7 +121,6 @@ class StockShareViewModel constructor(
 
 	private suspend fun syncStockPriceInteraction() {
 		syncStockSharePriceCase.execute()
-		loadStockShareListInteraction()
 	}
 
 	private suspend fun updateStockPriceInteraction(

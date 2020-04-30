@@ -3,10 +3,15 @@ package com.mctech.stocktradetracking.data.stock_share.datasource
 import com.mctech.stocktradetracking.data.stock_share.database.StockShareDao
 import com.mctech.stocktradetracking.data.stock_share.mapper.toDatabaseEntity
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
+import kotlinx.coroutines.flow.Flow
 
 class LocalStockShareDataSourceImpl(
 	private val stockShareDao: StockShareDao
 ) : LocalStockShareDataSource {
+
+	override suspend fun observeStockShareList(): Flow<List<StockShare>> {
+		return stockShareDao.observeAllOpenedPosition()
+	}
 
 	override suspend fun getStockShareList(): List<StockShare> {
 		return stockShareDao.loadAllOpenedPosition()

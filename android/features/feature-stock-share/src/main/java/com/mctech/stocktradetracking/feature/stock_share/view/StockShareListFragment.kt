@@ -41,11 +41,6 @@ class StockShareListFragment : Fragment() {
 		bindListeners()
 	}
 
-	override fun onResume() {
-		super.onResume()
-		viewModel.interact(StockShareInteraction.List.LoadStockShare)
-	}
-
 	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 		inflater.inflate(R.menu.stock_share_tracking_menu, menu)
 	}
@@ -94,6 +89,9 @@ class StockShareListFragment : Fragment() {
 		binding?.swipeRefreshLayout?.isRefreshing = state is ComponentState.Loading.FromData
 
 		when(state){
+			is ComponentState.Initializing -> {
+				viewModel.interact(StockShareInteraction.List.LoadStockShare)
+			}
 			is ComponentState.Success -> {
 				renderStockList(state.result)
 			}
