@@ -31,7 +31,10 @@ dependencies {
     implementation project(path: submodulesFeatures.stockDailyVariation)
     implementation project(path: submodulesFeatures.timelineBalance)
 
-    implementation globalDependencies.appCompact
+    // View
+    implementation globalDependencies.recyclerView
+    implementation globalDependencies.swipeRefresh
+    implementation globalDependencies.materialDesign
     implementation globalDependencies.constraintLayout
 
     // Navigation

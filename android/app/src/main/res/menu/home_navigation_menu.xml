@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_stock"
-        android:icon="@drawable/ic_trending_up_24dp"
-        android:title="Stock" />
-    <item
-        android:id="@+id/nav_timeline"
+        android:id="@+id/timelineBalanceFragment"
         android:icon="@drawable/ic_timeline_timeline_24dp"
         android:title="Timeline" />
 
     <item
+        android:id="@+id/stockShareListFragment"
+        android:icon="@drawable/ic_trending_up_24dp"
+        android:title="Stock" />
+
+    <item
         android:id="@+id/nav_today_position"
-        android:icon="@drawable/ic_today_24dp"
         android:checked="true"
+        android:icon="@drawable/ic_today_24dp"
         android:title="Today" />
 
     <item

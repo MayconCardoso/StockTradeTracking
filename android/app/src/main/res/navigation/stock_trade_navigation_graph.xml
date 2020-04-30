@@ -3,11 +3,85 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/stock_trade_navigation_graph"
-    app:startDestination="@id/stock_share_navigation_graph"
+    app:startDestination="@id/stockShareListFragment"
     tools:ignore="UnusedNavigation">
 
-    <include app:graph="@navigation/stock_share_navigation_graph" />
+    <fragment
+        android:id="@+id/stockShareListFragment"
+        android:name="com.mctech.stocktradetracking.feature.stock_share.list_position.StockShareListFragment"
+        android:label="Stock Share Tracking"
+        tools:layout="@layout/fragment_stock_share_list">
 
-    <include app:graph="@navigation/timeline_balance_navigation_graph" />
+        <action
+            android:id="@+id/action_stockShareListFragment_to_stockShareBuyFragment"
+            app:destination="@id/stockShareBuyFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
+        <action
+            android:id="@+id/action_stockShareListFragment_to_stockShareEditPriceFragment"
+            app:destination="@id/stockShareEditPriceFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/stockShareBuyFragment"
+        android:name="com.mctech.stocktradetracking.feature.stock_share.add_position.StockShareBuyFragment"
+        android:label="Add Position"
+        tools:layout="@layout/fragment_stock_share_buy" />
+
+    <fragment
+        android:id="@+id/stockShareEditPriceFragment"
+        tools:layout="@layout/fragment_stock_share_edit_price"
+        android:name="com.mctech.stocktradetracking.feature.stock_share.edit_position.StockShareEditPositionFragment"
+        android:label="Current position" >
+
+        <argument
+            android:name="stockShare"
+            app:argType="com.mctech.stocktradetracking.domain.stock_share.entity.StockShare" />
+
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/timelineBalanceFragment"
+        android:name="com.mctech.stocktradetracking.feature.timeline_balance.list_period.TimelineBalanceListFragment"
+        android:label="@string/title_timeline_balance"
+        tools:layout="@layout/fragment_timeline_balance">
+        <action
+            android:id="@+id/action_timelineBalanceFragment_to_timelineBalanceAddPeriodFragment"
+            app:destination="@id/timelineBalanceAddPeriodFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_timelineBalanceFragment_to_timelineBalanceEditPeriodFragment"
+            app:destination="@id/timelineBalanceEditPeriodFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/timelineBalanceAddPeriodFragment"
+        android:name="com.mctech.stocktradetracking.feature.timeline_balance.add_period.TimelineBalanceAddPeriodFragment"
+        android:label="@string/add_timeline"
+        tools:layout="@layout/fragment_timeline_add_period" />
+
+    <fragment
+        android:id="@+id/timelineBalanceEditPeriodFragment"
+        android:name="com.mctech.stocktradetracking.feature.timeline_balance.edit_period.TimelineBalanceEditPeriodFragment"
+        android:label="@string/edit_period"
+        tools:layout="@layout/fragment_timeline_edit_period" >
+        <argument
+            android:name="currentPeriod"
+            app:argType="com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBalance" />
+    </fragment>
 </navigation>

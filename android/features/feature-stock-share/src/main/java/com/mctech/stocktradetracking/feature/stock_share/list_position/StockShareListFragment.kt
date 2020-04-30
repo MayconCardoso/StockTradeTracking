@@ -3,7 +3,6 @@ package com.mctech.stocktradetracking.feature.stock_share.list_position
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import com.mctech.architecture.mvvm.x.core.ComponentState
 import com.mctech.architecture.mvvm.x.core.ktx.bindState
@@ -11,14 +10,17 @@ import com.mctech.library.view.ktx.attachSimpleData
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShareFinalBalance
 import com.mctech.stocktradetracking.feature.stock_share.R
+import com.mctech.stocktradetracking.feature.stock_share.StockShareNavigator
 import com.mctech.stocktradetracking.feature.stock_share.databinding.FragmentStockShareListBinding
 import com.mctech.stocktradetracking.feature.stock_share.databinding.ItemStockShareListBinding
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class StockShareListFragment : Fragment() {
 
-	private val viewModel : StockShareListViewModel by sharedViewModel()
-	private var binding   : FragmentStockShareListBinding? = null
+	private val viewModel 	: StockShareListViewModel 			by sharedViewModel()
+	private val navigator   : StockShareNavigator 				by inject()
+	private var binding   	: FragmentStockShareListBinding? 	= null
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 		setHasOptionsMenu(true)
@@ -132,14 +134,10 @@ class StockShareListFragment : Fragment() {
 	}
 
 	private fun navigateToBuyFlow() {
-		val destination = StockShareListFragmentDirections.actionStockShareListFragmentToStockShareBuyFragment()
-		findNavController().navigate(destination)
+		navigator.fromStockShareToBuyPosition()
 	}
 
 	private fun openStockShare(stockShare: StockShare) {
-		val destination = StockShareListFragmentDirections.actionStockShareListFragmentToStockShareEditPriceFragment(
-			stockShare
-		)
-		findNavController().navigate(destination)
+		navigator.fromStockShareToEditPosition(stockShare)
 	}
 }

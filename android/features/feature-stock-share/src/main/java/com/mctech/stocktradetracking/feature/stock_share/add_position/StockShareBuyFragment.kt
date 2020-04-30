@@ -8,19 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.mctech.architecture.mvvm.x.core.ViewCommand
 import com.mctech.architecture.mvvm.x.core.ktx.bindCommand
 import com.mctech.library.keyboard.visibilitymonitor.extentions.closeKeyboard
 import com.mctech.library.view.ktx.getValue
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
+import com.mctech.stocktradetracking.feature.stock_share.StockShareNavigator
 import com.mctech.stocktradetracking.feature.stock_share.databinding.FragmentStockShareBuyBinding
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StockShareBuyFragment : Fragment() {
 
-	private val viewModel 	: StockShareBuyViewModel by viewModel()
+	private val viewModel 	: StockShareBuyViewModel 		by viewModel()
+	private val navigator   : StockShareNavigator 			by inject()
 	private var binding   	: FragmentStockShareBuyBinding? = null
+
 	private val textWatcher = object : TextWatcher{
 		override fun afterTextChanged(p0: Editable?) = Unit
 		override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
@@ -52,7 +55,7 @@ class StockShareBuyFragment : Fragment() {
 	private fun handleCommands(command: ViewCommand) {
 		when(command){
 			is StockShareBuyCommand.NavigateBack -> {
-				findNavController().popBackStack()
+				navigator.navigateBack()
 			}
 		}
 	}

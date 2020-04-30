@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.mctech.architecture.mvvm.x.core.ComponentState
 import com.mctech.architecture.mvvm.x.core.ViewCommand
 import com.mctech.architecture.mvvm.x.core.ktx.bindCommand
@@ -13,13 +12,17 @@ import com.mctech.library.keyboard.visibilitymonitor.extentions.closeKeyboard
 import com.mctech.library.view.ktx.getValue
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.feature.stock_share.R
+import com.mctech.stocktradetracking.feature.stock_share.StockShareNavigator
 import com.mctech.stocktradetracking.feature.stock_share.databinding.FragmentStockShareEditPriceBinding
+import com.mctech.stocktradetracking.feature.stock_share.stockShareFromBundle
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StockShareEditPositionFragment : Fragment() {
 
-	private val viewModel : StockShareEditPositionViewModel by viewModel()
-	private var binding   : FragmentStockShareEditPriceBinding? = null
+	private val viewModel 	: StockShareEditPositionViewModel 		by viewModel()
+	private val navigator   : StockShareNavigator 					by inject()
+	private var binding   	: FragmentStockShareEditPriceBinding? 	= null
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 		setHasOptionsMenu(true)
@@ -55,7 +58,7 @@ class StockShareEditPositionFragment : Fragment() {
 		when(state){
 			is ComponentState.Initializing -> {
 				viewModel.interact(StockShareEditPositionInteraction.OpenStockShareDetails(
-					StockShareEditPositionFragmentArgs.fromBundle(requireArguments()).stockShare
+					stockShareFromBundle(requireArguments())
 				))
 			}
 			is ComponentState.Success -> {
@@ -68,7 +71,7 @@ class StockShareEditPositionFragment : Fragment() {
 	private fun handleCommands(command: ViewCommand) {
 		when(command){
 			is StockShareEditPositionCommand.NavigateBack -> {
-				findNavController().popBackStack()
+				navigator.navigateBack()
 			}
 		}
 	}

@@ -10,9 +10,10 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation_main"
         app:layout_constraintTop_toTopOf="parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/stock_trade_navigation_graph"
         tools:layout="@layout/fragment_stock_share_list" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
