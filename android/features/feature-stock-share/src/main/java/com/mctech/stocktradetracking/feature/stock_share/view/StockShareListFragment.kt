@@ -91,6 +91,8 @@ class StockShareListFragment : Fragment() {
 	}
 
 	private fun handleShareListState(state: ComponentState<List<StockShare>>) {
+		binding?.swipeRefreshLayout?.isRefreshing = state is ComponentState.Loading.FromData
+
 		when(state){
 			is ComponentState.Success -> {
 				renderStockList(state.result)
@@ -127,6 +129,10 @@ class StockShareListFragment : Fragment() {
 	private fun bindListeners() {
 		binding?.btBuy?.setOnClickListener {
 			navigateToBuyFlow()
+		}
+
+		binding?.swipeRefreshLayout?.setOnRefreshListener {
+			viewModel.interact(StockShareInteraction.SyncStockPrice)
 		}
 	}
 

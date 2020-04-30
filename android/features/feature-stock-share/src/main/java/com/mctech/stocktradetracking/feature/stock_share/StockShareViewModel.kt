@@ -27,7 +27,8 @@ class StockShareViewModel constructor(
 	private val saveStockShareCase		: SaveStockShareCase,
 	private val sellStockShareCase		: SellStockShareCase,
 	private val editStockShareValueCase	: EditStockShareValueCase,
-	private val deleteStockShareCase	: DeleteStockShareCase
+	private val deleteStockShareCase	: DeleteStockShareCase,
+	private val syncStockSharePriceCase	: SyncStockSharePriceCase
 ) : BaseViewModel() {
 
 	private val originalStockList 	= mutableListOf<StockShare>()
@@ -69,6 +70,7 @@ class StockShareViewModel constructor(
 				interaction.currentPrice
 			)
 			is StockShareInteraction.DeleteStockShare				-> deleteCurrentStockShareInteraction()
+			is StockShareInteraction.SyncStockPrice					-> syncStockPriceInteraction()
 		}
 	}
 
@@ -118,6 +120,11 @@ class StockShareViewModel constructor(
 
 		// Send command to get back
 		sendCommand(StockShareCommand.Back.FromEdit)
+	}
+
+	private suspend fun syncStockPriceInteraction() {
+		syncStockSharePriceCase.execute()
+		loadStockShareListInteraction()
 	}
 
 	private suspend fun updateStockPriceInteraction(

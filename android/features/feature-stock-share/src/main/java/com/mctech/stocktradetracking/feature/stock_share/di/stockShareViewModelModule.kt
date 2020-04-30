@@ -16,7 +16,8 @@ val stockShareViewModelModule = module {
             saveStockShareCase          = get(),
             sellStockShareCase          = get(),
             editStockShareValueCase     = get(),
-            deleteStockShareCase        = get()
+            deleteStockShareCase        = get(),
+            syncStockSharePriceCase     = get()
         )
     }
 }

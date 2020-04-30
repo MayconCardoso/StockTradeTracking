@@ -1,21 +1,31 @@
 package com.mctech.stocktradetracking.data.stock_share.di
 
 import com.mctech.stocktradetracking.data.stock_share.datasource.LocalStockShareDataSource
-import com.mctech.stocktradetracking.data.stock_share.datasource.StockShareDataSource
+import com.mctech.stocktradetracking.data.stock_share.datasource.LocalStockShareDataSourceImpl
+import com.mctech.stocktradetracking.data.stock_share.datasource.RemoteStockShareDataSource
+import com.mctech.stocktradetracking.data.stock_share.datasource.RemoteStockShareDataSourceImpl
 import com.mctech.stocktradetracking.data.stock_share.repository.StockShareRepository
 import com.mctech.stocktradetracking.domain.stock_share.service.StockShareService
 import org.koin.dsl.module
 
 val stockShareDataModule = module {
     single {
-        LocalStockShareDataSource(
+        LocalStockShareDataSourceImpl(
             stockShareDao = get()
-        ) as StockShareDataSource
+        ) as LocalStockShareDataSource
+    }
+
+    single {
+        RemoteStockShareDataSourceImpl(
+            api = get()
+        ) as RemoteStockShareDataSource
     }
 
     single {
         StockShareRepository(
-            localDataSource = get()
+            logger = get(),
+            localDataSource = get(),
+            remoteDataSource = get()
         ) as StockShareService
     }
 }

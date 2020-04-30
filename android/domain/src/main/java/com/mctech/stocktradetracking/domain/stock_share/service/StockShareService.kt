@@ -7,4 +7,5 @@ interface StockShareService{
 	suspend fun sellStockShare(share: StockShare)
 	suspend fun deleteStockShare(share: StockShare)
 	suspend fun editStockShareValue(shareCode: String, value: Double)
+	suspend fun syncStockSharePrice()
 }
