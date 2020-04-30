@@ -9,6 +9,10 @@ interface TimelineBalanceDao {
     suspend fun loadCurrentPeriod(): List<TimelineBalanceDatabaseEntity>
 
     @Transaction
+    @Query("SELECT * FROM timeline_balance ORDER BY startDate DESC LIMIT 1")
+    suspend fun loadLastPeriod(): TimelineBalanceDatabaseEntity?
+
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun save(period: TimelineBalanceDatabaseEntity)
 

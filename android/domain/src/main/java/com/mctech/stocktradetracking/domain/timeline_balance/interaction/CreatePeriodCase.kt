@@ -8,8 +8,10 @@ class CreatePeriodCase(
 	private val service : TimelineBalanceService,
 	private val logger 	: Logger
 ){
-	suspend fun execute(period: TimelineBalance, parent: TimelineBalance?) {
+	suspend fun execute(period: TimelineBalance) {
 		try{
+			val parent = service.getLastPeriod()
+
 			period.parentPeriodId = parent?.id
 			service.createPeriod(period)
 		}

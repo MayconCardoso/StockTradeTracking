@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/timelineBalanceFragment"
-        android:name="com.mctech.stocktradetracking.feature.timeline_balance.view.TimelineBalanceFragment"
+        android:name="com.mctech.stocktradetracking.feature.timeline_balance.list_period.TimelineBalanceListFragment"
         android:label="@string/title_timeline_balance"
         tools:layout="@layout/fragment_timeline_balance">
         <action
@@ -28,13 +28,17 @@
     </fragment>
     <fragment
         android:id="@+id/timelineBalanceAddPeriodFragment"
-        android:name="com.mctech.stocktradetracking.feature.timeline_balance.view.TimelineBalanceAddPeriodFragment"
+        android:name="com.mctech.stocktradetracking.feature.timeline_balance.add_period.TimelineBalanceAddPeriodFragment"
         android:label="@string/add_timeline"
         tools:layout="@layout/fragment_timeline_add_period" />
 
     <fragment
         android:id="@+id/timelineBalanceEditPeriodFragment"
-        android:name="com.mctech.stocktradetracking.feature.timeline_balance.view.TimelineBalanceEditPeriodFragment"
+        android:name="com.mctech.stocktradetracking.feature.timeline_balance.edit_period.TimelineBalanceEditPeriodFragment"
         android:label="@string/edit_period"
-        tools:layout="@layout/fragment_timeline_edit_period" />
+        tools:layout="@layout/fragment_timeline_edit_period" >
+        <argument
+            android:name="currentPeriod"
+            app:argType="com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBalance" />
+    </fragment>
 </navigation>

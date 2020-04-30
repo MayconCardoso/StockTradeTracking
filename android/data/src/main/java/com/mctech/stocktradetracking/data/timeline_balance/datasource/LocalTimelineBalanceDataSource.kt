@@ -8,13 +8,8 @@ import com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBala
 class LocalTimelineBalanceDataSource(
 	private val dao : TimelineBalanceDao
 ): TimelineBalanceDataSource{
-
-	override suspend fun createPeriod(period: TimelineBalance){
-		dao.save(period.toDatabaseEntity())
-	}
-
-	override suspend fun editPeriod(period: TimelineBalance){
-		dao.save(period.toDatabaseEntity())
+	override suspend fun getLastPeriod(): TimelineBalance? {
+		return dao.loadLastPeriod()?.toBusinessEntity()
 	}
 
 	override suspend fun getListOfPeriodsBalance(): List<TimelineBalance> {
@@ -23,6 +18,14 @@ class LocalTimelineBalanceDataSource(
 
 	override suspend fun getPeriodTransactions(period: TimelineBalance): List<TimelineBalance>{
 		TODO()
+	}
+
+	override suspend fun createPeriod(period: TimelineBalance){
+		dao.save(period.toDatabaseEntity())
+	}
+
+	override suspend fun editPeriod(period: TimelineBalance){
+		dao.save(period.toDatabaseEntity())
 	}
 
 	override suspend fun depositMoney(amount: Double){

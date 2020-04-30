@@ -3,6 +3,7 @@ package com.mctech.stocktradetracking.domain.timeline_balance.entity
 import com.mctech.stocktradetracking.domain.extentions.formatBrazilianCurrency
 import com.mctech.stocktradetracking.domain.extentions.round
 import com.mctech.stocktradetracking.domain.extentions.toPercent
+import java.io.Serializable
 import java.util.*
 
 data class TimelineBalance(
@@ -13,7 +14,7 @@ data class TimelineBalance(
     var periodInvestment: Double = 0.0,
     var periodProfit: Double = 0.0,
     var parent: TimelineBalance? = null
-){
+) : Serializable {
     fun getFinalInvestmentBalance() : Double{
         return periodInvestment + (parent?.getFinalInvestmentBalance() ?: 0.0)
     }

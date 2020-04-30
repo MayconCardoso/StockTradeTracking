@@ -10,7 +10,7 @@ import com.mctech.stocktradetracking.di.loggingModule
 import com.mctech.stocktradetracking.di.navigatorModule
 import com.mctech.stocktradetracking.di.useCasesModule
 import com.mctech.stocktradetracking.feature.stock_share.stockShareViewModelModule
-import com.mctech.stocktradetracking.feature.timeline_balance.di.timelineBalanceViewModel
+import com.mctech.stocktradetracking.feature.timeline_balance.timelineBalanceViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

@@ -18,7 +18,7 @@ class StockShareEditPositionViewModel constructor(
 ) : BaseViewModel() {
 	private var currentStock 		: StockShare? = null
 
-	private val _currentStockShare : MutableLiveData<ComponentState<StockShare>> = MutableLiveData(ComponentState.Initializing)
+	private val _currentStockShare 	: MutableLiveData<ComponentState<StockShare>> = MutableLiveData(ComponentState.Initializing)
 	val currentStockShare : LiveData<ComponentState<StockShare>> = _currentStockShare
 
 	override suspend fun handleUserInteraction(interaction: UserInteraction) {

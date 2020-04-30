@@ -1,4 +1,4 @@
-package com.mctech.stocktradetracking.feature.timeline_balance.view
+package com.mctech.stocktradetracking.feature.timeline_balance.add_period
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,15 +11,12 @@ import com.mctech.architecture.mvvm.x.core.ViewCommand
 import com.mctech.architecture.mvvm.x.core.ktx.bindCommand
 import com.mctech.library.keyboard.visibilitymonitor.extentions.closeKeyboard
 import com.mctech.library.view.ktx.getValue
-import com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceCommand
-import com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceInteraction
-import com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceViewModel
 import com.mctech.stocktradetracking.feature.timeline_balance.databinding.FragmentTimelineAddPeriodBinding
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TimelineBalanceAddPeriodFragment : Fragment() {
 
-	private val viewModel 	: TimelineBalanceViewModel by sharedViewModel()
+	private val viewModel 	: TimelineBalanceAddViewModel by viewModel()
 	private var binding   	: FragmentTimelineAddPeriodBinding? = null
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -37,7 +34,7 @@ class TimelineBalanceAddPeriodFragment : Fragment() {
 
 	private fun handleCommands(command: ViewCommand) {
 		when(command){
-			is TimelineBalanceCommand.Back.FromCreatePosition -> {
+			is TimelineBalanceAddCommand.NavigationBack -> {
 				findNavController().popBackStack()
 			}
 		}
@@ -47,7 +44,7 @@ class TimelineBalanceAddPeriodFragment : Fragment() {
 		binding?.let { binding ->
 			binding.btAddPeriod.setOnClickListener {
 				viewModel.interact(
-					TimelineBalanceInteraction.CreatePeriod(
+					TimelineBalanceAddInteraction.CreatePeriod(
 						binding.etPeriodTag.getValue(),
 						binding.etInvestment.getValue().toDouble(),
 						binding.etProfit.getValue().toDouble()

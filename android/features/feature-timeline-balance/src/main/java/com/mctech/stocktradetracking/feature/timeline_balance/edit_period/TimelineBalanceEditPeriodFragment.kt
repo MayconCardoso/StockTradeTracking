@@ -1,4 +1,4 @@
-package com.mctech.stocktradetracking.feature.timeline_balance.view
+package com.mctech.stocktradetracking.feature.timeline_balance.edit_period
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,20 +7,19 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.mctech.architecture.mvvm.x.core.ComponentState
 import com.mctech.architecture.mvvm.x.core.ViewCommand
 import com.mctech.architecture.mvvm.x.core.ktx.bindCommand
-import com.mctech.architecture.mvvm.x.core.ktx.bindData
+import com.mctech.architecture.mvvm.x.core.ktx.bindState
 import com.mctech.library.keyboard.visibilitymonitor.extentions.closeKeyboard
 import com.mctech.library.view.ktx.getValue
-import com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceCommand
-import com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceInteraction
-import com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceViewModel
+import com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBalance
 import com.mctech.stocktradetracking.feature.timeline_balance.databinding.FragmentTimelineEditPeriodBinding
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TimelineBalanceEditPeriodFragment : Fragment() {
 
-	private val viewModel 	: TimelineBalanceViewModel by sharedViewModel()
+	private val viewModel 	: TimelineBalanceEditViewModel by viewModel()
 	private var binding   	: FragmentTimelineEditPeriodBinding? = null
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -33,16 +32,27 @@ class TimelineBalanceEditPeriodFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		bindCommand(viewModel){ handleCommands(it) }
-		bindData(viewModel.currentPeriodState){
-			binding?.period = it
-			binding?.executePendingBindings()
-		}
+		bindState(viewModel.currentPeriodState){ handleCurrentPeriodState(it) }
 		bindListeners()
+	}
+
+	private fun handleCurrentPeriodState(state: ComponentState<TimelineBalance>) {
+		when(state){
+			is ComponentState.Initializing -> {
+				viewModel.interact(TimelineBalanceEditInteraction.OpenPeriodDetails(
+					TimelineBalanceEditPeriodFragmentArgs.fromBundle(requireArguments()).currentPeriod
+				))
+			}
+			is ComponentState.Success -> {
+				binding?.period = state.result
+				binding?.executePendingBindings()
+			}
+		}
 	}
 
 	private fun handleCommands(command: ViewCommand) {
 		when(command){
-			is TimelineBalanceCommand.Back.FromEditPosition -> {
+			is TimelineBalanceEditCommand.NavigationBack -> {
 				findNavController().popBackStack()
 			}
 		}
@@ -52,7 +62,7 @@ class TimelineBalanceEditPeriodFragment : Fragment() {
 		binding?.let { binding ->
 			binding.btSave.setOnClickListener {
 				viewModel.interact(
-					TimelineBalanceInteraction.EditPeriod(
+					TimelineBalanceEditInteraction.EditPeriod(
 						binding.etPeriodTag.getValue(),
 						binding.etInvestment.getValue().toDouble(),
 						binding.etProfit.getValue().toDouble(),

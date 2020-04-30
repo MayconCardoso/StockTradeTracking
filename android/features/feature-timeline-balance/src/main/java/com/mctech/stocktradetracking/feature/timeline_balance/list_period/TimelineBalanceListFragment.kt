@@ -1,4 +1,4 @@
-package com.mctech.stocktradetracking.feature.timeline_balance.view
+package com.mctech.stocktradetracking.feature.timeline_balance.list_period
 
 import android.os.Bundle
 import android.view.*
@@ -10,14 +10,12 @@ import com.mctech.architecture.mvvm.x.core.ktx.bindState
 import com.mctech.library.view.ktx.attachSimpleData
 import com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBalance
 import com.mctech.stocktradetracking.feature.timeline_balance.R
-import com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceInteraction
-import com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceViewModel
 import com.mctech.stocktradetracking.feature.timeline_balance.databinding.FragmentTimelineBalanceBinding
 import com.mctech.stocktradetracking.feature.timeline_balance.databinding.ItemTimelinePeriodListBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class TimelineBalanceFragment : Fragment() {
-	private val viewModel : TimelineBalanceViewModel by sharedViewModel()
+class TimelineBalanceListFragment : Fragment() {
+	private val viewModel : TimelineBalanceListViewModel by sharedViewModel()
 	private var binding   : FragmentTimelineBalanceBinding? = null
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -50,6 +48,11 @@ class TimelineBalanceFragment : Fragment() {
 		bindListeners()
 	}
 
+	override fun onStart() {
+		super.onStart()
+		viewModel.interact(TimelineBalanceListInteraction.LoadTimelineComponent)
+	}
+
 	private fun handleFinalBalanceState(finalBalanceState: ComponentState<TimelineBalance?>) {
 		when(finalBalanceState){
 			is ComponentState.Success -> {
@@ -61,9 +64,6 @@ class TimelineBalanceFragment : Fragment() {
 
 	private fun handlePeriodListState(state: ComponentState<List<TimelineBalance>>) {
 		when(state){
-			is ComponentState.Initializing -> {
-				viewModel.interact(TimelineBalanceInteraction.LoadTimelineComponent)
-			}
 			is ComponentState.Success -> {
 				renderStockList(state.result)
 			}
@@ -79,8 +79,7 @@ class TimelineBalanceFragment : Fragment() {
 			prepareHolder = { item, viewBinding, _ ->
 				viewBinding.item = item
 				viewBinding.cardItem.setOnClickListener {
-					viewModel.interact(TimelineBalanceInteraction.OpenPeriodDetails(item))
-					findNavController().navigate(R.id.action_timelineBalanceFragment_to_timelineBalanceEditPeriodFragment)
+					navigateToEditPosition(item)
 				}
 			},
 			updateCallback = object : DiffUtil.ItemCallback<TimelineBalance>() {
@@ -103,8 +102,14 @@ class TimelineBalanceFragment : Fragment() {
 	}
 
 	private fun navigateToAddPositionFlow() {
-		findNavController().navigate(
-			R.id.action_timelineBalanceFragment_to_timelineBalanceAddPeriodFragment
+		val destination = TimelineBalanceListFragmentDirections.actionTimelineBalanceFragmentToTimelineBalanceAddPeriodFragment()
+		findNavController().navigate(destination)
+	}
+
+	private fun navigateToEditPosition(item: TimelineBalance) {
+		val destination = TimelineBalanceListFragmentDirections.actionTimelineBalanceFragmentToTimelineBalanceEditPeriodFragment(
+			item
 		)
+		findNavController().navigate(destination)
 	}
 }
