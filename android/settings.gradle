@@ -12,5 +12,4 @@ include ':libraries:library-logger-android'
 include ':libraries:library-design-system'
 
 include ':features:feature-stock-share'
-include ':features:feature-stock-daily-variation'
 include ':features:feature-timeline-balance'

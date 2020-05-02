@@ -4,8 +4,8 @@ import android.os.Bundle
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 
 interface StockShareNavigator {
-    fun fromStockShareToBuyPosition()
-    fun fromStockShareToEditPosition(stockShare: StockShare)
+    fun fromStockListToBuyPosition()
+    fun fromStockListToEditPosition(stockShare: StockShare)
     fun navigateBack()
 }
 

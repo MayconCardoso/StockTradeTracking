@@ -9,7 +9,12 @@ interface LocalStockShareDataSource {
     suspend fun saveStockShare(share: StockShare)
     suspend fun sellStockShare(share: StockShare)
     suspend fun deleteStockShare(share: StockShare)
-    suspend fun editStockShareValue(shareCode: String, value: Double)
+    suspend fun editStockShareValue(
+        shareCode: String,
+        currentPrice: Double,
+        marketChange: Double? = null,
+        previousClose : Double? = null
+    )
 
     suspend fun getDistinctStockCode(): List<String>
 }

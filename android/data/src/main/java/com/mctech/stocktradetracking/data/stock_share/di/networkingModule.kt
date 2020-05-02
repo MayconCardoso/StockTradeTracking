@@ -25,7 +25,7 @@ val stockShareNetworkingModule = module {
 
     single {
         RetrofitBuilder(
-            apiURL = "http://192.168.0.14:3000/api/",
+            apiURL = "http://192.168.0.10:3000/api/",
             httpClient = get()
         ) as Retrofit
     }

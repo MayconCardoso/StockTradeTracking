@@ -18,7 +18,9 @@ class StockShareMapperKtTest {
             salePrice = 50.91,
             purchaseDate = Calendar.getInstance().time,
             saleDate = Calendar.getInstance().time,
-            isPositionOpened = false
+            isPositionOpened = false,
+            marketChange = 1.3,
+            previousClose = 10.1
         )
 
         val target = share.toDatabaseEntity()
@@ -31,6 +33,8 @@ class StockShareMapperKtTest {
         Assertions.assertThat(share.salePrice).isEqualTo(target.salePrice)
         Assertions.assertThat(share.saleDate).isEqualTo(target.saleDate)
         Assertions.assertThat(share.isPositionOpened).isEqualTo(target.isPositionOpened)
+        Assertions.assertThat(share.marketChange).isEqualTo(target.marketChange)
+        Assertions.assertThat(share.previousClose).isEqualTo(target.previousClose)
     }
 
     @Test
@@ -43,7 +47,9 @@ class StockShareMapperKtTest {
             salePrice = 50.91,
             purchaseDate = Calendar.getInstance().time,
             saleDate = Calendar.getInstance().time,
-            isPositionOpened = false
+            isPositionOpened = false,
+            marketChange = 1.3,
+            previousClose = 10.1
         )
 
         val target = share.toBusinessEntity()
@@ -56,5 +62,7 @@ class StockShareMapperKtTest {
         Assertions.assertThat(share.salePrice).isEqualTo(target.salePrice)
         Assertions.assertThat(share.saleDate).isEqualTo(target.saleDate)
         Assertions.assertThat(share.isPositionOpened).isEqualTo(target.isPositionOpened)
+        Assertions.assertThat(share.marketChange).isEqualTo(target.marketChange)
+        Assertions.assertThat(share.previousClose).isEqualTo(target.previousClose)
     }
 }

@@ -8,13 +8,13 @@ import com.mctech.architecture.mvvm.x.core.UserInteraction
 import com.mctech.architecture.mvvm.x.core.ktx.changeToSuccessState
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.interaction.DeleteStockShareCase
-import com.mctech.stocktradetracking.domain.stock_share.interaction.EditStockShareValueCase
+import com.mctech.stocktradetracking.domain.stock_share.interaction.EditStockSharePriceCase
 import com.mctech.stocktradetracking.domain.stock_share.interaction.SaveStockShareCase
 
 class StockShareEditPositionViewModel constructor(
-	private val saveStockShareCase		: SaveStockShareCase,
-	private val editStockShareValueCase	: EditStockShareValueCase,
-	private val deleteStockShareCase	: DeleteStockShareCase
+    private val saveStockShareCase		: SaveStockShareCase,
+    private val editStockSharePriceCase	: EditStockSharePriceCase,
+    private val deleteStockShareCase	: DeleteStockShareCase
 ) : BaseViewModel() {
 	private var currentStock 		: StockShare? = null
 
@@ -67,7 +67,7 @@ class StockShareEditPositionViewModel constructor(
 		}
 
 		// Update stock price
-		editStockShareValueCase.execute(
+		editStockSharePriceCase.execute(
 			shareCode = code,
 			value = currentPrice
 		)

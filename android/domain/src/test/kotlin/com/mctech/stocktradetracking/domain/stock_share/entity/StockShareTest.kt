@@ -14,7 +14,9 @@ class StockShareTest{
         salePrice = 50.65,
         purchaseDate = expectedDate,
         saleDate = expectedDate,
-        isPositionOpened = true
+        isPositionOpened = true,
+        previousClose = 48.10,
+        marketChange = 2.0
     )
 
     private val expectedNegativeValue = StockShare(
@@ -25,7 +27,9 @@ class StockShareTest{
         salePrice = 40.47,
         purchaseDate = expectedDate,
         saleDate = expectedDate,
-        isPositionOpened = true
+        isPositionOpened = true,
+        previousClose = 44.10,
+        marketChange = 2.0
     )
 
     private val expectedDefaultValue = StockShare(
@@ -33,7 +37,8 @@ class StockShareTest{
         code = "MGLU3",
         shareAmount = 200,
         purchasePrice = 27.92 ,
-        purchaseDate = expectedDate
+        purchaseDate = expectedDate,
+        previousClose = 0.0
     )
 
     private val expectedEmpty = StockShare(
@@ -54,6 +59,8 @@ class StockShareTest{
         assertThat(expectedValue.purchaseDate).isEqualTo(expectedDate)
         assertThat(expectedValue.saleDate).isEqualTo(expectedDate)
         assertThat(expectedValue.isPositionOpened).isEqualTo(true)
+        assertThat(expectedValue.previousClose).isEqualTo(48.1)
+        assertThat(expectedValue.marketChange).isEqualTo(2.0)
     }
 
     @Test
@@ -66,6 +73,8 @@ class StockShareTest{
         assertThat(expectedDefaultValue.purchaseDate).isEqualTo(expectedDate)
         assertThat(expectedDefaultValue.saleDate).isNull()
         assertThat(expectedDefaultValue.isPositionOpened).isEqualTo(true)
+        assertThat(expectedDefaultValue.previousClose).isEqualTo(0.0)
+        assertThat(expectedDefaultValue.marketChange).isNull()
     }
 
     @Test
@@ -147,4 +156,45 @@ class StockShareTest{
         assertThat(expectedNegativeValue.getBalanceDescription()).isEqualTo("-R$912,00")
         assertThat(expectedEmpty.getBalanceDescription()).isEqualTo("R$0,00")
     }
+
+    @Test
+    fun `should format previous close description`(){
+        assertThat(expectedValue.getPreviousCloseDescription()).isEqualTo("Previous Close R$48,10")
+        assertThat(expectedDefaultValue.getPreviousCloseDescription()).isEqualTo("Previous Close R$0,00")
+        assertThat(expectedNegativeValue.getPreviousCloseDescription()).isEqualTo("Previous Close R$44,10")
+        assertThat(expectedEmpty.getPreviousCloseDescription()).isEqualTo("Previous Close R$0,00")
+    }
+
+    @Test
+    fun `compute daily variation`(){
+        assertThat(expectedValue.getDailyVariation()).isEqualTo(5.3)
+        assertThat(expectedDefaultValue.getDailyVariation()).isEqualTo(0.0)
+        assertThat(expectedNegativeValue.getDailyVariation()).isEqualTo(-8.23)
+        assertThat(expectedEmpty.getDailyVariation()).isEqualTo(0.0)
+    }
+
+    @Test
+    fun `format daily variation description`(){
+        assertThat(expectedValue.getDailyVariationDescription()).isEqualTo("5.3%")
+        assertThat(expectedDefaultValue.getDailyVariationDescription()).isEqualTo("0.0%")
+        assertThat(expectedNegativeValue.getDailyVariationDescription()).isEqualTo("-8.23%")
+        assertThat(expectedEmpty.getDailyVariationDescription()).isEqualTo("0.0%")
+    }
+
+    @Test
+    fun `compute daily variation balance`(){
+        assertThat(expectedValue.getDailyVariationBalance()).isEqualTo(510.0)
+        assertThat(expectedDefaultValue.getDailyVariationBalance()).isEqualTo(0.0)
+        assertThat(expectedNegativeValue.getDailyVariationBalance()).isEqualTo(-726.0)
+        assertThat(expectedEmpty.getDailyVariationBalance()).isEqualTo(0.0)
+    }
+
+    @Test
+    fun `format daily variation balance description`(){
+        assertThat(expectedValue.getDailyVariationBalanceDescription()).isEqualTo("R$510,00")
+        assertThat(expectedDefaultValue.getDailyVariationBalanceDescription()).isEqualTo("R$0,00")
+        assertThat(expectedNegativeValue.getDailyVariationBalanceDescription()).isEqualTo("-R$726,00")
+        assertThat(expectedEmpty.getDailyVariationBalanceDescription()).isEqualTo("R$0,00")
+    }
+
 }

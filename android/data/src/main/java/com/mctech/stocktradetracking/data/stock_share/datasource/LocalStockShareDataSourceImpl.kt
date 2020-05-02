@@ -27,6 +27,8 @@ class LocalStockShareDataSourceImpl(
 		// Try to load the same position to update the right price.s
 		stockShareDao.loadStockSharePosition(share.code)?.let {
 			databaseEntity.salePrice = it.salePrice
+			databaseEntity.marketChange = it.marketChange
+			databaseEntity.previousClose = it.previousClose
 		}
 
 		stockShareDao.save(databaseEntity)
@@ -40,7 +42,17 @@ class LocalStockShareDataSourceImpl(
 		stockShareDao.delete(share.toDatabaseEntity())
 	}
 
-	override suspend fun editStockShareValue(shareCode: String, value: Double) {
-		stockShareDao.editStockSharePrice(shareCode, value)
+	override suspend fun editStockShareValue(
+		shareCode: String,
+		currentPrice: Double,
+		marketChange: Double?,
+		previousClose : Double?
+	) {
+		if(previousClose != null && marketChange != null){
+			stockShareDao.editStockSharePriceAutomatically(shareCode, currentPrice, marketChange, previousClose)
+		}
+		else{
+			stockShareDao.editStockSharePriceManually(shareCode, currentPrice)
+		}
 	}
 }

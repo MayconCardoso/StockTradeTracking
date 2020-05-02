@@ -6,23 +6,27 @@ import org.junit.Test
 class StockShareFinalBalanceTest{
     private val expectedValue = StockShareFinalBalance(
         balance = 4215.97,
-        investment = 16140.20
+        investment = 16140.20,
+        variation = 26.12
     )
 
     private val expectedNegativeValue = StockShareFinalBalance(
         balance = -3310.97,
-        investment = 10000.0
+        investment = 10000.0,
+        variation = -33.11
     )
 
     private val expectedEmpty = StockShareFinalBalance(
         balance = 0.0,
-        investment = 0.0
+        investment = 0.0,
+        variation = 0.0
     )
 
     @Test
     fun `should assert entity`(){
         Assertions.assertThat(expectedValue.balance).isEqualTo(4215.97)
         Assertions.assertThat(expectedValue.investment).isEqualTo(16140.20)
+        Assertions.assertThat(expectedValue.variation).isEqualTo(26.12)
     }
 
     @Test
@@ -51,12 +55,5 @@ class StockShareFinalBalanceTest{
         Assertions.assertThat(expectedValue.getFinalValueDescription()).isEqualTo("R$20.356,17")
         Assertions.assertThat(expectedNegativeValue.getFinalValueDescription()).isEqualTo("R$6.689,03")
         Assertions.assertThat(expectedEmpty.getFinalValueDescription()).isEqualTo("R$0,00")
-    }
-
-    @Test
-    fun `should compute variation`(){
-        Assertions.assertThat(expectedValue.getVariant()).isEqualTo(26.12)
-        Assertions.assertThat(expectedNegativeValue.getVariant()).isEqualTo(-33.11)
-        Assertions.assertThat(expectedEmpty.getVariant()).isEqualTo(0.0)
     }
 }

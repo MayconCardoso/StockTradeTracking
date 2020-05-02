@@ -2,14 +2,12 @@ package com.mctech.stocktradetracking.domain.stock_share.interaction
 
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 
-class GetBestStockShareCase(
+class SelectBestStockShareCase(
     private val groupStockShareListCase: GroupStockShareListCase
 ) {
-    fun execute(stockShareList: List<StockShare>): StockShare {
+    fun <R : Comparable<R>> execute(stockShareList: List<StockShare>, selector: (StockShare) -> R): StockShare? {
         return groupStockShareListCase.execute(stockShareList).maxBy {
-            it.getBalance()
-        }!!.apply {
-            System.out.println(this)
+            selector.invoke(it)
         }
     }
 }

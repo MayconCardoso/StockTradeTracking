@@ -3,31 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/stock_trade_navigation_graph"
-    app:startDestination="@id/stockShareListFragment"
+    app:startDestination="@id/stockDailyVariationListFragment"
     tools:ignore="UnusedNavigation">
 
     <fragment
         android:id="@+id/stockShareListFragment"
         android:name="com.mctech.stocktradetracking.feature.stock_share.list_position.StockShareListFragment"
         android:label="Stock Share Tracking"
-        tools:layout="@layout/fragment_stock_share_list">
-
-        <action
-            android:id="@+id/action_stockShareListFragment_to_stockShareBuyFragment"
-            app:destination="@id/stockShareBuyFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-
-        <action
-            android:id="@+id/action_stockShareListFragment_to_stockShareEditPriceFragment"
-            app:destination="@id/stockShareEditPriceFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-    </fragment>
+        tools:layout="@layout/fragment_stock_share_list"/>
 
     <fragment
         android:id="@+id/stockShareBuyFragment"
@@ -84,4 +67,26 @@
             android:name="currentPeriod"
             app:argType="com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBalance" />
     </fragment>
+
+    <fragment
+        android:id="@+id/stockDailyVariationListFragment"
+        android:name="com.mctech.stocktradetracking.feature.stock_share.daily_variation.StockDailyVariationListFragment"
+        tools:layout="@layout/fragment_stock_daily_variation_list"
+        android:label="Daily Variation" />
+
+    <action
+        android:id="@+id/action_global_stockShareBuyFragment"
+        app:destination="@id/stockShareBuyFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <action
+        android:id="@+id/action_global_stockShareEditPriceFragment"
+        app:destination="@id/stockShareEditPriceFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 </navigation>

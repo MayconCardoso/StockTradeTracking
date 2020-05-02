@@ -38,5 +38,13 @@ interface StockShareDao {
     suspend fun delete(stockShare: StockShareDatabaseEntity)
 
     @Query("UPDATE stock_share SET salePrice = :currentPrice WHERE code = :code")
-    suspend fun editStockSharePrice(code: String, currentPrice: Double)
+    suspend fun editStockSharePriceManually(code: String, currentPrice: Double)
+
+    @Query("UPDATE stock_share SET salePrice = :currentPrice, previousClose = :previousClose, marketChange = :marketChange WHERE code = :code")
+    suspend fun editStockSharePriceAutomatically(
+        code: String,
+        currentPrice: Double,
+        marketChange: Double,
+        previousClose: Double
+    )
 }

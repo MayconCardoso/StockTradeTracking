@@ -9,11 +9,11 @@ import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class GetBestStockShareCaseTest{
-    private lateinit var useCase: GetBestStockShareCase
+    private lateinit var useCase: SelectBestStockShareCase
 
     @Before
     fun `before each test`() {
-        useCase = GetBestStockShareCase(
+        useCase = SelectBestStockShareCase(
             groupStockShareListCase = GroupStockShareListCase()
         )
     }
@@ -21,13 +21,16 @@ class GetBestStockShareCaseTest{
     @Test
     fun `should group list by code`() = testScenario(
         action = {
-            useCase.execute(StockShareDataFactory.ungroupedList())
+            useCase.execute(StockShareDataFactory.ungroupedList()){
+                it.getBalance()
+            }
         },
         assertions = { mglu ->
-            assertThat(mglu.getInvestmentValue()).isEqualTo(5200.0)
-            assertThat(mglu.shareAmount).isEqualTo(700)
-            assertThat(mglu.purchasePrice).isEqualTo(7.428571428571429)
-            assertThat(mglu.salePrice).isEqualTo(10.0)
+           assertThat(mglu).isNotNull
+            assertThat(mglu?.getInvestmentValue()).isEqualTo(5200.0)
+            assertThat(mglu?.shareAmount).isEqualTo(700)
+            assertThat(mglu?.purchasePrice).isEqualTo(7.428571428571429)
+            assertThat(mglu?.salePrice).isEqualTo(10.0)
         }
     )
 }

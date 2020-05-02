@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.mctech.stocktradetracking.feature.stock_share.list_position.StockShareListViewModel" />
+            type="com.mctech.stocktradetracking.feature.stock_share.daily_variation.StockDailyVariationListViewModel" />
 
         <variable
             name="finalBalance"
@@ -162,13 +162,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    android:text="@{bestStock.balanceDescription}"
+                    android:text="@{bestStock.dailyVariationBalanceDescription}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvBestPosition"
                     app:layout_constraintTop_toBottomOf="@id/tvBestPositionCode"
-                    app:priceTextColor="@{bestStock.variation}"
+                    app:priceTextColor="@{bestStock.dailyVariationBalance}"
                     tools:text="R$23.490,00"
                     tools:textColor="#007E33" />
 
@@ -177,13 +177,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
-                    android:text="@{bestStock.variationDescription}"
+                    android:text="@{bestStock.dailyVariationDescription}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/bestStockFinalPrice"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/bestStockFinalPrice"
-                    app:priceTextColor="@{bestStock.variation}"
+                    app:priceTextColor="@{bestStock.dailyVariationBalance}"
                     tools:text="5.43%"
                     tools:textColor="#007E33" />
 
@@ -238,13 +238,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    android:text="@{worstStock.balanceDescription}"
+                    android:text="@{worstStock.dailyVariationBalanceDescription}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvWorstPosition"
                     app:layout_constraintTop_toBottomOf="@id/tvWorstPositionCode"
-                    app:priceTextColor="@{worstStock.variation}"
+                    app:priceTextColor="@{worstStock.dailyVariationBalance}"
                     tools:text="R$23.490,00"
                     tools:textColor="#007E33" />
 
@@ -254,13 +254,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
-                    android:text="@{worstStock.variationDescription}"
+                    android:text="@{worstStock.dailyVariationDescription}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/worstStockFinalPrice"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/worstStockFinalPrice"
-                    app:priceTextColor="@{worstStock.variation}"
+                    app:priceTextColor="@{worstStock.dailyVariationBalance}"
                     tools:text="5.43%"
                     tools:textColor="#007E33" />
 
@@ -268,8 +268,8 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshLayout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:visibility="gone"
@@ -280,17 +280,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bestPositionCard"
             app:showOnSuccessWithNotEmptyData="@{viewModel.shareList}"
-            tools:visibility="visible" >
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never"
-                tools:itemCount="20"
-                tools:listitem="@layout/item_stock_share_list"/>
-
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            tools:visibility="visible"
+            android:overScrollMode="never"
+            tools:itemCount="20"
+            tools:listitem="@layout/item_stock_share_list"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvNoItem"

@@ -3,7 +3,7 @@ package com.mctech.stocktradetracking.domain.stock_share.interaction
 import com.mctech.library.logger.Logger
 import com.mctech.stocktradetracking.domain.stock_share.service.StockShareService
 
-class EditStockShareValueCase(
+class EditStockSharePriceCase(
 	private val service : StockShareService,
 	private val logger : Logger
 ){

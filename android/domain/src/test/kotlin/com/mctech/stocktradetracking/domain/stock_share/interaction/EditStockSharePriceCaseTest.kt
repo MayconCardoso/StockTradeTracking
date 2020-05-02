@@ -9,7 +9,7 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class EditStockShareValueCaseTest{
+class EditStockSharePriceCaseTest{
     private val service         = mock<StockShareService>()
     private val logger          = mock<Logger>()
 
@@ -17,11 +17,11 @@ class EditStockShareValueCaseTest{
     private val requestPrice    = 10.0
     private val requestCode     = "MGLU3"
 
-    private lateinit var useCase: EditStockShareValueCase
+    private lateinit var useCase: EditStockSharePriceCase
 
     @Before
     fun `before each test`() {
-        useCase = EditStockShareValueCase(service, logger)
+        useCase = EditStockSharePriceCase(service, logger)
     }
 
     @Test

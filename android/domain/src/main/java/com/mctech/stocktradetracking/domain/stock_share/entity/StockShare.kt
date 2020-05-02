@@ -14,7 +14,11 @@ data class StockShare(
     var salePrice: Double = purchasePrice,
     val purchaseDate: Date = Calendar.getInstance().time,
     var saleDate: Date? = null,
-    var isPositionOpened: Boolean = true
+    var isPositionOpened: Boolean = true,
+
+    var marketChange : Double? = null,
+    var previousClose : Double? = null
+
 )  : Serializable {
     fun getBuyDescription(): String {
         return "BUY $shareAmount @ ${purchasePrice.formatBrazilianCurrency()}"
@@ -28,12 +32,12 @@ data class StockShare(
         return shareAmount * purchasePrice
     }
 
-    fun getFinalStockPrice(): Double {
-        return shareAmount * salePrice
-    }
-
     fun getInvestmentValueDescription(): String {
         return getInvestmentValue().formatBrazilianCurrency()
+    }
+
+    fun getFinalStockPrice(): Double {
+        return shareAmount * salePrice
     }
 
     fun getFinalStockPriceDescription(): String {
@@ -57,5 +61,33 @@ data class StockShare(
 
     fun getVariationDescription(): String {
         return getVariation().toPercent()
+    }
+
+    fun getPreviousCloseDescription() : String{
+        return "Previous Close " + (previousClose ?: 0.0).formatBrazilianCurrency()
+    }
+
+    fun getDailyVariation(): Double {
+        if(previousClose == 0.0){
+            return 0.0
+        }
+        return previousClose?.let {
+            return ((salePrice / it * 100) - 100).round(2)
+        } ?: 0.0
+    }
+
+    fun getDailyVariationDescription(): String {
+        return getDailyVariation().toPercent()
+    }
+
+    fun getDailyVariationBalance() : Double{
+        if(previousClose == 0.0){
+            return 0.0
+        }
+        return ((salePrice - (previousClose ?: 0.0)) * shareAmount).round(2)
+    }
+
+    fun getDailyVariationBalanceDescription() : String{
+        return getDailyVariationBalance().formatBrazilianCurrency()
     }
 }

@@ -13,18 +13,20 @@ import com.mctech.architecture.mvvm.x.core.ktx.changeToSuccessState
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShareFinalBalance
 import com.mctech.stocktradetracking.domain.stock_share.interaction.*
+import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.ComputeBalanceStrategy
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 
-class StockShareListViewModel constructor(
-	private val observeStockListCase	: ObserveStockShareListCase,
-	private val getFinalBalanceCase		: GetFinalBalanceCase,
-	private val getWorstStockShareCase	: GetWorstStockShareCase,
-	private val getBestStockShareCase	: GetBestStockShareCase,
-	private val groupStockShareListCase	: GroupStockShareListCase,
-	private val syncStockSharePriceCase	: SyncStockSharePriceCase
+open class StockShareListViewModel constructor(
+	private val observeStockListCase		: ObserveStockShareListCase,
+	private val selectWorstStockShareCase	: SelectWorstStockShareCase,
+	private val selectBestStockShareCase	: SelectBestStockShareCase,
+	private val syncStockSharePriceCase		: SyncStockSharePriceCase,
+
+	private val groupStockShareListCase		: GroupStockShareListCase,
+	private val getFinalBalanceCase			: ComputeBalanceStrategy
 ) : BaseViewModel() {
 
 	private val originalStockList 	= mutableListOf<StockShare>()
@@ -37,17 +39,17 @@ class StockShareListViewModel constructor(
 	private val _stockShareFinalBalance : MutableLiveData<ComponentState<StockShareFinalBalance>> = MutableLiveData(ComponentState.Initializing)
 	val stockShareFinalBalance : LiveData<ComponentState<StockShareFinalBalance>> = _stockShareFinalBalance
 
-	private val _bestStockShare : MutableLiveData<ComponentState<StockShare>> = MutableLiveData(ComponentState.Initializing)
-	val bestStockShare : LiveData<ComponentState<StockShare>> = _bestStockShare
+	private val _bestStockShare : MutableLiveData<ComponentState<StockShare?>> = MutableLiveData(ComponentState.Initializing)
+	val bestStockShare : LiveData<ComponentState<StockShare?>> = _bestStockShare
 
-	private val _worstStockShare : MutableLiveData<ComponentState<StockShare>> = MutableLiveData(ComponentState.Initializing)
-	val worstStockShare : LiveData<ComponentState<StockShare>> = _worstStockShare
+	private val _worstStockShare : MutableLiveData<ComponentState<StockShare?>> = MutableLiveData(ComponentState.Initializing)
+	val worstStockShare : LiveData<ComponentState<StockShare?>> = _worstStockShare
 
 	override suspend fun handleUserInteraction(interaction: UserInteraction) {
 		when(interaction){
-			is StockShareListInteraction.List.LoadStockShare 	-> loadStockShareListInteraction()
-			is StockShareListInteraction.SyncStockPrice 		-> syncStockPriceInteraction()
-			is StockShareListInteraction.List.ChangeListFilter 	-> applyStockShareListFilterInteraction(
+			is StockShareListInteraction.LoadStockShare 	-> loadStockShareListInteraction()
+			is StockShareListInteraction.SyncStockPrice 	-> syncStockPriceInteraction()
+			is StockShareListInteraction.ChangeListFilter 	-> applyStockShareListFilterInteraction(
 				interaction.groupShares
 			)
 		}
@@ -66,7 +68,7 @@ class StockShareListViewModel constructor(
 			}
 	}
 
-	private suspend fun syncStockPriceInteraction() {
+	protected suspend fun syncStockPriceInteraction() {
 		syncStockSharePriceCase.execute()
 	}
 
@@ -74,7 +76,7 @@ class StockShareListViewModel constructor(
 		// TODO create filter flow later.
 		isShowingOriginal = !isShowingOriginal
 		if(isShowingOriginal){
-			originalStockList?.run {
+			originalStockList.run {
 				_shareList.changeToSuccessState(this)
 			}
 		}
@@ -116,15 +118,22 @@ class StockShareListViewModel constructor(
 	private fun computeWorstStock(stockShareList: List<StockShare>) {
 		_worstStockShare.changeToLoadingState()
 		_worstStockShare.changeToSuccessState(
-			getWorstStockShareCase.execute(stockShareList)
+			selectWorstStockShareCase.execute(stockShareList){
+				stockSelector(it)
+			}
 		)
 	}
 
 	private fun computeBestStock(stockShareList: List<StockShare>) {
 		_bestStockShare.changeToLoadingState()
 		_bestStockShare.changeToSuccessState(
-			getBestStockShareCase.execute(stockShareList)
+			selectBestStockShareCase.execute(stockShareList){
+				stockSelector(it)
+			}
 		)
 	}
 
+	open fun stockSelector(stock : StockShare) : Double{
+		return stock.getBalance()
+	}
 }

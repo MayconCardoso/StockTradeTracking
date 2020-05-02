@@ -2,7 +2,7 @@ package com.mctech.stocktradetracking.domain.stock_share.interaction
 
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 
-class GroupStockShareListCase {
+class GroupStockShareListCase{
     fun execute(stockShareList: List<StockShare>) = stockShareList
         .groupBy { it.code }
         .values
@@ -13,7 +13,9 @@ class GroupStockShareListCase {
                     shareAmount = acc.shareAmount + stockShare.shareAmount,
                     purchasePrice = (acc.getInvestmentValue() + stockShare.getInvestmentValue()) / (acc.shareAmount + stockShare.shareAmount),
                     purchaseDate = stockShare.purchaseDate,
-                    salePrice = stockShare.salePrice
+                    salePrice = stockShare.salePrice,
+                    marketChange = stockShare.marketChange,
+                    previousClose = stockShare.previousClose
                 )
             }
         }

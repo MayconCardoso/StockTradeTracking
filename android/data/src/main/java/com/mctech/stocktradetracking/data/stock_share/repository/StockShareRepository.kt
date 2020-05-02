@@ -32,7 +32,9 @@ class StockShareRepository(
                 if(currentPrice.price != null){
                     localDataSource.editStockShareValue(
                         stockCode,
-                        currentPrice.price
+                        currentPrice.price,
+                        currentPrice.marketChange,
+                        currentPrice.previousClose
                     )
                 }
             }catch (ex : Exception){

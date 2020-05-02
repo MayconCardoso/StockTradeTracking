@@ -6,7 +6,8 @@ import com.mctech.stocktradetracking.domain.extentions.toPercent
 
 data class StockShareFinalBalance(
     val balance: Double,
-    val investment : Double
+    val investment : Double,
+    val variation : Double
 ) {
     fun getBalanceDescription(): String {
         return balance.formatBrazilianCurrency()
@@ -20,14 +21,7 @@ data class StockShareFinalBalance(
         return (investment + balance).formatBrazilianCurrency()
     }
 
-    fun getVariant() : Double {
-        if(investment == 0.0){
-            return 0.0
-        }
-        return (((investment + balance) / investment * 100) - 100).round(2)
-    }
-
     fun getVariationDescription(): String {
-        return getVariant().round(2).toPercent()
+        return variation.round(2).toPercent()
     }
 }

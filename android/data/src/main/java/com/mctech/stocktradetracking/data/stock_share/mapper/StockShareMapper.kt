@@ -11,7 +11,9 @@ fun StockShare.toDatabaseEntity() = StockShareDatabaseEntity(
     salePrice = salePrice,
     purchaseDate = purchaseDate,
     saleDate = saleDate,
-    isPositionOpened = isPositionOpened
+    isPositionOpened = isPositionOpened,
+    marketChange = marketChange,
+    previousClose = previousClose
 )
 
 fun StockShareDatabaseEntity.toBusinessEntity() = StockShare(
@@ -22,5 +24,8 @@ fun StockShareDatabaseEntity.toBusinessEntity() = StockShare(
     salePrice = salePrice,
     purchaseDate = purchaseDate,
     saleDate = saleDate,
-    isPositionOpened = isPositionOpened
+    isPositionOpened = isPositionOpened,
+    marketChange = marketChange,
+    previousClose = previousClose
+
 )

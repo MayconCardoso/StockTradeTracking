@@ -1,4 +1,4 @@
-package com.mctech.stocktradetracking.feature.stock_share.list_position
+package com.mctech.stocktradetracking.feature.stock_share.daily_variation
 
 import android.os.Bundle
 import android.view.*
@@ -11,21 +11,22 @@ import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShareFinalBalance
 import com.mctech.stocktradetracking.feature.stock_share.R
 import com.mctech.stocktradetracking.feature.stock_share.StockShareNavigator
-import com.mctech.stocktradetracking.feature.stock_share.databinding.FragmentStockShareListBinding
-import com.mctech.stocktradetracking.feature.stock_share.databinding.ItemStockShareListBinding
+import com.mctech.stocktradetracking.feature.stock_share.databinding.FragmentStockDailyVariationListBinding
+import com.mctech.stocktradetracking.feature.stock_share.databinding.ItemStockDailyVariationListBinding
+import com.mctech.stocktradetracking.feature.stock_share.list_position.StockShareListInteraction
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class StockShareListFragment : Fragment() {
+class StockDailyVariationListFragment : Fragment() {
 
-	private val viewModel 	: StockShareListViewModel 			by sharedViewModel()
-	private val navigator   : StockShareNavigator 				by inject()
-	private var binding   	: FragmentStockShareListBinding? 	= null
+	private val viewModel 	: StockDailyVariationListViewModel 			by sharedViewModel()
+	private val navigator   : StockShareNavigator 						by inject()
+	private var binding   	: FragmentStockDailyVariationListBinding? 	= null
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 		setHasOptionsMenu(true)
 
-		return FragmentStockShareListBinding.inflate(inflater, container, false).let {
+		return FragmentStockDailyVariationListBinding.inflate(inflater, container, false).let {
 			binding = it
 			binding?.viewModel = viewModel
 			binding?.lifecycleOwner = this
@@ -43,6 +44,16 @@ class StockShareListFragment : Fragment() {
 
 	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 		inflater.inflate(R.menu.stock_share_tracking_menu, menu)
+	}
+
+	override fun onStart() {
+		super.onStart()
+		viewModel.interact(StockDailyVariationListInteraction.StartRealtimePosition)
+	}
+
+	override fun onStop() {
+		viewModel.interact(StockDailyVariationListInteraction.StopRealtimePosition)
+		super.onStop()
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -86,8 +97,6 @@ class StockShareListFragment : Fragment() {
 	}
 
 	private fun handleShareListState(state: ComponentState<List<StockShare>>) {
-		binding?.swipeRefreshLayout?.isRefreshing = state is ComponentState.Loading.FromData
-
 		when(state){
 			is ComponentState.Initializing -> {
 				viewModel.interact(StockShareListInteraction.LoadStockShare)
@@ -102,7 +111,7 @@ class StockShareListFragment : Fragment() {
 		binding?.recyclerView?.attachSimpleData(
 			items = result,
 			viewBindingCreator = { parent, inflater ->
-				ItemStockShareListBinding.inflate(inflater, parent, false)
+				ItemStockDailyVariationListBinding.inflate(inflater, parent, false)
 			},
 			prepareHolder = { item, viewBinding, _ ->
 				viewBinding.item = item
@@ -126,10 +135,6 @@ class StockShareListFragment : Fragment() {
 	private fun bindListeners() {
 		binding?.btBuy?.setOnClickListener {
 			navigateToBuyFlow()
-		}
-
-		binding?.swipeRefreshLayout?.setOnRefreshListener {
-			viewModel.interact(StockShareListInteraction.SyncStockPrice)
 		}
 	}
 

@@ -7,16 +7,13 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 
-/**
- * @author MAYCON CARDOSO on 28/04/20.
- */
 @ExperimentalCoroutinesApi
 class GetWorstStockShareCaseTest{
-    private lateinit var useCase: GetWorstStockShareCase
+    private lateinit var useCase: SelectWorstStockShareCase
 
     @Before
     fun `before each test`() {
-        useCase = GetWorstStockShareCase(
+        useCase = SelectWorstStockShareCase(
             groupStockShareListCase = GroupStockShareListCase()
         )
     }
@@ -24,9 +21,12 @@ class GetWorstStockShareCaseTest{
     @Test
     fun `should group list by code`() = testScenario(
         action = {
-            useCase.execute(StockShareDataFactory.ungroupedList())
+            useCase.execute(StockShareDataFactory.ungroupedList()){
+                it.getBalance()
+            }
         },
         assertions = { weg3 ->
+            assertThat(weg3).isNotNull
             assertThat(weg3?.getInvestmentValue()).isEqualTo(2200.0)
             assertThat(weg3?.shareAmount).isEqualTo(600)
             assertThat(weg3?.purchasePrice).isEqualTo(3.6666666666666665)
