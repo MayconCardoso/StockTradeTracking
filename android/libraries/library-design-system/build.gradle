@@ -7,4 +7,5 @@ dependencies {
     implementation globalDependencies.appCompact
     implementation globalDependencies.kotlinStdLib
     implementation globalDependencies.materialDesign
+    implementation globalDependencies.constraintLayout
 }

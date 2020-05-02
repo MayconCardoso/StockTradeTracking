@@ -10,6 +10,8 @@ import com.mctech.architecture.mvvm.x.core.ktx.changeToErrorState
 import com.mctech.architecture.mvvm.x.core.ktx.changeToListLoadingState
 import com.mctech.architecture.mvvm.x.core.ktx.changeToLoadingState
 import com.mctech.architecture.mvvm.x.core.ktx.changeToSuccessState
+import com.mctech.stocktradetracking.domain.Result
+import com.mctech.stocktradetracking.domain.stock_share.entity.MarketStatus
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShareFinalBalance
 import com.mctech.stocktradetracking.domain.stock_share.interaction.*
@@ -21,6 +23,7 @@ import kotlinx.coroutines.flow.onStart
 
 open class StockShareListViewModel constructor(
 	private val observeStockListCase		: ObserveStockShareListCase,
+	private val getMarketStatusCase			: GetMarketStatusCase,
 	private val selectWorstStockShareCase	: SelectWorstStockShareCase,
 	private val selectBestStockShareCase	: SelectBestStockShareCase,
 	private val syncStockSharePriceCase		: SyncStockSharePriceCase,
@@ -45,6 +48,9 @@ open class StockShareListViewModel constructor(
 	private val _worstStockShare : MutableLiveData<ComponentState<StockShare?>> = MutableLiveData(ComponentState.Initializing)
 	val worstStockShare : LiveData<ComponentState<StockShare?>> = _worstStockShare
 
+	private val _marketStatus : MutableLiveData<ComponentState<MarketStatus>> = MutableLiveData(ComponentState.Initializing)
+	val marketStatus : LiveData<ComponentState<MarketStatus>> = _marketStatus
+
 	override suspend fun handleUserInteraction(interaction: UserInteraction) {
 		when(interaction){
 			is StockShareListInteraction.LoadStockShare 	-> loadStockShareListInteraction()
@@ -56,6 +62,8 @@ open class StockShareListViewModel constructor(
 	}
 
 	private suspend fun loadStockShareListInteraction() {
+		loadMarketStatusInteraction()
+
 		observeStockListCase.execute()
 			.onStart {
 				_shareList.changeToListLoadingState()
@@ -70,6 +78,18 @@ open class StockShareListViewModel constructor(
 
 	protected suspend fun syncStockPriceInteraction() {
 		syncStockSharePriceCase.execute()
+	}
+
+	protected suspend fun loadMarketStatusInteraction(){
+		_marketStatus.changeToLoadingState()
+		when(val result = getMarketStatusCase.execute()){
+			is Result.Success -> {
+				_marketStatus.changeToSuccessState(result.result)
+			}
+			is Result.Failure -> {
+				_marketStatus.changeToErrorState(result.throwable)
+			}
+		}
 	}
 
 	private fun applyStockShareListFilterInteraction(groupShares: Boolean) {

@@ -2,8 +2,10 @@ package com.mctech.stocktradetracking.data.stock_share.datasource
 
 import com.mctech.stocktradetracking.data.stock_share.database.StockShareDao
 import com.mctech.stocktradetracking.data.stock_share.mapper.toDatabaseEntity
+import com.mctech.stocktradetracking.domain.stock_share.entity.MarketStatus
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import kotlinx.coroutines.flow.Flow
+import java.util.*
 
 class LocalStockShareDataSourceImpl(
 	private val stockShareDao: StockShareDao
@@ -15,6 +17,27 @@ class LocalStockShareDataSourceImpl(
 
 	override suspend fun getStockShareList(): List<StockShare> {
 		return stockShareDao.loadAllOpenedPosition()
+	}
+
+	override suspend fun getMarketStatus(): MarketStatus {
+		val currentDate = Calendar.getInstance()
+		when(currentDate.get(Calendar.DAY_OF_WEEK)){
+			Calendar.SUNDAY,
+			Calendar.SATURDAY -> {
+				return MarketStatus(
+					"Ibovespa is closed.", false
+				)
+			}
+		}
+
+		return when(currentDate.get(Calendar.HOUR_OF_DAY)){
+			in 10..18 -> {
+				MarketStatus("Ibovespa is opened", true)
+			}
+			else -> {
+				MarketStatus("Ibovespa is closed.", false)
+			}
+		}
 	}
 
 	override suspend fun getDistinctStockCode(): List<String> {

@@ -11,7 +11,7 @@ class GetFinalBalanceCase : ComputeBalanceStrategy {
         var investment = 0.0
 
         for (stock in stockShareList) {
-            investment += stock.getInvestmentValue()
+            investment += stock.getFinalStockPrice()
             balance += stock.getBalance()
         }
 

@@ -9,8 +9,7 @@ import org.koin.dsl.module
 val timelineBalanceViewModel = module {
     viewModel {
         TimelineBalanceListViewModel(
-            getCurrentPeriodBalanceCase = get(),
-            getPeriodTransactionsCase = get()
+            getCurrentPeriodBalanceCase = get()
         )
     }
 

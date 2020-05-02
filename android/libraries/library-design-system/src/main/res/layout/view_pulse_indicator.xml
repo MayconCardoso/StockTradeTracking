@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/verticalStart"
+        app:layout_constraintGuide_percent="0.2"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/verticalEnd"
+        app:layout_constraintGuide_percent="0.80"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/horizontalTop"
+        app:layout_constraintGuide_percent="0.2"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/horizontalBottom"
+        app:layout_constraintGuide_percent="0.8"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/imgFirstPulse"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalBottom"
+        app:layout_constraintEnd_toStartOf="@+id/verticalEnd"
+        app:layout_constraintStart_toStartOf="@+id/verticalStart"
+        app:layout_constraintTop_toTopOf="@+id/horizontalTop"
+        app:srcCompat="@drawable/shape_green_circle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/imgSecondPulse"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalBottom"
+        app:layout_constraintEnd_toStartOf="@+id/verticalEnd"
+        app:layout_constraintStart_toStartOf="@+id/verticalStart"
+        app:layout_constraintTop_toTopOf="@+id/horizontalTop"
+        app:srcCompat="@drawable/shape_green_circle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/staticImg"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalBottom"
+        app:layout_constraintEnd_toStartOf="@+id/verticalEnd"
+        app:layout_constraintStart_toStartOf="@+id/verticalStart"
+        app:layout_constraintTop_toTopOf="@+id/horizontalTop"
+        app:srcCompat="@drawable/shape_green_circle" />
+</androidx.constraintlayout.widget.ConstraintLayout>

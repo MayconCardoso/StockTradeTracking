@@ -12,6 +12,7 @@ val stockShareViewModelModule = module {
     viewModel {
         StockShareListViewModel(
             observeStockListCase = get(),
+            getMarketStatusCase = get(),
             getFinalBalanceCase = get(named("stockBalance")),
             selectBestStockShareCase = get(),
             selectWorstStockShareCase = get(),
@@ -23,6 +24,7 @@ val stockShareViewModelModule = module {
     viewModel {
         StockDailyVariationListViewModel(
             observeStockListCase = get(),
+            getMarketStatusCase = get(),
             getFinalBalanceCase = get(named("dailyBalance")),
             selectBestStockShareCase = get(),
             selectWorstStockShareCase = get(),

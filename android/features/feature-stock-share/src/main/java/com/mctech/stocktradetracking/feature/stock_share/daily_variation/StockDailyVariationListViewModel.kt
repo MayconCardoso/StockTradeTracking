@@ -1,6 +1,5 @@
 package com.mctech.stocktradetracking.feature.stock_share.daily_variation
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.mctech.architecture.mvvm.x.core.UserInteraction
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
@@ -14,6 +13,8 @@ import kotlinx.coroutines.isActive
 
 open class StockDailyVariationListViewModel (
 	observeStockListCase		: ObserveStockShareListCase,
+	getMarketStatusCase			: GetMarketStatusCase,
+
 	selectWorstStockShareCase	: SelectWorstStockShareCase,
 	selectBestStockShareCase	: SelectBestStockShareCase,
 	syncStockSharePriceCase		: SyncStockSharePriceCase,
@@ -23,6 +24,7 @@ open class StockDailyVariationListViewModel (
 
 ) : StockShareListViewModel(
 	observeStockListCase 		= observeStockListCase,
+	getMarketStatusCase			= getMarketStatusCase,
 	selectWorstStockShareCase 	= selectWorstStockShareCase,
 	selectBestStockShareCase 	= selectBestStockShareCase,
 	syncStockSharePriceCase 	= syncStockSharePriceCase,
@@ -51,19 +53,16 @@ open class StockDailyVariationListViewModel (
 	}
 
 	private fun stopRealtimePositionInteraction() {
-		Log.i("REALTIIIIIIME", "Paroooou")
 		realtimeJob?.cancel()
 	}
 
 	private suspend fun startRealtimePositionInteraction() {
 		stopRealtimePositionInteraction()
-		Log.i("REALTIIIIIIME", "Iniciou")
 
 		realtimeJob = viewModelScope.async {
 			do{
 				syncStockPriceInteraction()
-				Log.i("REALTIIIIIIME", "Passou")
-				delay(5000)
+				delay(4000)
 			}while (isActive)
 		}
 	}

@@ -11,11 +11,9 @@ import com.mctech.architecture.mvvm.x.core.ktx.changeToSuccessState
 import com.mctech.stocktradetracking.domain.Result
 import com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBalance
 import com.mctech.stocktradetracking.domain.timeline_balance.interaction.GetCurrentPeriodBalanceCase
-import com.mctech.stocktradetracking.domain.timeline_balance.interaction.GetPeriodTransactionsCase
 
 class TimelineBalanceListViewModel constructor(
-    private val getCurrentPeriodBalanceCase	: GetCurrentPeriodBalanceCase,
-    private val getPeriodTransactionsCase	: GetPeriodTransactionsCase
+    private val getCurrentPeriodBalanceCase	: GetCurrentPeriodBalanceCase
 ) : BaseViewModel() {
 
     private val currentListOfPeriods    = mutableListOf<TimelineBalance>()

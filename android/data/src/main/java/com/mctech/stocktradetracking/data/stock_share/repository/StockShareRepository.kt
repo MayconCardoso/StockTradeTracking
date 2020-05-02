@@ -16,6 +16,7 @@ class StockShareRepository(
     override suspend fun saveStockShare(share: StockShare) = localDataSource.saveStockShare(share)
     override suspend fun sellStockShare(share: StockShare) = localDataSource.sellStockShare(share)
     override suspend fun deleteStockShare(share: StockShare) = localDataSource.deleteStockShare(share)
+    override suspend fun getMarketStatus() = localDataSource.getMarketStatus()
     override suspend fun editStockShareValue(shareCode: String, value: Double) =
         localDataSource.editStockShareValue(
             shareCode,

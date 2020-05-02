@@ -12,7 +12,7 @@ class GetFinalDailyBalanceCase : ComputeBalanceStrategy {
         var variation = 0.0
 
         for (stock in stockShareList) {
-            investment += stock.getInvestmentValue()
+            investment += stock.getFinalStockPrice()
             balance += stock.getDailyVariationBalance()
             variation = stock.getDailyVariation()
         }
