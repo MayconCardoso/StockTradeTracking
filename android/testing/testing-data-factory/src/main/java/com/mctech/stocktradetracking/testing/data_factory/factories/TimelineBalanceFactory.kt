@@ -27,4 +27,27 @@ object TimelineBalanceFactory {
         periodInvestment = periodInvestment,
         periodProfit = periodProfit
     )
+
+    fun linkedEntitiesWithId() : List<TimelineBalance>{
+        val first = TimelineBalance(
+            id = 1,
+            periodTag = "First",
+            periodInvestment = 10000.0,
+            periodProfit = 10000.0
+        )
+
+        val second = TimelineBalance(
+            id = 2,
+            parentPeriodId = 1,
+            parent = first,
+            periodTag = "Second",
+            periodInvestment = 10000.0,
+            periodProfit = -2000.0
+        )
+
+        return mutableListOf(
+            first,
+            second
+        )
+    }
 }

@@ -30,10 +30,7 @@ data class TimelineBalance(
     fun getPeriodVariation() : Double {
         return try{
             (periodProfit / (parent?.getFinalBalance() ?: getFinalBalance()) * 100).round(2)
-        }catch (ex : ArithmeticException){
-            0.0
-        }
-        catch (ex : NumberFormatException){
+        }catch (ex : Exception){
             0.0
         }
     }
