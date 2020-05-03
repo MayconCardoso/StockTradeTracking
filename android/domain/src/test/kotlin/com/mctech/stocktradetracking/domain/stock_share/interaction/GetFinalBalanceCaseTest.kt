@@ -28,11 +28,11 @@ class GetFinalBalanceCaseTest{
         },
         assertions = {
             Assertions.assertThat(it.balance).isEqualTo(400.0)
-            Assertions.assertThat(it.investment).isEqualTo(2000.0)
-            Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$2.000,00")
+            Assertions.assertThat(it.investment).isEqualTo(2400.0)
+            Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$2.400,00")
             Assertions.assertThat(it.getBalanceDescription()).isEqualTo("R$400,00")
-            Assertions.assertThat(it.variation).isEqualTo(20.0)
-            Assertions.assertThat(it.getVariationDescription()).isEqualTo("20.0%")
+            Assertions.assertThat(it.variation).isEqualTo(16.67)
+            Assertions.assertThat(it.getVariationDescription()).isEqualTo("16.67%")
         }
     )
 
@@ -43,11 +43,11 @@ class GetFinalBalanceCaseTest{
         },
         assertions = {
             Assertions.assertThat(it.balance).isEqualTo(-400.0)
-            Assertions.assertThat(it.investment).isEqualTo(2000.0)
-            Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$2.000,00")
+            Assertions.assertThat(it.investment).isEqualTo(1600.0)
+            Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$1.600,00")
             Assertions.assertThat(it.getBalanceDescription()).isEqualTo("-R$400,00")
-            Assertions.assertThat(it.variation).isEqualTo(-20.0)
-            Assertions.assertThat(it.getVariationDescription()).isEqualTo("-20.0%")
+            Assertions.assertThat(it.variation).isEqualTo(-25.0)
+            Assertions.assertThat(it.getVariationDescription()).isEqualTo("-25.0%")
         }
     )
 

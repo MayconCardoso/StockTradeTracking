@@ -8,7 +8,7 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class GetWorstStockShareCaseTest{
+class SelectWorstStockShareCaseTest{
     private lateinit var useCase: SelectWorstStockShareCase
 
     @Before
@@ -21,16 +21,14 @@ class GetWorstStockShareCaseTest{
     @Test
     fun `should group list by code`() = testScenario(
         action = {
-            useCase.execute(StockShareDataFactory.ungroupedList()){
-                it.getBalance()
-            }
+            useCase.execute(StockShareDataFactory.ungroupedList())
         },
-        assertions = { weg3 ->
-            assertThat(weg3).isNotNull
-            assertThat(weg3?.getInvestmentValue()).isEqualTo(2200.0)
-            assertThat(weg3?.shareAmount).isEqualTo(600)
-            assertThat(weg3?.purchasePrice).isEqualTo(3.6666666666666665)
-            assertThat(weg3?.salePrice).isEqualTo(2.0)
+        assertions =  { wege3 ->
+            assertThat(wege3).isNotNull
+            assertThat(wege3?.code).isEqualTo("WEGE3")
+            assertThat(wege3?.balanceDescription).isEqualTo("-R$1.000,00")
+            assertThat(wege3?.variation).isEqualTo(-45.45)
+            assertThat(wege3?.variationDescription).isEqualTo("-45.45%")
         }
     )
 }

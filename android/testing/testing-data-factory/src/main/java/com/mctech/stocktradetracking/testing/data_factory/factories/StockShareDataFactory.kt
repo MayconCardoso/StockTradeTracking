@@ -124,7 +124,9 @@ object StockShareDataFactory {
                     purchasePrice = 2.0,
                     salePrice = 10.0,
                     shareAmount = 100,
-                    purchaseDate =  Calendar.getInstance().time
+                    purchaseDate =  Calendar.getInstance().time,
+                    marketChange = 2.0,
+                    previousClose = 8.0
                 )
             )
 
@@ -134,7 +136,9 @@ object StockShareDataFactory {
                     purchasePrice = 5.0,
                     salePrice = 10.0,
                     shareAmount = 400,
-                    purchaseDate =  Calendar.getInstance().time
+                    purchaseDate =  Calendar.getInstance().time,
+                    marketChange = 2.0,
+                    previousClose = 8.0
                 )
             )
 
@@ -144,7 +148,9 @@ object StockShareDataFactory {
                     purchasePrice = 15.0,
                     salePrice = 10.0,
                     shareAmount = 200,
-                    purchaseDate =  Calendar.getInstance().time
+                    purchaseDate =  Calendar.getInstance().time,
+                    marketChange = 2.0,
+                    previousClose = 8.0
                 )
             )
 
@@ -154,7 +160,9 @@ object StockShareDataFactory {
                     purchasePrice = 5.0,
                     salePrice = 2.0,
                     shareAmount = 400,
-                    purchaseDate =  Calendar.getInstance().time
+                    purchaseDate =  Calendar.getInstance().time,
+                    marketChange = 0.0,
+                    previousClose = 10.0
                 )
             )
 
@@ -164,7 +172,9 @@ object StockShareDataFactory {
                     purchasePrice = 1.0,
                     salePrice = 2.0,
                     shareAmount = 200,
-                    purchaseDate =  Calendar.getInstance().time
+                    purchaseDate =  Calendar.getInstance().time,
+                    marketChange = 0.0,
+                    previousClose = 10.0
                 )
             )
 
@@ -174,7 +184,9 @@ object StockShareDataFactory {
                     purchasePrice = 1.0,
                     salePrice = 1.1,
                     shareAmount = 100,
-                    purchaseDate =  Calendar.getInstance().time
+                    purchaseDate =  Calendar.getInstance().time,
+                    marketChange = 0.0,
+                    previousClose = 2.0
                 )
             )
         }

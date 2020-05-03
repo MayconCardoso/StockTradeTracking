@@ -15,7 +15,7 @@ class SelectWorstDailyStockShareCase(
                 it.code,
                 it.getDailyVariationBalanceDescription(),
                 it.getDailyVariationDescription(),
-                it.getDailyVariationBalance()
+                it.getDailyVariation()
             )
         }
     }

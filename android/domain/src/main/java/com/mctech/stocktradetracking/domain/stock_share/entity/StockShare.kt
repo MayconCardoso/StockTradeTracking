@@ -84,7 +84,9 @@ data class StockShare(
         if(previousClose == 0.0){
             return 0.0
         }
-        return ((salePrice - (previousClose ?: 0.0)) * shareAmount).round(2)
+        return previousClose?.let {
+            ((salePrice - it) * shareAmount).round(2)
+        } ?: 0.0
     }
 
     fun getDailyVariationBalanceDescription() : String{
