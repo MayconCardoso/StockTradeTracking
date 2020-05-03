@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/stockShareListFragment"
         android:name="com.mctech.stocktradetracking.feature.stock_share.list_position.StockShareListFragment"
-        android:label="Stock Share Tracking"
+        android:label="Stock Share"
         tools:layout="@layout/fragment_stock_share_list"/>
 
     <fragment
@@ -71,7 +71,7 @@
     <fragment
         android:id="@+id/stockDailyVariationListFragment"
         android:name="com.mctech.stocktradetracking.feature.stock_share.daily_variation.StockDailyVariationListFragment"
-        tools:layout="@layout/fragment_stock_daily_variation_list"
+        tools:layout="@layout/fragment_stock_share_list"
         android:label="Daily Variation" />
 
     <action

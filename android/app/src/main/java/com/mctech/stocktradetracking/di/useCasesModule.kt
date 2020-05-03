@@ -2,6 +2,7 @@ package com.mctech.stocktradetracking.di
 
 import com.mctech.stocktradetracking.domain.stock_share.interaction.*
 import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.ComputeBalanceStrategy
+import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.SelectStockStrategy
 import com.mctech.stocktradetracking.domain.timeline_balance.interaction.CreatePeriodCase
 import com.mctech.stocktradetracking.domain.timeline_balance.interaction.EditPeriodCase
 import com.mctech.stocktradetracking.domain.timeline_balance.interaction.GetCurrentPeriodBalanceCase
@@ -21,8 +22,12 @@ val useCasesModule = module {
     single { ObserveStockShareListCase(service = get()) }
     single { GetFinalBalanceCase() }
     single { GroupStockShareListCase() }
-    single { SelectWorstStockShareCase(groupStockShareListCase = get()) }
-    single { SelectBestStockShareCase(groupStockShareListCase = get()) }
+
+    single(named("dailyWorstSelector")) { SelectWorstDailyStockShareCase(groupStockShareListCase = get()) as SelectStockStrategy }
+    single(named("dailyBestSelector")) { SelectBestDailyStockShareCase(groupStockShareListCase = get()) as SelectStockStrategy }
+    single(named("stockWorstSelector")) { SelectWorstStockShareCase(groupStockShareListCase = get()) as SelectStockStrategy }
+    single(named("stockBestSelector")) { SelectBestStockShareCase(groupStockShareListCase = get()) as SelectStockStrategy }
+
     single(named("stockBalance")) { GetFinalBalanceCase() as ComputeBalanceStrategy }
     single(named("dailyBalance")) { GetFinalDailyBalanceCase() as ComputeBalanceStrategy }
 

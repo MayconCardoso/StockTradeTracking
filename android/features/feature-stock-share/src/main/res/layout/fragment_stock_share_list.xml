@@ -14,11 +14,11 @@
 
         <variable
             name="bestStock"
-            type="com.mctech.stocktradetracking.domain.stock_share.entity.StockShare" />
+            type="com.mctech.stocktradetracking.domain.stock_share.entity.SelectedStock" />
 
         <variable
             name="worstStock"
-            type="com.mctech.stocktradetracking.domain.stock_share.entity.StockShare" />
+            type="com.mctech.stocktradetracking.domain.stock_share.entity.SelectedStock" />
 
     </data>
 

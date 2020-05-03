@@ -6,7 +6,10 @@ sealed class StockShareListInteraction : UserInteraction {
     object LoadStockShare : StockShareListInteraction()
     object SyncStockPrice : StockShareListInteraction()
 
+    object StartRealtimePosition : StockShareListInteraction()
+    object StopRealtimePosition : StockShareListInteraction()
+
     data class ChangeListFilter(
-        val groupShares : Boolean
+        val groupShares: Boolean
     ) : StockShareListInteraction()
 }
