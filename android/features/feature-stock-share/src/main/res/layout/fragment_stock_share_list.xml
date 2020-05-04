@@ -95,7 +95,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tvFinalBalance"
-                    app:priceTextColor="@{finalBalance.variation}"
+                    app:priceTextColor="@{finalBalance.balance}"
                     tools:text="R$23.490,00"
                     tools:textColor="#007E33" />
 
@@ -108,7 +108,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@id/itemFinalPrice"
                     app:layout_constraintTop_toBottomOf="@id/itemFinalPrice"
-                    app:priceTextColor="@{finalBalance.variation}"
+                    app:priceTextColor="@{finalBalance.balance}"
                     tools:text="5.43%"
                     tools:textColor="#007E33" />
 

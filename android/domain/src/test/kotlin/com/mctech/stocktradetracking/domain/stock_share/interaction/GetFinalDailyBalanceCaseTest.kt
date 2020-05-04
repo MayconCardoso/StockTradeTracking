@@ -29,8 +29,8 @@ class GetFinalDailyBalanceCaseTest{
             Assertions.assertThat(it.investment).isEqualTo(2400.0)
             Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$2.400,00")
             Assertions.assertThat(it.getBalanceDescription()).isEqualTo("R$800,00")
-            Assertions.assertThat(it.variation).isEqualTo(50.0)
-            Assertions.assertThat(it.getVariationDescription()).isEqualTo("50.0%")
+            Assertions.assertThat(it.variation).isEqualTo(33.33)
+            Assertions.assertThat(it.getVariationDescription()).isEqualTo("33.33%")
         }
     )
 
@@ -44,8 +44,8 @@ class GetFinalDailyBalanceCaseTest{
             Assertions.assertThat(it.investment).isEqualTo(1600.0)
             Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$1.600,00")
             Assertions.assertThat(it.getBalanceDescription()).isEqualTo("-R$400,00")
-            Assertions.assertThat(it.variation).isEqualTo(-20.0)
-            Assertions.assertThat(it.getVariationDescription()).isEqualTo("-20.0%")
+            Assertions.assertThat(it.variation).isEqualTo(-25.0)
+            Assertions.assertThat(it.getVariationDescription()).isEqualTo("-25.0%")
         }
     )
 
