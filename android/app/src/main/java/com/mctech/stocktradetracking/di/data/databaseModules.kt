@@ -1,6 +1,7 @@
-package com.mctech.stocktradetracking.data.database
+package com.mctech.stocktradetracking.di.data
 
 import androidx.room.Room
+import com.mctech.stocktradetracking.data.database.AppDatabase
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 

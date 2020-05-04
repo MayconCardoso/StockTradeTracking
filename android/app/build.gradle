@@ -16,6 +16,12 @@ android {
             minifyEnabled false
         }
     }
+    android {
+        dataBinding {
+            enabled = true
+            enabledForTests = true
+        }
+    }
 }
 
 dependencies {
@@ -43,4 +49,15 @@ dependencies {
     // Koin
     implementation globalDependencies.koin
     implementation globalDependencies.koinViewModel
+
+    // Networking
+    implementation globalDependencies.mvvmArchitectureCoreNetworking
+    implementation globalDependencies.okHttp
+    implementation globalDependencies.okHttpLoggin
+    implementation globalDependencies.retrofit
+    implementation globalDependencies.retrofitGsonConverter
+
+    // Database
+    implementation globalDependencies.roomRuntime
+    implementation globalDependencies.roomKtx
 }

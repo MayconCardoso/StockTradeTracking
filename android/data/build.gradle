@@ -11,14 +11,10 @@ dependencies {
     implementation globalDependencies.kotlinStdLib
     implementation globalDependencies.kotlinCoroutinesCore
     implementation globalDependencies.kotlinCoroutinesAndroid
-
-    // Dependency injection
-    implementation globalDependencies.koin
+    implementation globalDependencies.lifeCycleLiveData
 
     // Networking
     implementation globalDependencies.mvvmArchitectureCoreNetworking
-    implementation globalDependencies.okHttp
-    implementation globalDependencies.okHttpLoggin
     implementation globalDependencies.retrofit
     implementation globalDependencies.retrofitGsonConverter
 
@@ -28,9 +24,12 @@ dependencies {
     kapt globalDependencies.roomCompiler
 
     // Testing
+    testImplementation project(path: submodulesTest.dataFactory)
     testImplementation globalTestDependencies.jUnit
+    testImplementation globalTestDependencies.testRunner
     testImplementation globalTestDependencies.assertJ
     testImplementation globalTestDependencies.coroutines
     testImplementation globalTestDependencies.mockitoKotlin
     testImplementation globalTestDependencies.testArqCor
+    testImplementation globalTestDependencies.roboletric
 }

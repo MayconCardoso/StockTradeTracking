@@ -1,4 +1,4 @@
-package com.mctech.stocktradetracking.data.stock_share.di
+package com.mctech.stocktradetracking.di.data
 
 import com.mctech.library.core.networking.RetrofitBuilder
 import com.mctech.stocktradetracking.data.stock_share.api.StockSharePriceAPI
@@ -27,7 +27,7 @@ val stockShareNetworkingModule = module {
         RetrofitBuilder(
             apiURL = "http://192.168.0.14:3000/api/",
             httpClient = get()
-        ) as Retrofit
+        )
     }
 
     // Provide API

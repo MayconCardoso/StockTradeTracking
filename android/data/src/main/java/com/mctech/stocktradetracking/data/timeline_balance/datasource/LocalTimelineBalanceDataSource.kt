@@ -13,11 +13,7 @@ class LocalTimelineBalanceDataSource(
 	}
 
 	override suspend fun getListOfPeriodsBalance(): List<TimelineBalance> {
-		return dao.loadCurrentPeriod().map { it.toBusinessEntity() }
-	}
-
-	override suspend fun getPeriodTransactions(period: TimelineBalance): List<TimelineBalance>{
-		TODO()
+		return dao.loadListOfPeriodsBalance().map { it.toBusinessEntity() }
 	}
 
 	override suspend fun createPeriod(period: TimelineBalance){
@@ -27,13 +23,4 @@ class LocalTimelineBalanceDataSource(
 	override suspend fun editPeriod(period: TimelineBalance){
 		dao.save(period.toDatabaseEntity())
 	}
-
-	override suspend fun depositMoney(amount: Double){
-		TODO()
-	}
-
-	override suspend fun withdrawMoney(amount: Double){
-		TODO()
-	}
-
 }

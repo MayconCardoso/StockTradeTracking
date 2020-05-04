@@ -1,4 +1,4 @@
-package com.mctech.stocktradetracking.data.timeline_balance.di
+package com.mctech.stocktradetracking.di.data
 
 import com.mctech.stocktradetracking.data.timeline_balance.datasource.LocalTimelineBalanceDataSource
 import com.mctech.stocktradetracking.data.timeline_balance.datasource.TimelineBalanceDataSource

@@ -59,12 +59,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="@{item.previousCloseDescription}"
+                    android:text="@{item.currentPriceDescription}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/itemCode"
                     app:layout_constraintTop_toBottomOf="@id/itemCode"
-                    tools:text="Previous Close R$26,91" />
+                    tools:text="Current Price R$26,91" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/itemFinalPrice"

@@ -166,6 +166,14 @@ class StockShareTest{
     }
 
     @Test
+    fun `should format current price description`(){
+        assertThat(expectedValue.getCurrentPriceDescription()).isEqualTo("Current Price R$50,65")
+        assertThat(expectedDefaultValue.getCurrentPriceDescription()).isEqualTo("Current Price R$27,92")
+        assertThat(expectedNegativeValue.getCurrentPriceDescription()).isEqualTo("Current Price R$40,47")
+        assertThat(expectedEmpty.getCurrentPriceDescription()).isEqualTo("Current Price R$0,00")
+    }
+
+    @Test
     fun `compute daily variation`(){
         assertThat(expectedValue.getDailyVariation()).isEqualTo(5.3)
         assertThat(expectedDefaultValue.getDailyVariation()).isEqualTo(0.0)

@@ -6,7 +6,7 @@ import androidx.room.*
 interface TimelineBalanceDao {
     @Transaction
     @Query("SELECT * FROM timeline_balance ORDER BY startDate DESC")
-    suspend fun loadCurrentPeriod(): List<TimelineBalanceDatabaseEntity>
+    suspend fun loadListOfPeriodsBalance(): List<TimelineBalanceDatabaseEntity>
 
     @Transaction
     @Query("SELECT * FROM timeline_balance ORDER BY startDate DESC LIMIT 1")

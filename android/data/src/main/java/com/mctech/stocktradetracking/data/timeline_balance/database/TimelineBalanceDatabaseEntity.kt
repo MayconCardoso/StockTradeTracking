@@ -19,8 +19,8 @@ data class TimelineBalanceDatabaseEntity(
     @PrimaryKey
     val id : Long? = null,
     val periodTag : String,
-    val parentPeriodId : Long?,
-    val startDate : Date,
+    val parentPeriodId : Long? = null,
+    val startDate : Date = Calendar.getInstance().time,
     val periodInvestment : Double,
     val periodProfit : Double
 )

@@ -1,4 +1,4 @@
-package com.mctech.stocktradetracking.data.stock_share.di
+package com.mctech.stocktradetracking.di.data
 
 import com.mctech.stocktradetracking.data.stock_share.datasource.LocalStockShareDataSource
 import com.mctech.stocktradetracking.data.stock_share.datasource.LocalStockShareDataSourceImpl

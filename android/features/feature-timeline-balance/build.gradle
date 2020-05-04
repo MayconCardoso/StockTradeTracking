@@ -4,6 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs'
 
+android {
+	dataBinding {
+		enabled = true
+		enabledForTests = true
+	}
+}
+
 dependencies {
 	implementation project(path: submodulesPlatform.domain)
 	implementation project(path: submodulesLibraries.designSystem)

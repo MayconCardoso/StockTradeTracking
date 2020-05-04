@@ -3,6 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+android {
+    dataBinding {
+        enabled = true
+        enabledForTests = true
+    }
+}
+
 dependencies {
     implementation globalDependencies.appCompact
     implementation globalDependencies.kotlinStdLib

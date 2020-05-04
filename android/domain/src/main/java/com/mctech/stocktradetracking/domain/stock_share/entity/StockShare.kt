@@ -67,6 +67,10 @@ data class StockShare(
         return "Previous Close " + (previousClose ?: 0.0).formatBrazilianCurrency()
     }
 
+    fun getCurrentPriceDescription() : String{
+        return "Current Price " + salePrice.formatBrazilianCurrency()
+    }
+
     fun getDailyVariation(): Double {
         if(previousClose == 0.0){
             return 0.0
