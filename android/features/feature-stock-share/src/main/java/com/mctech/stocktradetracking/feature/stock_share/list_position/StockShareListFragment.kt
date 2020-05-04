@@ -10,7 +10,7 @@ class StockShareListFragment : BaseShareListFragment<ItemStockShareListBinding>(
 
 	override val viewModel: StockShareListViewModel by sharedViewModel(named("stockShareViewModel"))
 
-    override fun createItemBinding(parent: ViewGroup, inflater: LayoutInflater): ItemStockShareListBinding {
+    override fun createListItemBinding(parent: ViewGroup, inflater: LayoutInflater): ItemStockShareListBinding {
         return ItemStockShareListBinding.inflate(inflater, parent, false)
     }
 }

@@ -2,6 +2,7 @@ package com.mctech.stocktradetracking.feature.stock_share.list_position
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
@@ -20,11 +21,12 @@ import org.koin.android.ext.android.inject
 
 abstract class BaseShareListFragment<IDB : ViewDataBinding> : Fragment() {
 
-	abstract val viewModel 	: StockShareListViewModel
 	private var binding 	: FragmentStockShareListBinding? = null
 	private val navigator 	: StockShareNavigator by inject()
 
-	abstract fun createItemBinding(
+	abstract val viewModel 	: StockShareListViewModel
+
+	abstract fun createListItemBinding(
 		parent: ViewGroup,
 		inflater: LayoutInflater
 	): IDB
@@ -45,7 +47,14 @@ abstract class BaseShareListFragment<IDB : ViewDataBinding> : Fragment() {
 		bindState(viewModel.stockShareFinalBalance){ handleFinalBalanceState(it) }
 		bindState(viewModel.bestStockShare){ handleBestStockState(it) }
 		bindState(viewModel.worstStockShare){ handleWorstStockState(it) }
-		bindListeners()
+
+		binding?.btBuy?.setOnClickListener {
+			navigator.fromStockListToBuyPosition()
+		}
+
+		binding?.swipeRefreshLayout?.setOnRefreshListener {
+			viewModel.interact(StockShareListInteraction.SyncStockPrice)
+		}
 	}
 
 	override fun onStart() {
@@ -65,10 +74,13 @@ abstract class BaseShareListFragment<IDB : ViewDataBinding> : Fragment() {
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when(item.itemId){
 			R.id.menu_add -> {
-				navigateToBuyFlow()
+				navigator.fromStockListToBuyPosition()
 			}
 			R.id.menu_filter -> {
 				viewModel.interact(StockShareListInteraction.ChangeListFilter(true))
+			}
+			R.id.menu_chart -> {
+				Toast.makeText(requireContext(), "Developing...", Toast.LENGTH_SHORT).show()
 			}
 		}
 
@@ -119,12 +131,12 @@ abstract class BaseShareListFragment<IDB : ViewDataBinding> : Fragment() {
 		binding?.recyclerView?.attachSimpleData(
 			items = result,
 			viewBindingCreator = { parent, inflater ->
-				createItemBinding(parent, inflater)
+				createListItemBinding(parent, inflater)
 			},
 			prepareHolder = { item, viewBinding, _ ->
 				viewBinding.setVariable(BR.item, item)
 				viewBinding.root.findViewById<MaterialCardView>(R.id.cardItem).setOnClickListener {
-					openStockShare(item)
+					navigator.fromStockListToEditPosition(item)
 				}
 			},
 			updateCallback = object : DiffUtil.ItemCallback<StockShare>() {
@@ -138,23 +150,5 @@ abstract class BaseShareListFragment<IDB : ViewDataBinding> : Fragment() {
 				}
 			}
 		)
-	}
-
-	private fun bindListeners() {
-		binding?.btBuy?.setOnClickListener {
-			navigateToBuyFlow()
-		}
-
-		binding?.swipeRefreshLayout?.setOnRefreshListener {
-			viewModel.interact(StockShareListInteraction.SyncStockPrice)
-		}
-	}
-
-	private fun navigateToBuyFlow() {
-		navigator.fromStockListToBuyPosition()
-	}
-
-	private fun openStockShare(stockShare: StockShare) {
-		navigator.fromStockListToEditPosition(stockShare)
 	}
 }

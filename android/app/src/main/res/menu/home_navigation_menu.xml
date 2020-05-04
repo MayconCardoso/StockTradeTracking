@@ -17,7 +17,7 @@
         android:title="Today" />
 
     <item
-        android:id="@+id/nav_closed_position"
+        android:id="@+id/stockClosedListFragment"
         android:icon="@drawable/ic_attach_money_24dp"
         android:title="Closed" />
 

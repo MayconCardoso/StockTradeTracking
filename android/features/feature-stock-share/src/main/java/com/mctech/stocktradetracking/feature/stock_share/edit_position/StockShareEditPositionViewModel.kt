@@ -7,6 +7,7 @@ import com.mctech.architecture.mvvm.x.core.ComponentState
 import com.mctech.architecture.mvvm.x.core.UserInteraction
 import com.mctech.architecture.mvvm.x.core.ktx.changeToSuccessState
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
+import com.mctech.stocktradetracking.domain.stock_share.interaction.CloseStockShareCase
 import com.mctech.stocktradetracking.domain.stock_share.interaction.DeleteStockShareCase
 import com.mctech.stocktradetracking.domain.stock_share.interaction.EditStockSharePriceCase
 import com.mctech.stocktradetracking.domain.stock_share.interaction.SaveStockShareCase
@@ -14,7 +15,8 @@ import com.mctech.stocktradetracking.domain.stock_share.interaction.SaveStockSha
 class StockShareEditPositionViewModel constructor(
     private val saveStockShareCase		: SaveStockShareCase,
     private val editStockSharePriceCase	: EditStockSharePriceCase,
-    private val deleteStockShareCase	: DeleteStockShareCase
+    private val deleteStockShareCase	: DeleteStockShareCase,
+	private val closeStockShareCase		: CloseStockShareCase
 ) : BaseViewModel() {
 	private var currentStock 		: StockShare? = null
 
@@ -33,6 +35,9 @@ class StockShareEditPositionViewModel constructor(
 				interaction.currentPrice
 			)
 			is StockShareEditPositionInteraction.DeleteStockShare -> deleteCurrentStockShareInteraction()
+			is StockShareEditPositionInteraction.CloseStockPosition -> closeCurrentStockShareInteraction(
+				interaction.price
+			)
 		}
 	}
 
@@ -45,6 +50,17 @@ class StockShareEditPositionViewModel constructor(
 		// Delete position
 		currentStock?.run {
 			deleteStockShareCase.execute(this)
+		}
+
+		// Send command to get back
+		sendCommand(StockShareEditPositionCommand.NavigateBack)
+	}
+
+	private suspend fun closeCurrentStockShareInteraction(price: Double?) {
+		// Delete position
+		currentStock?.run {
+			this.salePrice = price ?: this.salePrice
+			closeStockShareCase.execute(this)
 		}
 
 		// Send command to get back

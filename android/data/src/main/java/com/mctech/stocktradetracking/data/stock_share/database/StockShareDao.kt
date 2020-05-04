@@ -13,14 +13,14 @@ interface StockShareDao {
     @Query("SELECT * FROM stock_share WHERE isPositionOpened = 1 ORDER BY code")
     fun observeAllOpenedPosition(): Flow<List<StockShare>>
 
+    @Transaction
+    @Query("SELECT * FROM stock_share WHERE isPositionOpened = 0 ORDER BY code")
+    fun observeStockClosedList(): Flow<List<StockShare>>
+
 
     // ============================================================================
     // Single shot
     // ============================================================================
-    @Transaction
-    @Query("SELECT * FROM stock_share WHERE isPositionOpened = 1 ORDER BY code")
-    suspend fun loadAllOpenedPosition(): List<StockShare>
-
     @Transaction
     @Query("SELECT DISTINCT code FROM stock_share WHERE isPositionOpened = 1")
     suspend fun loadDistinctStockCodes(): List<String>
@@ -37,10 +37,13 @@ interface StockShareDao {
     @Delete
     suspend fun delete(stockShare: StockShareDatabaseEntity)
 
-    @Query("UPDATE stock_share SET salePrice = :currentPrice WHERE code = :code")
+    @Query("UPDATE stock_share SET salePrice = :currentPrice WHERE code = :code AND isPositionOpened = 1 ")
     suspend fun editStockSharePriceManually(code: String, currentPrice: Double)
 
-    @Query("UPDATE stock_share SET salePrice = :currentPrice, previousClose = :previousClose, marketChange = :marketChange WHERE code = :code")
+    @Query("UPDATE stock_share SET isPositionOpened = 0, salePrice = :salePrice WHERE id = :id")
+    suspend fun closeStockShare(id: Long, salePrice : Double)
+
+    @Query("UPDATE stock_share SET salePrice = :currentPrice, previousClose = :previousClose, marketChange = :marketChange WHERE code = :code AND isPositionOpened = 1")
     suspend fun editStockSharePriceAutomatically(
         code: String,
         currentPrice: Double,

@@ -16,4 +16,5 @@ sealed class StockShareEditPositionInteraction : UserInteraction {
     ) : StockShareEditPositionInteraction()
 
     object DeleteStockShare : StockShareEditPositionInteraction()
+    data class CloseStockPosition(val price : Double?) : StockShareEditPositionInteraction()
 }

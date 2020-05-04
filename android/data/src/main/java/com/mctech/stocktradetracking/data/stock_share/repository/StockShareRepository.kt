@@ -12,11 +12,19 @@ class StockShareRepository(
     private val remoteDataSource: RemoteStockShareDataSource
 ) : StockShareService {
     override suspend fun observeStockShareList() = localDataSource.observeStockShareList()
-    override suspend fun getStockShareList() = localDataSource.getStockShareList()
+
+    override suspend fun observeStockClosedList() = localDataSource.observeStockClosedList()
+
     override suspend fun saveStockShare(share: StockShare) = localDataSource.saveStockShare(share)
+
     override suspend fun sellStockShare(share: StockShare) = localDataSource.sellStockShare(share)
+
     override suspend fun deleteStockShare(share: StockShare) = localDataSource.deleteStockShare(share)
+
+    override suspend fun closeStockShare(share: StockShare) = localDataSource.closeStockShare(share)
+
     override suspend fun getMarketStatus() = localDataSource.getMarketStatus()
+
     override suspend fun editStockShareValue(shareCode: String, value: Double) =
         localDataSource.editStockShareValue(
             shareCode,

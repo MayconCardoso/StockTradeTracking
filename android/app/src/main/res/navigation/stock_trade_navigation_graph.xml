@@ -10,7 +10,19 @@
         android:id="@+id/stockShareListFragment"
         android:name="com.mctech.stocktradetracking.feature.stock_share.list_position.StockShareListFragment"
         android:label="Stock Share"
-        tools:layout="@layout/fragment_stock_share_list"/>
+        tools:layout="@layout/fragment_stock_share_list" />
+
+    <fragment
+        android:id="@+id/stockDailyVariationListFragment"
+        android:name="com.mctech.stocktradetracking.feature.stock_share.daily_variation.StockDailyVariationListFragment"
+        android:label="Daily Variation"
+        tools:layout="@layout/fragment_stock_share_list" />
+
+    <fragment
+        android:id="@+id/stockClosedListFragment"
+        android:name="com.mctech.stocktradetracking.feature.stock_share.closed_position.StockClosedListFragment"
+        android:label="Closed Position"
+        tools:layout="@layout/fragment_stock_share_list" />
 
     <fragment
         android:id="@+id/stockShareBuyFragment"
@@ -20,17 +32,15 @@
 
     <fragment
         android:id="@+id/stockShareEditPriceFragment"
-        tools:layout="@layout/fragment_stock_share_edit_price"
         android:name="com.mctech.stocktradetracking.feature.stock_share.edit_position.StockShareEditPositionFragment"
-        android:label="Current position" >
+        android:label="Current position"
+        tools:layout="@layout/fragment_stock_share_edit_price">
 
         <argument
             android:name="stockShare"
             app:argType="com.mctech.stocktradetracking.domain.stock_share.entity.StockShare" />
 
     </fragment>
-
-
 
     <fragment
         android:id="@+id/timelineBalanceFragment"
@@ -62,17 +72,12 @@
         android:id="@+id/timelineBalanceEditPeriodFragment"
         android:name="com.mctech.stocktradetracking.feature.timeline_balance.edit_period.TimelineBalanceEditPeriodFragment"
         android:label="@string/edit_period"
-        tools:layout="@layout/fragment_timeline_edit_period" >
+        tools:layout="@layout/fragment_timeline_edit_period">
         <argument
             android:name="currentPeriod"
             app:argType="com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBalance" />
     </fragment>
 
-    <fragment
-        android:id="@+id/stockDailyVariationListFragment"
-        android:name="com.mctech.stocktradetracking.feature.stock_share.daily_variation.StockDailyVariationListFragment"
-        tools:layout="@layout/fragment_stock_share_list"
-        android:label="Daily Variation" />
 
     <action
         android:id="@+id/action_global_stockShareBuyFragment"

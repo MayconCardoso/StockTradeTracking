@@ -12,7 +12,7 @@ class StockDailyVariationListFragment  : BaseShareListFragment<ItemStockDailyVar
 
 	override val viewModel: StockShareListViewModel by sharedViewModel(named("dailyStockViewModel"))
 
-	override fun createItemBinding(parent: ViewGroup, inflater: LayoutInflater): ItemStockDailyVariationListBinding {
+	override fun createListItemBinding(parent: ViewGroup, inflater: LayoutInflater): ItemStockDailyVariationListBinding {
 		return ItemStockDailyVariationListBinding.inflate(inflater, parent, false)
 	}
 

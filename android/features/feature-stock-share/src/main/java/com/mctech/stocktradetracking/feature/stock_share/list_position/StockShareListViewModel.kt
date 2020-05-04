@@ -17,9 +17,9 @@ import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShareFinalBalance
 import com.mctech.stocktradetracking.domain.stock_share.interaction.GetMarketStatusCase
 import com.mctech.stocktradetracking.domain.stock_share.interaction.GroupStockShareListCase
-import com.mctech.stocktradetracking.domain.stock_share.interaction.ObserveStockShareListCase
 import com.mctech.stocktradetracking.domain.stock_share.interaction.SyncStockSharePriceCase
 import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.ComputeBalanceStrategy
+import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.ObserveStockListStrategy
 import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.SelectStockStrategy
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.isActive
 
 open class StockShareListViewModel constructor(
-	private val observeStockListCase		: ObserveStockShareListCase,
+	private val observeStockListCase		: ObserveStockListStrategy,
 	private val getMarketStatusCase			: GetMarketStatusCase,
 	private val selectWorstStockShareCase	: SelectStockStrategy,
 	private val selectBestStockShareCase	: SelectStockStrategy,

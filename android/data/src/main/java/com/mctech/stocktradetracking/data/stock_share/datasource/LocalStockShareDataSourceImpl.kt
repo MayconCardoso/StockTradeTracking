@@ -15,8 +15,8 @@ class LocalStockShareDataSourceImpl(
 		return stockShareDao.observeAllOpenedPosition()
 	}
 
-	override suspend fun getStockShareList(): List<StockShare> {
-		return stockShareDao.loadAllOpenedPosition()
+	override suspend fun observeStockClosedList(): Flow<List<StockShare>> {
+		return stockShareDao.observeStockClosedList()
 	}
 
 	override suspend fun getMarketStatus(): MarketStatus {
@@ -63,6 +63,10 @@ class LocalStockShareDataSourceImpl(
 
 	override suspend fun deleteStockShare(share: StockShare) {
 		stockShareDao.delete(share.toDatabaseEntity())
+	}
+
+	override suspend fun closeStockShare(share: StockShare) {
+		stockShareDao.closeStockShare(share.id ?: 0, share.salePrice)
 	}
 
 	override suspend fun editStockShareValue(

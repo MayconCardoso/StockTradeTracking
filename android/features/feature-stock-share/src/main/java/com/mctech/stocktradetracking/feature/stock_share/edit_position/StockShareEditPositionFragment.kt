@@ -3,6 +3,7 @@ package com.mctech.stocktradetracking.feature.stock_share.edit_position
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.mctech.architecture.mvvm.x.core.ComponentState
 import com.mctech.architecture.mvvm.x.core.ViewCommand
@@ -46,8 +47,13 @@ class StockShareEditPositionFragment : Fragment() {
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when(item.itemId){
-			R.id.menu_delete -> {
+			R.id.menu_delete -> confirmationDialog(R.string.question_delete){
 				viewModel.interact(StockShareEditPositionInteraction.DeleteStockShare)
+			}
+			R.id.menu_close_item -> confirmationDialog(R.string.question_close){
+				viewModel.interact(StockShareEditPositionInteraction.CloseStockPosition(
+					binding?.etSharePrice?.getValue()?.toDouble()
+				))
 			}
 		}
 
@@ -88,12 +94,29 @@ class StockShareEditPositionFragment : Fragment() {
 					)
 				)
 
-				activity?.currentFocus?.run {
-					if(this is EditText){
-						context?.closeKeyboard(this)
-					}
-				}
+				closeKeyboard()
 			}
 		}
+	}
+
+	private fun closeKeyboard() {
+		activity?.currentFocus?.run {
+			if(this is EditText){
+				context?.closeKeyboard(this)
+			}
+		}
+	}
+
+	private fun confirmationDialog(question : Int, blockConfirmation : () -> Unit){
+		closeKeyboard()
+
+		AlertDialog.Builder(requireActivity())
+			.setTitle(R.string.confirmation)
+			.setMessage(question)
+			.setPositiveButton(R.string.yes) {
+					_, _ -> blockConfirmation.invoke()
+			}
+			.setNegativeButton(R.string.no, null)
+			.show()
 	}
 }

@@ -10,25 +10,37 @@ import org.koin.dsl.module
 val stockShareViewModelModule = module {
     viewModel(named("stockShareViewModel")) {
         StockShareListViewModel(
-            observeStockListCase = get(),
-            getMarketStatusCase = get(),
-            getFinalBalanceCase = get(named("stockBalance")),
-            selectBestStockShareCase = get(named("stockBestSelector")),
-            selectWorstStockShareCase = get(named("stockWorstSelector")),
-            groupStockShareListCase = get(),
-            syncStockSharePriceCase = get()
+            getFinalBalanceCase         = get(named("stockBalance")),
+            selectBestStockShareCase    = get(named("stockBestSelector")),
+            selectWorstStockShareCase   = get(named("stockWorstSelector")),
+            observeStockListCase        = get(),
+            getMarketStatusCase         = get(),
+            groupStockShareListCase     = get(),
+            syncStockSharePriceCase     = get()
         )
     }
 
     viewModel(named("dailyStockViewModel")) {
         StockShareListViewModel(
-            observeStockListCase = get(),
-            getMarketStatusCase = get(),
-            getFinalBalanceCase = get(named("dailyBalance")),
-            selectBestStockShareCase = get(named("dailyBestSelector")),
-            selectWorstStockShareCase = get(named("dailyWorstSelector")),
-            groupStockShareListCase = get(),
-            syncStockSharePriceCase = get()
+            getFinalBalanceCase         = get(named("dailyBalance")),
+            selectBestStockShareCase    = get(named("dailyBestSelector")),
+            selectWorstStockShareCase   = get(named("dailyWorstSelector")),
+            observeStockListCase        = get(),
+            getMarketStatusCase         = get(),
+            groupStockShareListCase     = get(),
+            syncStockSharePriceCase     = get()
+        )
+    }
+
+    viewModel(named("closedStockViewModel")) {
+        StockShareListViewModel(
+            observeStockListCase        = get(named("closedListObserver")),
+            selectWorstStockShareCase   = get(named("stockWorstSelector")),
+            selectBestStockShareCase    = get(named("stockBestSelector")),
+            getFinalBalanceCase         = get(named("stockBalance")),
+            getMarketStatusCase         = get(),
+            groupStockShareListCase     = get(),
+            syncStockSharePriceCase     = get()
         )
     }
 
@@ -42,7 +54,8 @@ val stockShareViewModelModule = module {
         StockShareEditPositionViewModel(
             saveStockShareCase = get(),
             editStockSharePriceCase = get(),
-            deleteStockShareCase = get()
+            deleteStockShareCase = get(),
+            closeStockShareCase = get()
         )
     }
 }
