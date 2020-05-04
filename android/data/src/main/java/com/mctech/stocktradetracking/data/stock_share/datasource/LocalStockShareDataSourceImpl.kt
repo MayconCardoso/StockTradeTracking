@@ -31,7 +31,7 @@ class LocalStockShareDataSourceImpl(
 		}
 
 		return when(currentDate.get(Calendar.HOUR_OF_DAY)){
-			in 10..18 -> {
+			in 10..17 -> {
 				MarketStatus("Ibovespa is opened", true)
 			}
 			else -> {
