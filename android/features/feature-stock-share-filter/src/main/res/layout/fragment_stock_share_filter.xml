@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cbGroupe"
+        android:checked="true"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:text="@string/group_similar_code"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:id="@+id/lbGroup"
+        android:layout_marginTop="12dp"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:text="@string/sort_kind"
+        app:layout_constraintTop_toBottomOf="@id/cbGroupe"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintTop_toBottomOf="@id/lbGroup">
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:text="Profit (High to Low)"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:text="Profit (Low to High)"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:text="Variation (High to Low)"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:text="Variation (Low to High)"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:text="Alphabetical A-Z"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:text="Alphabetical Z-A"
+            android:layout_height="wrap_content"/>
+
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

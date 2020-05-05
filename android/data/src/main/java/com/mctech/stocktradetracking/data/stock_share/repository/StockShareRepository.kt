@@ -5,12 +5,17 @@ import com.mctech.stocktradetracking.data.stock_share.datasource.LocalStockShare
 import com.mctech.stocktradetracking.data.stock_share.datasource.RemoteStockShareDataSource
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.service.StockShareService
+import kotlinx.coroutines.*
 
 class StockShareRepository(
     private val logger: Logger,
     private val localDataSource: LocalStockShareDataSource,
     private val remoteDataSource: RemoteStockShareDataSource
 ) : StockShareService {
+
+    private var syncPrinceScope : CoroutineScope? = null
+    private var syncPricesDefer  = mutableListOf<Deferred<Unit>>()
+
     override suspend fun observeStockShareList() = localDataSource.observeStockShareList()
 
     override suspend fun observeStockClosedList() = localDataSource.observeStockClosedList()
@@ -32,9 +37,13 @@ class StockShareRepository(
         )
 
     override suspend fun syncStockSharePrice() {
+        syncPrinceScope?.cancel()
+        syncPrinceScope = GlobalScope.plus(Job())
+        syncPricesDefer.clear()
+
         val stockShare = localDataSource.getDistinctStockCode()
 
-        for(stockCode in stockShare){
+        for(stockCode in stockShare) syncPrinceScope?.async {
             try{
                 val currentPrice = remoteDataSource.getCurrentStockSharePrice(stockCode)
 
@@ -49,6 +58,10 @@ class StockShareRepository(
             }catch (ex : Exception){
                 logger.e(e = ex)
             }
+        }?.run {
+            syncPricesDefer.add(this)
         }
+
+        syncPricesDefer.awaitAll()
     }
 }

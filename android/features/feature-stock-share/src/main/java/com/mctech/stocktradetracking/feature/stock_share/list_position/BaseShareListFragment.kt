@@ -143,10 +143,7 @@ abstract class BaseShareListFragment<IDB : ViewDataBinding> : Fragment() {
 				override fun areItemsTheSame(left: StockShare, right: StockShare) = left.id == right.id
 
 				override fun areContentsTheSame(left: StockShare, right: StockShare): Boolean {
-					return left.code == right.code
-							&& left.getBuyDescription() == right.getBuyDescription()
-							&& left.getBalanceDescription() == right.getBalanceDescription()
-							&& left.getVariationDescription() == right.getVariationDescription()
+					return left.code == right.code && left.salePrice == right.salePrice
 				}
 			}
 		)
