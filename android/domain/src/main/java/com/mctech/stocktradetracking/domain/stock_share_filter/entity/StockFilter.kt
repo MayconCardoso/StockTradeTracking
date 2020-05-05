@@ -18,7 +18,7 @@ data class StockFilter(
 
 }
 
-enum class FilterSort(id : Int) : Serializable{
+enum class FilterSort(val id : Int) : Serializable{
     NameAsc(1),
     NameDesc(2),
     PercentAsc(3),
@@ -27,7 +27,7 @@ enum class FilterSort(id : Int) : Serializable{
     BalanceDesc(6)
 }
 
-enum class RankingQualifier(id : Int){
+enum class RankingQualifier(val id : Int){
     Balance(1),
     Percent(2)
 }

@@ -8,7 +8,9 @@ import kotlinx.coroutines.flow.map
 class ObserveCurrentFilterCase(
     private val service: StockShareFilterService
 ){
-    suspend fun execute() : Flow<StockFilter> = service.observeStockShareFilter().map {
-        it ?: StockFilter.Default()
+    fun execute() : Flow<StockFilter> {
+        return service.observeStockShareFilter().map {
+            it ?: StockFilter.Default()
+        }
     }
 }

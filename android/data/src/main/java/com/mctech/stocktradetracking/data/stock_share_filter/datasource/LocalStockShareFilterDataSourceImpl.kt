@@ -25,7 +25,7 @@ class LocalStockShareFilterDataSourceImpl(
         )
     }
 
-    override suspend fun observeStockShareFilter() = filterFlow.asFlow()
+    override fun observeStockShareFilter() = filterFlow.asFlow()
 
     override suspend fun saveFilter(stockFilter: StockFilter) {
         // Save new filter
