@@ -1,0 +1,41 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    dataBinding {
+        enabled = true
+        enabledForTests = true
+    }
+}
+
+dependencies {
+    implementation project(path: submodulesPlatform.domain)
+    implementation project(path: submodulesLibraries.designSystem)
+
+    // Personal libs
+    implementation globalDependencies.mvvmArchitectureCore
+    implementation globalDependencies.mvvmArchitectureCoreKtx
+    implementation globalDependencies.mvvmArchitectureViewKtx
+    implementation globalDependencies.mvvmArchitectureCoreDatabinding
+    implementation globalDependencies.mvvmArchitectureCoreTesting
+
+    // Platform
+    implementation globalDependencies.appCompact
+    implementation globalDependencies.kotlinStdLib
+
+    // Android ARQ
+    implementation globalDependencies.lifeCycleLiveRuntime
+    implementation globalDependencies.lifeCycleLiveExtensions
+    implementation globalDependencies.lifeCycleViewModel
+    implementation globalDependencies.lifeCycleLiveData
+
+    // View
+    implementation globalDependencies.materialDesign
+    implementation globalDependencies.constraintLayout
+
+    // KOIN
+    implementation globalDependencies.koin
+    implementation globalDependencies.koinViewModel
+}

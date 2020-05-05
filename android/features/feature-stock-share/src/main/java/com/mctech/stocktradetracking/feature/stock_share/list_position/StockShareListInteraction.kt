@@ -8,8 +8,4 @@ sealed class StockShareListInteraction : UserInteraction {
 
     object StartRealtimePosition : StockShareListInteraction()
     object StopRealtimePosition : StockShareListInteraction()
-
-    data class ChangeListFilter(
-        val groupShares: Boolean
-    ) : StockShareListInteraction()
 }

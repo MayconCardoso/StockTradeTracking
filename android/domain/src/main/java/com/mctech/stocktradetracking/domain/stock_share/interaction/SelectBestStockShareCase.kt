@@ -8,7 +8,7 @@ class SelectBestStockShareCase(
     private val groupStockShareListCase: GroupStockShareListCase
 ) : SelectStockStrategy {
     override fun execute(stockShareList: List<StockShare>): SelectedStock? {
-        return groupStockShareListCase.execute(stockShareList).maxBy {
+        return groupStockShareListCase.transform(stockShareList).maxBy {
             it.getBalance()
         }?.let {
             SelectedStock(

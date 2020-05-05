@@ -8,7 +8,7 @@ class SelectWorstDailyStockShareCase(
     private val groupStockShareListCase: GroupStockShareListCase
 ) : SelectStockStrategy {
     override fun execute(stockShareList: List<StockShare>): SelectedStock? {
-        return groupStockShareListCase.execute(stockShareList).minBy {
+        return groupStockShareListCase.transform(stockShareList).minBy {
             it.getDailyVariationBalance()
         }?.let {
             SelectedStock(

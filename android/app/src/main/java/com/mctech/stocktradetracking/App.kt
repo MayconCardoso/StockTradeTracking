@@ -2,10 +2,7 @@ package com.mctech.stocktradetracking
 
 import android.app.Application
 import com.mctech.stocktradetracking.di.coroutineScopeModule
-import com.mctech.stocktradetracking.di.data.databaseModule
-import com.mctech.stocktradetracking.di.data.stockShareDataModule
-import com.mctech.stocktradetracking.di.data.stockShareNetworkingModule
-import com.mctech.stocktradetracking.di.data.timelineBalanceDataModule
+import com.mctech.stocktradetracking.di.data.*
 import com.mctech.stocktradetracking.di.loggingModule
 import com.mctech.stocktradetracking.di.navigatorModule
 import com.mctech.stocktradetracking.di.useCasesModule
@@ -40,6 +37,8 @@ class App : Application() {
                     stockShareDataModule,
                     stockShareNetworkingModule,
                     stockShareViewModelModule,
+
+                    stockShareFilterDataModule,
 
                     timelineBalanceDataModule,
                     timelineBalanceViewModel

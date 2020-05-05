@@ -13,3 +13,4 @@ include ':libraries:library-design-system'
 
 include ':features:feature-stock-share'
 include ':features:feature-timeline-balance'
+include ':features:feature-stock-share-filter'

@@ -37,6 +37,7 @@ ext {
 
     submodulesFeatures = [
             stockShare                      : ':features:feature-stock-share',
+            stockShareFilter                : ':features:feature-stock-share-filter',
             timelineBalance                 : ':features:feature-timeline-balance',
     ]
 

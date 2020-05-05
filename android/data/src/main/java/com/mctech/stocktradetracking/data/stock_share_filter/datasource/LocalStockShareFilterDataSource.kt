@@ -1,0 +1,5 @@
+package com.mctech.stocktradetracking.data.stock_share_filter.datasource
+
+import com.mctech.stocktradetracking.domain.stock_share_filter.service.StockShareFilterService
+
+interface LocalStockShareFilterDataSource : StockShareFilterService

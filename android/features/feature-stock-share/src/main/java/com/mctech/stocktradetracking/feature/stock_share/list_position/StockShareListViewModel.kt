@@ -16,34 +16,36 @@ import com.mctech.stocktradetracking.domain.stock_share.entity.SelectedStock
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShareFinalBalance
 import com.mctech.stocktradetracking.domain.stock_share.interaction.GetMarketStatusCase
-import com.mctech.stocktradetracking.domain.stock_share.interaction.GroupStockShareListCase
 import com.mctech.stocktradetracking.domain.stock_share.interaction.SyncStockSharePriceCase
 import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.ComputeBalanceStrategy
+import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.FilterStockListStrategy
 import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.ObserveStockListStrategy
 import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.SelectStockStrategy
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
+import com.mctech.stocktradetracking.domain.stock_share_filter.entity.StockFilter
+import com.mctech.stocktradetracking.domain.stock_share_filter.interaction.ObserveCurrentFilterCase
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.isActive
 
+@ExperimentalCoroutinesApi
 open class StockShareListViewModel constructor(
 	private val observeStockListCase		: ObserveStockListStrategy,
+	private val observeCurrentFilterCase	: ObserveCurrentFilterCase,
+
 	private val getMarketStatusCase			: GetMarketStatusCase,
 	private val selectWorstStockShareCase	: SelectStockStrategy,
 	private val selectBestStockShareCase	: SelectStockStrategy,
 	private val syncStockSharePriceCase		: SyncStockSharePriceCase,
 
-	private val groupStockShareListCase		: GroupStockShareListCase,
+	private val filterStockListCase			: FilterStockListStrategy,
 	private val getFinalBalanceCase			: ComputeBalanceStrategy
 ) : BaseViewModel() {
 
-	private val originalStockList 	= mutableListOf<StockShare>()
-	private var isShowingOriginal	= true
-	private var groupedStockList 	: List<StockShare>? = null
-	private var realtimeJob 		: Job? = null
+	private val originalStockList 			= mutableListOf<StockShare>()
+	private var realtimeJob 				: Job? = null
+	private var dataTransformerScope		: CoroutineScope? = null
 
 	private val _shareList : MutableLiveData<ComponentState<List<StockShare>>> = MutableLiveData(ComponentState.Initializing)
 	val shareList : LiveData<ComponentState<List<StockShare>>> = _shareList
@@ -74,9 +76,6 @@ open class StockShareListViewModel constructor(
 			is StockShareListInteraction.StopRealtimePosition -> {
 				stopRealtimePositionInteraction()
 			}
-			is StockShareListInteraction.ChangeListFilter -> applyStockShareListFilterInteraction(
-				interaction.groupShares
-			)
 		}
 	}
 
@@ -87,8 +86,12 @@ open class StockShareListViewModel constructor(
 			}
 			.catch { exception ->
 				_shareList.changeToErrorState(exception)
-			}.collect { result ->
-				computeStockScore(result)
+			}
+			.combine(observeCurrentFilterCase.execute()){ list, filter ->
+				StockShareListResult(list, filter)
+			}
+			.collect { result ->
+				computeStockScore(result.list)
 				organizeStockListBeforeShowIt(result)
 			}
 	}
@@ -113,21 +116,6 @@ open class StockShareListViewModel constructor(
 		}
 	}
 
-	private fun applyStockShareListFilterInteraction(groupShares: Boolean) {
-		// TODO create filter flow later.
-		isShowingOriginal = !isShowingOriginal
-		if(isShowingOriginal){
-			originalStockList.run {
-				_shareList.changeToSuccessState(this)
-			}
-		}
-		else{
-			_shareList.changeToSuccessState(groupedStockList ?:  groupStockShareListCase.execute(originalStockList).apply {
-				groupedStockList = this
-			})
-		}
-	}
-
 	private fun stopRealtimePositionInteraction() {
 		realtimeJob?.cancel()
 	}
@@ -143,26 +131,26 @@ open class StockShareListViewModel constructor(
 		}
 	}
 
-	private fun organizeStockListBeforeShowIt(stockShareList : List<StockShare>) {
+	private fun organizeStockListBeforeShowIt(result: StockShareListResult) {
+		// Filter list
+		val stockShareList = filterStockListCase.execute(result.list, result.filter)
+
+		// Refresh adapter.
 		originalStockList.clear()
 		originalStockList.addAll(stockShareList)
-		groupedStockList = null
 
-		if(isShowingOriginal){
-			_shareList.changeToSuccessState(stockShareList)
-		}
-		else{
-			groupedStockList = groupStockShareListCase.execute(stockShareList).apply {
-				_shareList.changeToSuccessState(this)
-			}
-		}
+		// Change component state.
+		_shareList.changeToSuccessState(stockShareList)
 	}
 
 	private fun computeStockScore(stockShareList: List<StockShare>) {
-		viewModelScope.async { computeFinalBalance(stockShareList) }
-		viewModelScope.async { computeBestStock(stockShareList) }
-		viewModelScope.async { computeWorstStock(stockShareList) }
+		dataTransformerScope?.cancel()
 
+		dataTransformerScope = viewModelScope + Job()
+
+		dataTransformerScope?.async { computeFinalBalance(stockShareList) }
+		dataTransformerScope?.async { computeBestStock(stockShareList) }
+		dataTransformerScope?.async { computeWorstStock(stockShareList) }
 	}
 
 	private fun computeFinalBalance(stockShareList: List<StockShare>) {
@@ -191,3 +179,8 @@ open class StockShareListViewModel constructor(
 		super.onCleared()
 	}
 }
+
+private data class StockShareListResult(
+	val list : List<StockShare>,
+	val filter : StockFilter
+)

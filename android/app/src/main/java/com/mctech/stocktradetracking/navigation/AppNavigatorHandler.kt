@@ -41,6 +41,10 @@ object AppNavigatorHandler :
         navController?.navigate(R.id.action_global_stockShareBuyFragment)
     }
 
+    override fun fromStockListToFilter() {
+
+    }
+
     override fun fromTimelineToEditPeriod(currentPeriod: TimelineBalance) {
         val destination = TimelineBalanceListFragmentDirections.actionTimelineBalanceFragmentToTimelineBalanceEditPeriodFragment(
             currentPeriod

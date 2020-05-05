@@ -2,8 +2,10 @@ package com.mctech.stocktradetracking.di
 
 import com.mctech.stocktradetracking.domain.stock_share.interaction.*
 import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.ComputeBalanceStrategy
+import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.FilterStockListStrategy
 import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.ObserveStockListStrategy
 import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.SelectStockStrategy
+import com.mctech.stocktradetracking.domain.stock_share_filter.interaction.ObserveCurrentFilterCase
 import com.mctech.stocktradetracking.domain.timeline_balance.interaction.CreatePeriodCase
 import com.mctech.stocktradetracking.domain.timeline_balance.interaction.EditPeriodCase
 import com.mctech.stocktradetracking.domain.timeline_balance.interaction.GetCurrentPeriodBalanceCase
@@ -22,9 +24,13 @@ val useCasesModule = module {
     single { GetMarketStatusCase(service = get(), logger = get()) }
     single { GetFinalBalanceCase() }
     single { GroupStockShareListCase() }
-
+    single { ObserveCurrentFilterCase(service = get()) }
     single { ObserveStockShareListCase(service = get()) as ObserveStockListStrategy }
-    single(named("closedListObserver")) { ObserveStockClosedListCase(service = get()) as ObserveStockListStrategy}
+
+    single(named("closedListObserver")) { ObserveStockClosedListCase(service = get()) as ObserveStockListStrategy }
+
+    single(named("stockFilter")) { FilterStockShareListCase(groupStockShareListCase = get()) as FilterStockListStrategy }
+    single(named("dailyStockFilter")) { FilterStockDailyListCase(groupStockShareListCase = get()) as FilterStockListStrategy }
 
     single(named("dailyWorstSelector")) { SelectWorstDailyStockShareCase(groupStockShareListCase = get()) as SelectStockStrategy }
     single(named("dailyBestSelector")) { SelectBestDailyStockShareCase(groupStockShareListCase = get()) as SelectStockStrategy }

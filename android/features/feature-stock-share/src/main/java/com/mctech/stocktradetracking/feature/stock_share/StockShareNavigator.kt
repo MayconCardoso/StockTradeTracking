@@ -5,6 +5,7 @@ import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 
 interface StockShareNavigator {
     fun fromStockListToBuyPosition()
+    fun fromStockListToFilter()
     fun fromStockListToEditPosition(stockShare: StockShare)
     fun navigateBack()
 }

@@ -77,7 +77,7 @@ abstract class BaseShareListFragment<IDB : ViewDataBinding> : Fragment() {
 				navigator.fromStockListToBuyPosition()
 			}
 			R.id.menu_filter -> {
-				viewModel.interact(StockShareListInteraction.ChangeListFilter(true))
+				navigator.fromStockListToFilter()
 			}
 			R.id.menu_chart -> {
 				Toast.makeText(requireContext(), "Developing...", Toast.LENGTH_SHORT).show()

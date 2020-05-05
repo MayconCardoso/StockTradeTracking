@@ -2,8 +2,9 @@ package com.mctech.stocktradetracking.domain.stock_share.interaction
 
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 
-class GroupStockShareListCase{
-    fun execute(stockShareList: List<StockShare>) = stockShareList
+class GroupStockShareListCase {
+
+    fun transform(stockShareList: List<StockShare>) = stockShareList
         .groupBy { it.code }
         .values
         .map {

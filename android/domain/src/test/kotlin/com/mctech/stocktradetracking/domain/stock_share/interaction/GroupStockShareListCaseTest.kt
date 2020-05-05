@@ -20,7 +20,7 @@ class GroupStockShareListCaseTest {
     @Test
     fun `should group list by code`() = testScenario(
         action = {
-            useCase.execute(StockShareDataFactory.ungroupedList())
+            useCase.transform(StockShareDataFactory.ungroupedList())
         },
         assertions = { it ->
             assertThat(it.size).isEqualTo(3)

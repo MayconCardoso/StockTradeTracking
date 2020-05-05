@@ -13,9 +13,10 @@ val stockShareViewModelModule = module {
             getFinalBalanceCase         = get(named("stockBalance")),
             selectBestStockShareCase    = get(named("stockBestSelector")),
             selectWorstStockShareCase   = get(named("stockWorstSelector")),
+            filterStockListCase         = get(named("stockFilter")) ,
             observeStockListCase        = get(),
             getMarketStatusCase         = get(),
-            groupStockShareListCase     = get(),
+            observeCurrentFilterCase    = get(),
             syncStockSharePriceCase     = get()
         )
     }
@@ -25,9 +26,10 @@ val stockShareViewModelModule = module {
             getFinalBalanceCase         = get(named("dailyBalance")),
             selectBestStockShareCase    = get(named("dailyBestSelector")),
             selectWorstStockShareCase   = get(named("dailyWorstSelector")),
+            filterStockListCase         = get(named("dailyStockFilter")) ,
             observeStockListCase        = get(),
             getMarketStatusCase         = get(),
-            groupStockShareListCase     = get(),
+            observeCurrentFilterCase    = get(),
             syncStockSharePriceCase     = get()
         )
     }
@@ -38,8 +40,9 @@ val stockShareViewModelModule = module {
             selectWorstStockShareCase   = get(named("stockWorstSelector")),
             selectBestStockShareCase    = get(named("stockBestSelector")),
             getFinalBalanceCase         = get(named("stockBalance")),
+            filterStockListCase         = get(named("stockFilter")),
             getMarketStatusCase         = get(),
-            groupStockShareListCase     = get(),
+            observeCurrentFilterCase    = get(),
             syncStockSharePriceCase     = get()
         )
     }
