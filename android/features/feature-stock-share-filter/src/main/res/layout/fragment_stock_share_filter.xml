@@ -1,69 +1,129 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <androidx.appcompat.widget.AppCompatCheckBox
+<layout>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/cbGroupe"
-        android:checked="true"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:text="@string/group_similar_code"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:id="@+id/lbGroup"
-        android:layout_marginTop="12dp"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:text="@string/sort_kind"
-        app:layout_constraintTop_toBottomOf="@id/cbGroupe"/>
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintTop_toBottomOf="@id/lbGroup">
-
-        <RadioButton
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:text="Profit (High to Low)"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:layout_height="wrap_content"/>
+            android:isScrollContainer="true"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
-        <RadioButton
-            android:layout_width="match_parent"
-            android:text="Profit (Low to High)"
-            android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/cbGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/group_similar_code"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <RadioButton
-            android:layout_width="match_parent"
-            android:text="Variation (High to Low)"
-            android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/lbGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/sort_kind"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cbGroup" />
 
-        <RadioButton
-            android:layout_width="match_parent"
-            android:text="Variation (Low to High)"
-            android:layout_height="wrap_content"/>
+            <RadioGroup
+                android:id="@+id/sortRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintTop_toBottomOf="@id/lbGroup">
 
-        <RadioButton
-            android:layout_width="match_parent"
-            android:text="Alphabetical A-Z"
-            android:layout_height="wrap_content"/>
+                <RadioButton
+                    android:id="@+id/sortProfitH"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sort_profit_h"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-        <RadioButton
-            android:layout_width="match_parent"
-            android:text="Alphabetical Z-A"
-            android:layout_height="wrap_content"/>
+                <RadioButton
+                    android:id="@+id/sortProfitL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sort_profit_l" />
 
-    </RadioGroup>
+                <RadioButton
+                    android:id="@+id/sortVariationH"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sort_variation_h" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <RadioButton
+                    android:id="@+id/sortVariationL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sort_variation_l" />
+
+                <RadioButton
+                    android:id="@+id/sortNameA"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sort_name_a" />
+
+                <RadioButton
+                    android:id="@+id/sortNameZ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sort_name_z" />
+
+            </RadioGroup>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/lbRanking"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/ranking"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sortRadioGroup" />
+
+            <RadioGroup
+                android:id="@+id/rankingRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintTop_toBottomOf="@id/lbRanking">
+
+                <RadioButton
+                    android:id="@+id/rankingProfit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ranking_profit"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                <RadioButton
+                    android:id="@+id/rankingVariation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ranking_variation" />
+
+            </RadioGroup>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btSalver"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/salvar"
+                app:layout_constraintTop_toBottomOf="@id/rankingRadioGroup" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>

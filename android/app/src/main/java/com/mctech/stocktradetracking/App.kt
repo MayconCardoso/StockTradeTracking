@@ -1,11 +1,9 @@
 package com.mctech.stocktradetracking
 
 import android.app.Application
-import com.mctech.stocktradetracking.di.coroutineScopeModule
+import com.mctech.stocksharetracking.feature.stock_share_filter.stockShareFilterViewModelModule
+import com.mctech.stocktradetracking.di.*
 import com.mctech.stocktradetracking.di.data.*
-import com.mctech.stocktradetracking.di.loggingModule
-import com.mctech.stocktradetracking.di.navigatorModule
-import com.mctech.stocktradetracking.di.useCasesModule
 import com.mctech.stocktradetracking.feature.stock_share.stockShareViewModelModule
 import com.mctech.stocktradetracking.feature.timeline_balance.timelineBalanceViewModel
 import org.koin.android.ext.koin.androidContext
@@ -27,21 +25,22 @@ class App : Application() {
                     // Libraries
                     loggingModule,
                     databaseModule,
-                    coroutineScopeModule,
-
-                    // App
-                    useCasesModule,
                     navigatorModule,
+                    coroutineScopeModule,
 
                     // Features
                     stockShareDataModule,
                     stockShareNetworkingModule,
                     stockShareViewModelModule,
+                    stockShareUseCasesModule,
 
                     stockShareFilterDataModule,
+                    stockShareFilterViewModelModule,
+                    stockShareFilterUseCasesModule,
 
                     timelineBalanceDataModule,
-                    timelineBalanceViewModel
+                    timelineBalanceViewModel,
+                    timelineUseCasesModule
                 )
             )
         }

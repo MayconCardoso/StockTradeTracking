@@ -6,6 +6,7 @@ import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.F
 import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.ObserveStockListStrategy
 import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.SelectStockStrategy
 import com.mctech.stocktradetracking.domain.stock_share_filter.interaction.ObserveCurrentFilterCase
+import com.mctech.stocktradetracking.domain.stock_share_filter.interaction.SaveStockShareFilterCase
 import com.mctech.stocktradetracking.domain.timeline_balance.interaction.CreatePeriodCase
 import com.mctech.stocktradetracking.domain.timeline_balance.interaction.EditPeriodCase
 import com.mctech.stocktradetracking.domain.timeline_balance.interaction.GetCurrentPeriodBalanceCase
@@ -13,8 +14,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 
-val useCasesModule = module {
-    // Stock Share
+val stockShareUseCasesModule = module {
     single { SaveStockShareCase(service = get(), logger = get()) }
     single { DeleteStockShareCase(service = get(), logger = get()) }
     single { CloseStockShareCase(service = get(), logger = get()) }
@@ -25,7 +25,6 @@ val useCasesModule = module {
     single { GetFinalBalanceCase() }
     single { GroupStockShareListCase() }
     single { ObserveCurrentFilterCase(service = get()) }
-    single { ObserveStockShareListCase(service = get()) as ObserveStockListStrategy }
 
     single(named("closedListObserver")) { ObserveStockClosedListCase(service = get()) as ObserveStockListStrategy }
 
@@ -39,8 +38,14 @@ val useCasesModule = module {
 
     single(named("stockBalance")) { GetFinalBalanceCase() as ComputeBalanceStrategy }
     single(named("dailyBalance")) { GetFinalDailyBalanceCase() as ComputeBalanceStrategy }
+}
 
-    // Timeline balance
+val stockShareFilterUseCasesModule = module {
+    single { ObserveStockShareListCase(service = get()) as ObserveStockListStrategy }
+    single { SaveStockShareFilterCase(service = get(), logger = get()) }
+}
+
+val timelineUseCasesModule = module {
     single { CreatePeriodCase(service = get(), logger = get()) }
     single { EditPeriodCase(service = get(), logger = get()) }
     single { GetCurrentPeriodBalanceCase(service = get(), logger = get()) }

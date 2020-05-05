@@ -2,6 +2,7 @@ package com.mctech.stocktradetracking.navigation
 
 import android.os.Bundle
 import androidx.navigation.NavController
+import com.mctech.stocksharetracking.feature.stock_share_filter.StockShareFilterNavigator
 import com.mctech.stocktradetracking.R
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBalance
@@ -11,7 +12,8 @@ import com.mctech.stocktradetracking.feature.timeline_balance.list_period.Timeli
 
 object AppNavigatorHandler :
     StockShareNavigator,
-    TimelineBalanceNavigator
+    TimelineBalanceNavigator,
+    StockShareFilterNavigator
 {
     private var navController: NavController? = null
 
@@ -42,7 +44,7 @@ object AppNavigatorHandler :
     }
 
     override fun fromStockListToFilter() {
-
+        navController?.navigate(R.id.action_global_stockShareFilterFragment)
     }
 
     override fun fromTimelineToEditPeriod(currentPeriod: TimelineBalance) {

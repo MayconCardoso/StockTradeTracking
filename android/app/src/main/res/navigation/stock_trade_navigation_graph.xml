@@ -25,6 +25,12 @@
         tools:layout="@layout/fragment_stock_share_list" />
 
     <fragment
+        android:id="@+id/stockShareFilterFragment"
+        tools:layout="@layout/fragment_stock_share_filter"
+        android:name="com.mctech.stocksharetracking.feature.stock_share_filter.StockShareFilterFragment"
+        android:label="Filter Settings" />
+
+    <fragment
         android:id="@+id/stockShareBuyFragment"
         android:name="com.mctech.stocktradetracking.feature.stock_share.add_position.StockShareBuyFragment"
         android:label="Add Position"
@@ -94,4 +100,14 @@
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <action
+        android:id="@+id/action_global_stockShareFilterFragment"
+        app:destination="@id/stockShareFilterFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+
 </navigation>

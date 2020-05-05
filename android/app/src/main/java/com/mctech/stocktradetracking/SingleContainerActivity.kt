@@ -1,6 +1,7 @@
 package com.mctech.stocktradetracking
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -26,6 +27,15 @@ class SingleContainerActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return getNavigationController().navigateUp()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == android.R.id.home){
+            getNavigationController().navigateUp()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun getNavigationController() = Navigation.findNavController(this, R.id.nav_host_fragment)

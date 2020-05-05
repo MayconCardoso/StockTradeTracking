@@ -4,4 +4,14 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="sort_kind">Sort by</string>
+    <string name="sort_profit_h">Profit (High to Low)</string>
+    <string name="sort_profit_l">Profit (Low to High)</string>
+    <string name="sort_variation_h">Variation (High to Low)</string>
+    <string name="sort_variation_l">Variation (Low to High)</string>
+    <string name="sort_name_a">Alphabetical A-Z</string>
+    <string name="sort_name_z">Alphabetical Z-A</string>
+    <string name="ranking">Rank best and worst by</string>
+    <string name="ranking_profit">Profit</string>
+    <string name="ranking_variation">Variation</string>
+    <string name="salvar">Salvar</string>
 </resources>
