@@ -25,7 +25,7 @@ val stockShareNetworkingModule = module {
 
     single {
         RetrofitBuilder(
-            apiURL = "http://192.168.0.14:3000/api/",
+            apiURL = "https://stock-share-tracking.herokuapp.com/api/",
             httpClient = get()
         )
     }

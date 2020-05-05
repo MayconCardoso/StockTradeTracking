@@ -32,6 +32,12 @@ class PulseView @JvmOverloads constructor(
                     handlerAnimation.post(this.animationRunnable)
                 }
 
+            staticImg.animate().scaleX(0.1F).scaleY(0.1F).setDuration(500)
+                .withEndAction {
+                    staticImg.scaleX = 1F
+                    staticImg.scaleY = 1F
+                }
+
             imgSecondPulse.animate().scaleX(1.8F).scaleY(1.8F).alpha(0F).setDuration(1400)
                 .withEndAction {
                     imgSecondPulse.scaleX = 0.7F
