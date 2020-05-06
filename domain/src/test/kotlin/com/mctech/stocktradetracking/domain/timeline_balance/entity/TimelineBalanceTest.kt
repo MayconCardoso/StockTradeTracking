@@ -2,23 +2,27 @@ package com.mctech.stocktradetracking.domain.timeline_balance.entity
 
 import org.assertj.core.api.Assertions
 import org.junit.Test
+import java.util.*
 
 /**
  * @author MAYCON CARDOSO on 03/05/20.
  */
 class TimelineBalanceTest{
+    private val date = Calendar.getInstance().time
     private val expectedSingle = TimelineBalance(
         id = 1,
         periodProfit = 1000.0,
         periodInvestment = 10000.0,
-        periodTag =  "First"
+        periodTag =  "First",
+        startDate = date
     )
 
     private val expectedNeutral = TimelineBalance(
         id = 3,
         periodProfit = 0.0,
         periodInvestment = 0.0,
-        periodTag =  "Neutral"
+        periodTag =  "Neutral",
+        startDate = date
     )
 
     private val expectedLinked = TimelineBalance(
@@ -27,7 +31,8 @@ class TimelineBalanceTest{
         periodInvestment = 20000.0,
         periodTag =  "Second",
         parent = expectedSingle,
-        parentPeriodId = 1
+        parentPeriodId = 1,
+        startDate = date
     )
 
     @Test
@@ -38,6 +43,7 @@ class TimelineBalanceTest{
         Assertions.assertThat(expectedSingle.periodTag).isEqualTo("First")
         Assertions.assertThat(expectedSingle.parent).isNull()
         Assertions.assertThat(expectedSingle.parentPeriodId).isNull()
+        Assertions.assertThat(expectedSingle.startDate).isEqualTo(date)
 
         Assertions.assertThat(expectedLinked.id).isEqualTo(2)
         Assertions.assertThat(expectedLinked.periodProfit).isEqualTo(-3000.0)
@@ -45,6 +51,7 @@ class TimelineBalanceTest{
         Assertions.assertThat(expectedLinked.periodTag).isEqualTo("Second")
         Assertions.assertThat(expectedLinked.parent).isEqualTo(expectedSingle)
         Assertions.assertThat(expectedLinked.parentPeriodId).isEqualTo(1)
+        Assertions.assertThat(expectedLinked.startDate).isEqualTo(date)
     }
 
     @Test
