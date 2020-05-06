@@ -10,6 +10,7 @@ import com.mctech.stocktradetracking.testing.data_factory.factories.TimelineBala
 import com.mctech.stocktradetracking.testing.data_factory.testScenario
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.assertj.core.api.Assertions
@@ -40,6 +41,7 @@ class GetCurrentPeriodBalanceCaseTest{
         },
         assertions = {
             verify(service).getListOfPeriodsBalance()
+            verifyNoMoreInteractions(service)
         }
     )
 
@@ -53,6 +55,8 @@ class GetCurrentPeriodBalanceCaseTest{
         },
         assertions = { result ->
             result.assertResultSuccess(expectedLinked)
+            verify(service).getListOfPeriodsBalance()
+            verifyNoMoreInteractions(service)
         }
     )
 

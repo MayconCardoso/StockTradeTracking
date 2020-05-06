@@ -1,5 +1,6 @@
 package com.mctech.stocktradetracking.domain.stock_share.interaction
 
+import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.testing.data_factory.factories.StockShareDataFactory
 import com.mctech.stocktradetracking.testing.data_factory.testScenario
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -12,6 +13,8 @@ class GetFinalDailyBalanceCaseTest{
     private val positiveList        = StockShareDataFactory.finalBalancePositiveList()
     private val negativeList        = StockShareDataFactory.finalBalanceNegativeList()
     private val neutralList         = StockShareDataFactory.finalBalanceNeutralList()
+    private val emptyList           = listOf<StockShare>()
+
     private lateinit var useCase    : GetFinalDailyBalanceCase
 
     @Before
@@ -58,6 +61,21 @@ class GetFinalDailyBalanceCaseTest{
             Assertions.assertThat(it.balance).isEqualTo(0.0)
             Assertions.assertThat(it.investment).isEqualTo(2000.0)
             Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$2.000,00")
+            Assertions.assertThat(it.getBalanceDescription()).isEqualTo("R$0,00")
+            Assertions.assertThat(it.variation).isEqualTo(0.0)
+            Assertions.assertThat(it.getVariationDescription()).isEqualTo("0.0%")
+        }
+    )
+
+    @Test
+    fun `should compute empty balance`() = testScenario(
+        action = {
+            useCase.execute(emptyList)
+        },
+        assertions = {
+            Assertions.assertThat(it.balance).isEqualTo(0.0)
+            Assertions.assertThat(it.investment).isEqualTo(0.0)
+            Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$0,00")
             Assertions.assertThat(it.getBalanceDescription()).isEqualTo("R$0,00")
             Assertions.assertThat(it.variation).isEqualTo(0.0)
             Assertions.assertThat(it.getVariationDescription()).isEqualTo("0.0%")
