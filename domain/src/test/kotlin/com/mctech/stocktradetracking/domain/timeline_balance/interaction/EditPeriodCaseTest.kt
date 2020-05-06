@@ -52,6 +52,8 @@ class EditPeriodCaseTest {
             Assertions.assertThat(originalObject.periodInvestment).isEqualTo(changedChangingProfit.periodInvestment)
             Assertions.assertThat(originalObject.periodProfit).isEqualTo(changedChangingProfit.periodProfit)
             Assertions.assertThat(originalObject.getFinalBalance()).isEqualTo(13100.0)
+            verify(service).editPeriod(originalObject)
+            verifyNoMoreInteractions(service)
         }
     )
 
@@ -64,6 +66,8 @@ class EditPeriodCaseTest {
             Assertions.assertThat(originalObject.periodInvestment).isEqualTo(changedChangingProfit.periodInvestment)
             Assertions.assertThat(originalObject.periodProfit).isEqualTo(13000.0)
             Assertions.assertThat(originalObject.getFinalBalance()).isEqualTo(25000.0)
+            verify(service).editPeriod(originalObject)
+            verifyNoMoreInteractions(service)
         }
     )
 
