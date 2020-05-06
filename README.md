@@ -9,14 +9,14 @@ alt="Stock Trade Logo" title="The logo himself" align="Right" />
 
 ## About
 
-Stock Trade Tracking is an app where you can register your [Ibovespa](https://pt.wikipedia.org/wiki/Ibovespa) shares and tracking your profit or loss automatically (Hopefully your profit).
+Stock Trade Tracking is an app where you can register your [Ibovespa](https://pt.wikipedia.org/wiki/Ibovespa) shares and track your profit or loss automatically (Hopefully your profit).
 
 It is a simple showcase for a modern and well-crafted Android application, powered by [Kotlin Coroutines](https://developer.android.com/kotlin/coroutines) and [Clean Architecture](https://www.amazon.com.br/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164). It is a real modularized MVVM application. 
 
 <img src="./.github/gif1.gif" alt="with-internet" width="200px"/> <img src="./.github/gif2.gif" alt="withou-internet" width="200px"/> <img src="./.github/gif3.gif" alt="withou-internet" width="200px"/>
 
 ## Project Overview
-The code is structured in a multi-module fashion, with semantics guided by Clean Architecture.
+The code is structured in a multi-module fashion, with semantics guided by [Clean Architecture](https://www.amazon.com.br/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164).
 
 The domain is a horizontal module that defines all business rules and the core protocols to be implemented by low-level details, while aggregates them in high-level policies by using the [UseCase](http://www.plainionist.net/Implementing-Clean-Architecture-UseCases/) concept from Clean Architecture.
 
