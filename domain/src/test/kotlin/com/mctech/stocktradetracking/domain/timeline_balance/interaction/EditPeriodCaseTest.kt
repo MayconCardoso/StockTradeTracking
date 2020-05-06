@@ -6,7 +6,7 @@ import com.mctech.stocktradetracking.testing.data_factory.factories.TimelineBala
 import com.mctech.stocktradetracking.testing.data_factory.testScenario
 import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 
@@ -45,13 +45,16 @@ class EditPeriodCaseTest {
 
     @Test
     fun `should change period profit`() = testScenario(
+        scenario = {
+            assertThat(originalObject.getFinalBalance()).isNotEqualTo(11000.0)
+        },
         action = {
             useCase.execute(originalObject, changedChangingProfit, 11000.0)
         },
         assertions = {
-            Assertions.assertThat(originalObject.periodInvestment).isEqualTo(changedChangingProfit.periodInvestment)
-            Assertions.assertThat(originalObject.periodProfit).isEqualTo(changedChangingProfit.periodProfit)
-            Assertions.assertThat(originalObject.getFinalBalance()).isEqualTo(13100.0)
+            assertThat(originalObject.periodInvestment).isEqualTo(changedChangingProfit.periodInvestment)
+            assertThat(originalObject.periodProfit).isEqualTo(changedChangingProfit.periodProfit)
+            assertThat(originalObject.getFinalBalance()).isEqualTo(13100.0)
             verify(service).editPeriod(originalObject)
             verifyNoMoreInteractions(service)
         }
@@ -59,13 +62,16 @@ class EditPeriodCaseTest {
 
     @Test
     fun `should change final period balance`() = testScenario(
+        scenario = {
+            assertThat(originalObject.periodInvestment).isNotEqualTo(changedChangingProfit.periodInvestment)
+        },
         action = {
             useCase.execute(originalObject, changedChangingProfit, 25000.0)
         },
         assertions = {
-            Assertions.assertThat(originalObject.periodInvestment).isEqualTo(changedChangingProfit.periodInvestment)
-            Assertions.assertThat(originalObject.periodProfit).isEqualTo(13000.0)
-            Assertions.assertThat(originalObject.getFinalBalance()).isEqualTo(25000.0)
+            assertThat(originalObject.periodInvestment).isEqualTo(changedChangingProfit.periodInvestment)
+            assertThat(originalObject.periodProfit).isEqualTo(13000.0)
+            assertThat(originalObject.getFinalBalance()).isEqualTo(25000.0)
             verify(service).editPeriod(originalObject)
             verifyNoMoreInteractions(service)
         }

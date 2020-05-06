@@ -13,14 +13,14 @@ class EditPeriodCase(
 			// Flow control
 			var changingInitialInvestment = false
 			var changingFinalBalance = false
+			val isPeriodInvestmentDifferent = period.periodInvestment != newValue.periodInvestment
 
-			if(period.periodInvestment != newValue.periodInvestment){
+			if(isPeriodInvestmentDifferent){
 				changingInitialInvestment = true
 			}
 			if(period.getFinalBalance() != finalBalance){
 				changingFinalBalance = true
 			}
-
 
 			// Update period.
 			period.periodTag = newValue.periodTag
