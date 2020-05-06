@@ -35,3 +35,7 @@ Here are some personal libraries used to develop this app:
 * [MVVM Archictecture Toolkit](https://github.com/MayconCardoso/Mvvm-Architecture-Toolkit)
 * [Architecture Boilerplate Generator](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator) 
 * [Keyboard Visibility Monitor](https://github.com/MayconCardoso/KeyboardVisibilityMonitor)
+
+## Roadmap
+
+You can check out the [Project Board](https://github.com/MayconCardoso/StockTradeTracking/projects/1) to see the next steps.
