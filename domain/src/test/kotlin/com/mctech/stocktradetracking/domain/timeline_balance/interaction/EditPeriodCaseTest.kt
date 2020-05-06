@@ -46,7 +46,7 @@ class EditPeriodCaseTest {
     @Test
     fun `should change period profit`() = testScenario(
         scenario = {
-            assertThat(originalObject.getFinalBalance()).isNotEqualTo(11000.0)
+            assertThat(originalObject.getFinalBalance()).isEqualTo(11000.0)
         },
         action = {
             useCase.execute(originalObject, changedChangingProfit, 11000.0)
