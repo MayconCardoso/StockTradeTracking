@@ -45,7 +45,7 @@ data class StockShare(
     }
 
     fun getBalance() : Double{
-        return getFinalStockPrice() - getInvestmentValue()
+        return (getFinalStockPrice() - getInvestmentValue()).round(2)
     }
 
     fun getBalanceDescription() : String{
