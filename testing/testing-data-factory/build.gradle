@@ -1,4 +1,5 @@
 apply plugin: 'kotlin'
+apply plugin: 'com.adarshr.test-logger'
 
 dependencies {
     implementation project(path: submodulesPlatform.domain)
