@@ -78,6 +78,21 @@ class EditPeriodCaseTest {
     )
 
     @Test
+    fun `should change period investment balance`() = testScenario(
+        scenario = {
+            assertThat(originalObject.periodInvestment).isNotEqualTo(changedChangingProfit.periodInvestment)
+        },
+        action = {
+            useCase.execute(originalObject, changedChangingProfit, 25000.0)
+        },
+        assertions = {
+            assertThat(originalObject.periodInvestment).isEqualTo(changedChangingProfit.periodInvestment)
+            verify(service).editPeriod(originalObject)
+            verifyNoMoreInteractions(service)
+        }
+    )
+
+    @Test
     fun `should log error`() = testScenario(
         scenario = {
             whenever(service.editPeriod(any())).thenThrow(expectedError)
