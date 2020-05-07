@@ -41,6 +41,7 @@ class TimelineBalanceListViewModel constructor(
             }
             is Result.Failure -> {
                 _periodList.changeToErrorState(result.throwable)
+                _finalBalance.changeToErrorState(result.throwable)
             }
         }
     }
