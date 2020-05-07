@@ -41,8 +41,64 @@ Here are some personal libraries used to develop this app:
 
 You can check out the [Project Board](https://github.com/MayconCardoso/StockTradeTracking/projects/1) to see the next steps.
 
-## License
+## Testing
+
+When I have said this architecture was very simple to be tested I was being serious. Here is a little example of a code testing two differents LiveDatas at the same time with the same action trigger.
+
+```kotlin
+class TimelineBalanceListViewModelTest : BaseViewModelTest() {
+    private val loaderUseCase	    = mock<GetCurrentPeriodBalanceCase>()
+    private val expectedList        = TimelineBalanceFactory.listOf(10)
+
+    private lateinit var viewModel  : TimelineBalanceListViewModel
+
+    @Before
+    fun `before each test`() {
+        viewModel = TimelineBalanceListViewModel(loaderUseCase)
+    }
+
+    @Test
+    fun `should initialize components`() = testLiveDataScenario {
+        assertLiveDataFlow(viewModel.periodList){
+            it.assertFlow(ComponentState.Initializing)
+        }
+
+        assertLiveDataFlow(viewModel.finalBalance){
+            it.assertFlow(ComponentState.Initializing)
+        }
+    }
+
+    @Test
+    fun `should return list`() = testLiveDataScenario {
+        whenThisScenario{
+            whenever(loaderUseCase.execute()).thenReturn(Result.Success(expectedList))
+        }
+
+        onThisAction {
+            viewModel.interact(TimelineBalanceListInteraction.LoadTimelineComponent)
+        }
+
+        assertLiveDataFlow(viewModel.periodList){
+            it.assertFlow(
+                ComponentState.Initializing,
+                ComponentState.Loading.FromEmpty,
+                ComponentState.Success(expectedList)
+            )
+        }
+
+        assertLiveDataFlow(viewModel.finalBalance){
+            it.assertFlow(
+                ComponentState.Initializing,
+                ComponentState.Loading.FromEmpty,
+                ComponentState.Success(expectedList.first())
+            )
+        }
+    }
+}
 ```
+
+## License
+
 The MIT License (MIT)
 
 Copyright (c) 2020 Maycon Cardoso
