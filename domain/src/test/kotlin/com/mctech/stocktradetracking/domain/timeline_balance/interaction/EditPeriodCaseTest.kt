@@ -19,6 +19,10 @@ class EditPeriodCaseTest {
         periodInvestment = 10000.0,
         periodProfit = 1000.0
     )
+    private val cloneObject  = TimelineBalanceFactory.single(
+        periodInvestment = 10000.0,
+        periodProfit = 1000.0
+    )
 
     private val changedChangingProfit  = TimelineBalanceFactory.single(
         periodInvestment = 12000.0,
@@ -78,15 +82,17 @@ class EditPeriodCaseTest {
     )
 
     @Test
-    fun `should change period investment balance`() = testScenario(
+    fun `should not change anything`() = testScenario(
         scenario = {
-            assertThat(originalObject.periodInvestment).isNotEqualTo(changedChangingProfit.periodInvestment)
+            assertThat(originalObject.periodInvestment).isEqualTo(cloneObject.periodInvestment)
         },
         action = {
-            useCase.execute(originalObject, changedChangingProfit, 25000.0)
+            useCase.execute(originalObject, cloneObject, 11000.0)
         },
         assertions = {
-            assertThat(originalObject.periodInvestment).isEqualTo(changedChangingProfit.periodInvestment)
+            assertThat(originalObject.periodInvestment).isEqualTo(cloneObject.periodInvestment)
+            assertThat(originalObject.getFinalBalance()).isEqualTo(cloneObject.getFinalBalance())
+            assertThat(originalObject.periodProfit).isEqualTo(cloneObject.periodProfit)
             verify(service).editPeriod(originalObject)
             verifyNoMoreInteractions(service)
         }
