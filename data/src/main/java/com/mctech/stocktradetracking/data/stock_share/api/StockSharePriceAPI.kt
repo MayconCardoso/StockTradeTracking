@@ -11,11 +11,11 @@ interface StockSharePriceAPI {
 }
 
 data class StockPriceResponse(
-    val price: Double?,
-    val open: Double?,
-    val high: Double?,
-    val low: Double?,
-    val volume: Double?,
-    val previousClose: Double?,
-    val marketChange: Double
+    val price: Double? = null,
+    val open: Double? = null,
+    val high: Double? = null,
+    val low: Double? = null,
+    val volume: Double? = null,
+    val previousClose: Double? = null,
+    val marketChange: Double? = null
 )

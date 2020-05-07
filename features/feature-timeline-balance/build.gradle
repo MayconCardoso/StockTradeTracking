@@ -51,4 +51,6 @@ dependencies {
 	testImplementation globalTestDependencies.mockitoInline
 	testImplementation globalTestDependencies.testArqCor
 	testImplementation globalTestDependencies.roboletric
+	testImplementation globalTestDependencies.barista
+
 }

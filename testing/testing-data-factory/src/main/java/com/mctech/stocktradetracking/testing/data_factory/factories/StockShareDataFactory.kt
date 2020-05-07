@@ -191,4 +191,44 @@ object StockShareDataFactory {
             )
         }
     }
+
+    fun simpleList(): List<StockShare> {
+        return mutableListOf<StockShare>().apply {
+            add(
+                StockShare(
+                    code = "MGLU3",
+                    purchasePrice = 2.0,
+                    salePrice = 10.0,
+                    shareAmount = 100,
+                    purchaseDate =  Calendar.getInstance().time,
+                    marketChange = 2.0,
+                    previousClose = 8.0
+                )
+            )
+
+            add(
+                StockShare(
+                    code = "WEGE3",
+                    purchasePrice = 1.0,
+                    salePrice = 2.0,
+                    shareAmount = 200,
+                    purchaseDate =  Calendar.getInstance().time,
+                    marketChange = 0.0,
+                    previousClose = 10.0
+                )
+            )
+
+            add(
+                StockShare(
+                    code = "SQIA3",
+                    purchasePrice = 1.0,
+                    salePrice = 1.1,
+                    shareAmount = 100,
+                    purchaseDate =  Calendar.getInstance().time,
+                    marketChange = 0.0,
+                    previousClose = 2.0
+                )
+            )
+        }
+    }
 }
