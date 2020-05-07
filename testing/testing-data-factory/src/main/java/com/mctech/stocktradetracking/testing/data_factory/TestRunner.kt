@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 
 @ExperimentalCoroutinesApi
 fun <T> testScenario(
@@ -24,7 +25,7 @@ fun <T> testMockedFlowScenario(
     observe         : suspend () -> Flow<T>,
     action          : suspend (FlowEmission<T?>) -> Unit,
     assertions      : suspend (result: List<T>) -> Unit
-) = runBlocking {
+) = runBlockingTest {
     val mockedFlow  = ConflatedBroadcastChannel<T?>()
     val values      = mutableListOf<T>()
     val emitter     = FlowEmission<T?>(mockedFlow)
@@ -58,7 +59,7 @@ fun <T> testFlowScenario(
     observe         : suspend () -> Flow<T>,
     action          : suspend () -> Unit = {},
     assertions      : suspend (result: List<T>) -> Unit
-) = runBlocking {
+) = runBlockingTest {
     val values      = mutableListOf<T>()
 
     // Configure

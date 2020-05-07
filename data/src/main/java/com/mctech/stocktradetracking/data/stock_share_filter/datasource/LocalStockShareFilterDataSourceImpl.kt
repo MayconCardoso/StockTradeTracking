@@ -16,7 +16,7 @@ class LocalStockShareFilterDataSourceImpl(
 ) : LocalStockShareFilterDataSource{
 
     companion object{
-        internal const val PREFERENCE_KEY = "currentFilter"
+        const val PREFERENCE_KEY = "currentFilter"
     }
 
     private val filterFlow by lazy {
