@@ -108,6 +108,7 @@ ext {
             jUnitKtx                        : "androidx.test.ext:junit:1.1.1",
             roboletric                      : "org.robolectric:robolectric:4.3.1",
             mockitoKotlin                   : "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0",
+            mockitoInline                   : "org.mockito:mockito-inline:2.21.0",
             testRunner                      : "androidx.test:runner:1.2.0",
             assertJ                         : "org.assertj:assertj-core:3.11.1",
             coroutines                      : "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.1",

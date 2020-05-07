@@ -41,4 +41,14 @@ dependencies {
 	// KOIN
 	implementation globalDependencies.koin
 	implementation globalDependencies.koinViewModel
+
+	testImplementation project(path: submodulesTest.dataFactory)
+	testImplementation globalTestDependencies.jUnit
+	testImplementation globalTestDependencies.testRunner
+	testImplementation globalTestDependencies.assertJ
+	testImplementation globalTestDependencies.coroutines
+	testImplementation globalTestDependencies.mockitoKotlin
+	testImplementation globalTestDependencies.mockitoInline
+	testImplementation globalTestDependencies.testArqCor
+	testImplementation globalTestDependencies.roboletric
 }
