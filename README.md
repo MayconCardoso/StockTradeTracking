@@ -2,8 +2,8 @@
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg?style=for-the-badge)](https://ktlint.github.io/) 
 [![CircleCI](https://img.shields.io/circleci/build/github/MayconCardoso/StockTradeTracking/master?style=for-the-badge)](https://circleci.com/gh/MayconCardoso/StockTradeTracking)
 [![Codecov](https://img.shields.io/codecov/c/github/mayconcardoso/StockTradeTracking/master.svg?style=for-the-badge)](https://codecov.io/gh/MayconCardoso/StockTradeTracking) 
-[![kotlin](https://img.shields.io/github/languages/top/MayconCardoso/Mvvm-Architecture-Toolkit.svg?style=for-the-badge)](https://kotlinlang.org/)
-[![License Apache-2.0](https://img.shields.io/github/license/MayconCardoso/Mvvm-Architecture-Toolkit.svg?style=for-the-badge&color=yellow)](https://opensource.org/licenses/Apache-2.0) 
+[![kotlin](https://img.shields.io/github/languages/top/MayconCardoso/StockTradeTracking.svg?style=for-the-badge)](https://kotlinlang.org/)
+[![License Apache-2.0](https://img.shields.io/github/license/MayconCardoso/StockTradeTracking.svg?style=for-the-badge&color=yellow)](https://opensource.org/licenses/Apache-2.0) 
 
 <img src=".github/stock-trade.png" 
 alt="Stock Trade Logo" title="The logo himself" align="Right" />
