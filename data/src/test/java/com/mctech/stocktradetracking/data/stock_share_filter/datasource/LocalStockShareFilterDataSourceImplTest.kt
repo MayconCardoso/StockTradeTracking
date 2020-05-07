@@ -22,7 +22,7 @@ class LocalStockShareFilterDataSourceImplTest {
     private val expectedSingle = StockShareFilterDataFactory.single()
     private lateinit var preference: SharedPreferences
 
-    private lateinit var dataSource: LocalStockShareFilterDataSource
+    private lateinit var dataSource: LocalStockShareFilterDataSourceImpl
 
     @Before
     fun `before each test`() {
