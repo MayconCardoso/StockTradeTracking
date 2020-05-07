@@ -2,6 +2,7 @@ package com.mctech.stocktradetracking.feature.timeline_balance.edit_period
 
 import com.mctech.architecture.mvvm.x.core.ComponentState
 import com.mctech.architecture.mvvm.x.core.testing.BaseViewModelTest
+import com.mctech.architecture.mvvm.x.core.testing.extentions.TestLiveDataScenario.Companion.testLiveDataScenario
 import com.mctech.architecture.mvvm.x.core.testing.extentions.assertFirst
 import com.mctech.architecture.mvvm.x.core.testing.extentions.assertFlow
 import com.mctech.architecture.mvvm.x.core.testing.extentions.assertThat
@@ -53,16 +54,21 @@ class TimelineBalanceEditViewModelTest : BaseViewModelTest() {
     )
 
     @Test
-    fun `should navigate back`() = viewModel.commandObservable.testLiveData(
-        action = {
+    fun `should navigate back`() = testLiveDataScenario{
+        whenThisScenario {
+
+        }
+
+        onThisAction {
             viewModel.interact(
                 TimelineBalanceEditInteraction.EditPeriod("Test", 10.0, 30.0, 1111.0)
             )
-        },
-        assertion = {
+        }
+
+        assertLiveDataFlow(viewModel.commandObservable){
             it.assertFirst().isEqualTo(TimelineBalanceEditCommand.NavigationBack)
         }
-    )
+    }
 
     @Test
     fun `should edit timeline balance`() = testScenario(
