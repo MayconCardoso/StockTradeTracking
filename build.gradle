@@ -75,5 +75,5 @@ task clean(type: Delete) {
 apply plugin: "com.vanniktech.android.junit.jacoco"
 
 junitJacoco {
-    jacocoVersion = '0.8.2' // type String
+    jacocoVersion = '0.8.3' // type String
 }
