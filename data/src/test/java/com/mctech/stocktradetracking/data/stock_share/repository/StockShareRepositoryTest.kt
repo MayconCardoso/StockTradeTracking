@@ -1,6 +1,7 @@
 package com.mctech.stocktradetracking.data.stock_share.repository
 
 import com.mctech.library.logger.Logger
+import com.mctech.stocktradetracking.data.CoroutinesMainTestRule
 import com.mctech.stocktradetracking.data.stock_share.api.StockPriceResponse
 import com.mctech.stocktradetracking.data.stock_share.datasource.LocalStockShareDataSource
 import com.mctech.stocktradetracking.data.stock_share.datasource.RemoteStockShareDataSource
@@ -11,6 +12,7 @@ import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.assertj.core.api.Assertions
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
@@ -19,10 +21,12 @@ class StockShareRepositoryTest{
     private val remoteDataSource    = mock<RemoteStockShareDataSource>()
     private val logger              = mock<Logger>()
     private val expectedSingle      = StockShareDataFactory.single()
-    private val expectedList        = StockShareDataFactory.simpleList()
     private val expectedMarket      = MarketStatus("", true)
     private val expectedError       = RuntimeException()
 
+    @get:Rule
+    val coroutinesTestRule =
+        CoroutinesMainTestRule()
 
     private lateinit var repository: StockShareRepository
 
