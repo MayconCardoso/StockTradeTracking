@@ -11,20 +11,11 @@ class EditPeriodCase(
 	suspend fun execute(period: TimelineBalance, newValue : TimelineBalance, finalBalance : Double) {
 		try{
 			// Flow control
-			var changingInitialInvestment = false
-			var changingFinalBalance = false
-			val isPeriodInvestmentDifferent = period.periodInvestment != newValue.periodInvestment
-
-			if(isPeriodInvestmentDifferent){
-				changingInitialInvestment = true
-			}
-			if(period.getFinalBalance() != finalBalance){
-				changingFinalBalance = true
-			}
+			val changingFinalBalance = period.getFinalBalance() != finalBalance
 
 			// Update period.
 			period.periodTag = newValue.periodTag
-			if(changingInitialInvestment){
+			if(period.periodInvestment != newValue.periodInvestment){
 				period.periodInvestment = newValue.periodInvestment
 			}
 			if(changingFinalBalance){

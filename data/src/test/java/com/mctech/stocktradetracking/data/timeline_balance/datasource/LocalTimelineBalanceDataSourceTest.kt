@@ -1,12 +1,13 @@
 package com.mctech.stocktradetracking.data.timeline_balance.datasource
 
 import com.mctech.stocktradetracking.data.timeline_balance.database.TimelineBalanceDao
+import com.mctech.stocktradetracking.data.timeline_balance.database.TimelineBalanceDatabaseEntity
 import com.mctech.stocktradetracking.data.timeline_balance.mapper.toDatabaseEntity
 import com.mctech.stocktradetracking.testing.data_factory.factories.TimelineBalanceFactory
 import com.mctech.stocktradetracking.testing.data_factory.testScenario
 import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 
@@ -32,7 +33,7 @@ class LocalTimelineBalanceDataSourceTest {
             dataSource.getLastPeriod()
         },
         assertions = {
-            Assertions.assertThat(it).isNull()
+            assertThat(it).isNull()
             verify(dao).loadLastPeriod()
             verifyNoMoreInteractions(dao)
         }
@@ -47,7 +48,7 @@ class LocalTimelineBalanceDataSourceTest {
             dataSource.getLastPeriod()
         },
         assertions = {
-            Assertions.assertThat(it).isNotNull
+            assertThat(it).isNotNull
             verify(dao).loadLastPeriod()
             verifyNoMoreInteractions(dao)
         }
@@ -62,8 +63,8 @@ class LocalTimelineBalanceDataSourceTest {
             dataSource.getListOfPeriodsBalance()
         },
         assertions = {
-            Assertions.assertThat(it).isNotNull
-            Assertions.assertThat(it.size).isEqualTo(10)
+            assertThat(it).isNotNull
+            assertThat(it.size).isEqualTo(10)
             verify(dao).loadListOfPeriodsBalance()
             verifyNoMoreInteractions(dao)
         }
@@ -75,8 +76,7 @@ class LocalTimelineBalanceDataSourceTest {
             dataSource.createPeriod(expectedSingle)
         },
         assertions = {
-            verify(dao).save(any())
-            verifyNoMoreInteractions(dao)
+            saveAssertion()
         }
     )
 
@@ -86,8 +86,18 @@ class LocalTimelineBalanceDataSourceTest {
             dataSource.editPeriod(expectedSingle)
         },
         assertions = {
-            verify(dao).save(any())
-            verifyNoMoreInteractions(dao)
+            saveAssertion()
         }
     )
+
+    private suspend fun saveAssertion() {
+        val balanceSpy = argumentCaptor<TimelineBalanceDatabaseEntity>()
+        verify(dao).save(balanceSpy.capture())
+        verifyNoMoreInteractions(dao)
+
+        val balance = balanceSpy.firstValue
+        assertThat(balance.periodTag).isEqualTo(expectedSingle.periodTag)
+        assertThat(balance.periodInvestment).isEqualTo(expectedSingle.periodInvestment)
+        assertThat(balance.periodProfit).isEqualTo(expectedSingle.periodProfit)
+    }
 }
