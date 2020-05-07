@@ -1,5 +1,6 @@
 package com.mctech.stocktradetracking.data.stock_share_filter.repository
 
+import com.mctech.stocktradetracking.data.BaseCoroutineTest
 import com.mctech.stocktradetracking.data.stock_share_filter.datasource.LocalStockShareFilterDataSource
 import com.mctech.stocktradetracking.testing.data_factory.factories.StockShareFilterDataFactory
 import com.mctech.stocktradetracking.testing.data_factory.testMockedFlowScenario
@@ -14,7 +15,7 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class StockShareFilterRepositoryTest{
+class StockShareFilterRepositoryTest : BaseCoroutineTest() {
     private val dataSource = mock<LocalStockShareFilterDataSource>()
     private val expectedSingle = StockShareFilterDataFactory.single()
 

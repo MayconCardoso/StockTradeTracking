@@ -2,20 +2,16 @@ package com.mctech.stocktradetracking.data.database
 
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
-import com.mctech.stocktradetracking.data.CoroutinesMainTestRule
+import com.mctech.stocktradetracking.data.BaseCoroutineTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 
 @ExperimentalCoroutinesApi
-open class AppDatabaseTest {
+open class AppDatabaseTest : BaseCoroutineTest(){
 
     lateinit var database: AppDatabase
 
-    @get:Rule
-    val coroutinesTestRule =
-        CoroutinesMainTestRule()
 
     @Before
     fun initDb() {
