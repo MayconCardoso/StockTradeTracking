@@ -99,6 +99,7 @@ class TimelineBalanceListViewModelTest : BaseViewModelTest() {
 
 ## License
 
+```
 The MIT License (MIT)
 
 Copyright (c) 2020 Maycon Cardoso
