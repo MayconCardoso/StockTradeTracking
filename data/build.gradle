@@ -27,6 +27,7 @@ dependencies {
     // Testing
     testImplementation project(path: submodulesTest.dataFactory)
     testImplementation globalTestDependencies.jUnit
+    testImplementation globalTestDependencies.testCore
     testImplementation globalTestDependencies.testRunner
     testImplementation globalTestDependencies.assertJ
     testImplementation globalTestDependencies.coroutines

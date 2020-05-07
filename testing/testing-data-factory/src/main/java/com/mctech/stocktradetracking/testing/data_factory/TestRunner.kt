@@ -53,6 +53,36 @@ fun <T> testMockedFlowScenario(
 
 
 @ExperimentalCoroutinesApi
+fun <T> testFlowScenario(
+    scenario        : suspend () -> Unit = {},
+    observe         : suspend () -> Flow<T>,
+    action          : suspend () -> Unit = {},
+    assertions      : suspend (result: List<T>) -> Unit
+) = runBlockingTest {
+    val values      = mutableListOf<T>()
+
+    // Configure
+    scenario.invoke()
+
+    // Observe values.
+    val job = launch {
+        observe().collect {
+            it?.run(values::add)
+        }
+    }
+
+    // Perform action
+    action.invoke()
+
+    // Check flow.
+    assertions(values)
+
+    // Finish flow.
+    job.cancel()
+}
+
+
+@ExperimentalCoroutinesApi
 class FlowEmission<T>(private val flow : ConflatedBroadcastChannel<T?>) {
     fun emit(item: T?) {
         flow.offer(item)
