@@ -15,20 +15,18 @@ import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class TimelineBalanceListViewModelTest : BaseViewModelTest() {
-    private val getCurrentPeriodBalanceCase	= mock<GetCurrentPeriodBalanceCase>()
-    private val expectedList                = TimelineBalanceFactory.listOf(10)
-    private val expectedResult              = Result.Success(expectedList)
+    private val loaderUseCase	    = mock<GetCurrentPeriodBalanceCase>()
+    private val expectedList        = TimelineBalanceFactory.listOf(10)
 
-    private lateinit var viewModel          : TimelineBalanceListViewModel
+    private lateinit var viewModel  : TimelineBalanceListViewModel
 
     @Before
     fun `before each test`() {
-        viewModel = TimelineBalanceListViewModel(getCurrentPeriodBalanceCase)
+        viewModel = TimelineBalanceListViewModel(loaderUseCase)
     }
 
     @Test
     fun `should initialize components`() = testLiveDataScenario {
-
         assertLiveDataFlow(viewModel.periodList){
             it.assertFlow(ComponentState.Initializing)
         }
@@ -40,9 +38,8 @@ class TimelineBalanceListViewModelTest : BaseViewModelTest() {
 
     @Test
     fun `should return list`() = testLiveDataScenario {
-
         whenThisScenario{
-            whenever(getCurrentPeriodBalanceCase.execute()).thenReturn(expectedResult)
+            whenever(loaderUseCase.execute()).thenReturn(Result.Success(expectedList))
         }
 
         onThisAction {
