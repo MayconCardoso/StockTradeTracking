@@ -11,11 +11,13 @@ class TimelineBalanceAddViewModel constructor(
 
     override suspend fun handleUserInteraction(interaction: UserInteraction) {
         when (interaction) {
-            is TimelineBalanceAddInteraction.CreatePeriod -> createPeriodInteraction(
-                interaction.period,
-                interaction.monthInvestment,
-                interaction.monthProfit
-            )
+            is TimelineBalanceAddInteraction.CreatePeriod -> {
+                createPeriodInteraction(
+                    interaction.period,
+                    interaction.monthInvestment,
+                    interaction.monthProfit
+                )
+            }
         }
     }
 
