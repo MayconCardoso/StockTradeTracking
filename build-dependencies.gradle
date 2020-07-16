@@ -14,7 +14,7 @@ ext {
     ROOM                            = '2.2.4'
 
     MCTECH_KEYBOARD                 = '1.0.6'
-    MCTECH_MVVM_ARCHITECTURE        = '1.4.3'
+    MCTECH_MVVM_ARCHITECTURE        = '1.5.3'
     //==============================================================================================
     //
     //
@@ -96,6 +96,7 @@ ext {
             okHttp                              : "com.squareup.okhttp3:okhttp:$OKHTTP",
             okHttpLoggin                        : "com.squareup.okhttp3:logging-interceptor:$OKHTTP",
             gson                                : "com.google.code.gson:gson:2.8.6",
+            trueTime                            : "com.github.instacart.truetime-android:library:3.4",
 
             // STORAGE
             roomRuntime                         : "androidx.room:room-runtime:$ROOM",

@@ -59,6 +59,7 @@ dependencies {
     implementation globalDependencies.okHttpLoggin
     implementation globalDependencies.retrofit
     implementation globalDependencies.retrofitGsonConverter
+    implementation globalDependencies.trueTime
 
     // Database
     implementation globalDependencies.roomRuntime

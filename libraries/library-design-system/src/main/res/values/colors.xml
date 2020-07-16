@@ -5,6 +5,8 @@
     <color name="colorAccent">#f9a825</color>
     <color name="colorSecondary">#f9a825</color>
 
+    <color name="colorNeutral">#C9CDCB</color>
+
     <color name="colorSuccessDark">#007E33</color>
     <color name="colorDangerDark">#CC0000</color>
     <color name="colorWarningDark">#FF8800</color>

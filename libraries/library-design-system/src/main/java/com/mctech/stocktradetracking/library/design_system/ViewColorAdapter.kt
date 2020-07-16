@@ -6,27 +6,27 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 
 @BindingAdapter("priceBackgroundColor", requireAll = false)
-fun View.priceBackgroundColor(value : Double?) {
+fun View.priceBackgroundColor(value: Double?) {
     value?.let {
-        val color = ContextCompat.getColor(context, if(value >= 0)
-            R.color.colorSuccessDark
-        else
-            R.color.colorDangerDark
-        )
-
-        setBackgroundColor(color)
+        setBackgroundColor(ContextCompat.getColor(context, value.getMoneyColor()))
     }
 }
 
 @BindingAdapter("priceTextColor", requireAll = false)
-fun TextView.priceTextColor(value : Double?) {
+fun TextView.priceTextColor(value: Double?) {
     value?.let {
-        val color = ContextCompat.getColor(context, if(value >= 0)
-            R.color.colorSuccessDark
-        else
-            R.color.colorDangerDark
-        )
+        setTextColor(ContextCompat.getColor(context, value.getMoneyColor()))
+    }
+}
 
-        setTextColor(color)
+
+private fun Double.getMoneyColor() : Int{
+    return if(this > 0){
+        R.color.colorSuccessDark
+    } else if(this < 0 ){
+        R.color.colorDangerDark
+    }
+    else{
+        R.color.colorNeutral
     }
 }

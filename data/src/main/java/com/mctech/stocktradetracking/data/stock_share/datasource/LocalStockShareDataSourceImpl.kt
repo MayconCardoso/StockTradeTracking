@@ -1,5 +1,6 @@
 package com.mctech.stocktradetracking.data.stock_share.datasource
 
+import com.instacart.library.truetime.TrueTime
 import com.mctech.stocktradetracking.data.stock_share.database.StockShareDao
 import com.mctech.stocktradetracking.data.stock_share.mapper.toDatabaseEntity
 import com.mctech.stocktradetracking.domain.stock_share.entity.MarketStatus
@@ -20,7 +21,11 @@ class LocalStockShareDataSourceImpl(
 	}
 
 	override suspend fun getMarketStatus(): MarketStatus {
-		val currentDate = Calendar.getInstance()
+		val currentDate = Calendar.getInstance().apply {
+			time = TrueTime.now()
+			timeZone = TimeZone.getTimeZone("GMT-3") // Brazilian timezone.
+		}
+
 		when(currentDate.get(Calendar.DAY_OF_WEEK)){
 			Calendar.SUNDAY,
 			Calendar.SATURDAY -> {

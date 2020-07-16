@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.google.android.material.card.MaterialCardView
 import com.mctech.architecture.mvvm.x.core.ComponentState
 import com.mctech.architecture.mvvm.x.core.ktx.bindState
-import com.mctech.library.view.ktx.attachSimpleData
+import com.mctech.library.view.ktx.attachSimpleDataBindingData
 import com.mctech.stocktradetracking.domain.stock_share.entity.SelectedStock
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShareFinalBalance
@@ -128,7 +128,7 @@ abstract class BaseShareListFragment<IDB : ViewDataBinding> : Fragment() {
 	}
 
 	private fun renderStockList(result: List<StockShare>) {
-		binding?.recyclerView?.attachSimpleData(
+		binding?.recyclerView?.attachSimpleDataBindingData(
 			items = result,
 			viewBindingCreator = { parent, inflater ->
 				createListItemBinding(parent, inflater)

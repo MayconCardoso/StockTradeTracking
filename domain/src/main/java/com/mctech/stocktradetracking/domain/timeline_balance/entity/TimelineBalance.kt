@@ -51,6 +51,14 @@ data class TimelineBalance(
         return getFinalProfit().formatBrazilianCurrency()
     }
 
+    fun getFinalVariationDescription() : String{
+        return try{
+            (getFinalProfit() / getFinalInvestmentBalance() * 100).round(2)
+        } catch (ex : Exception){
+            0.0
+        }.toPercent()
+    }
+
     fun getFinalBalanceDescription() : String {
         return getFinalBalance().formatBrazilianCurrency()
     }

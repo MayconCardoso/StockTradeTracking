@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import com.mctech.architecture.mvvm.x.core.ComponentState
 import com.mctech.architecture.mvvm.x.core.ktx.bindState
-import com.mctech.library.view.ktx.attachSimpleData
+import com.mctech.library.view.ktx.attachSimpleDataBindingData
 import com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBalance
 import com.mctech.stocktradetracking.feature.timeline_balance.R
 import com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceNavigator
@@ -17,7 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class TimelineBalanceListFragment : Fragment() {
 	private val viewModel : TimelineBalanceListViewModel 	by sharedViewModel()
-	private val navigator 	: TimelineBalanceNavigator 		by inject()
+	private val navigator : TimelineBalanceNavigator 		by inject()
 	private var binding   : FragmentTimelineBalanceBinding? = null
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -73,7 +73,7 @@ class TimelineBalanceListFragment : Fragment() {
 	}
 
 	private fun renderStockList(result: List<TimelineBalance>) {
-		binding?.recyclerView?.attachSimpleData(
+		binding?.recyclerView?.attachSimpleDataBindingData(
 			items = result,
 			viewBindingCreator = { parent, inflater ->
 				ItemTimelinePeriodListBinding.inflate(inflater, parent, false)

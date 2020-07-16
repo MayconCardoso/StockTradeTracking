@@ -86,19 +86,33 @@
             app:priceTextColor="@{finalBalance.finalProfit}"
             app:showOnSuccessWithNotEmptyData="@{viewModel.periodList}"
             tools:text="R$7.000,00"
-            tools:textColor="#007E33" />
+            tools:textColor="@color/colorSuccessDark"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tbVariationTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@{finalBalance.finalVariationDescription}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintEnd_toEndOf="@id/tbBalanceTotal"
+            app:layout_constraintStart_toStartOf="@id/tbBalanceTotal"
+            app:layout_constraintTop_toBottomOf="@id/tbBalanceTotal"
+            app:priceTextColor="@{finalBalance.finalProfit}"
+            tools:text="5.43%"
+            tools:textColor="@color/colorSuccessDark" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="16dp"
             android:overScrollMode="never"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tbBalanceTotal"
+            app:layout_constraintTop_toBottomOf="@id/tbVariationTotal"
             app:showOnSuccessWithNotEmptyData="@{viewModel.periodList}"
             tools:itemCount="20"
             tools:listitem="@layout/item_timeline_period_list"

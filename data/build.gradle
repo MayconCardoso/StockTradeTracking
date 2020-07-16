@@ -18,6 +18,7 @@ dependencies {
     implementation globalDependencies.mvvmArchitectureCoreNetworking
     implementation globalDependencies.retrofit
     implementation globalDependencies.retrofitGsonConverter
+    implementation globalDependencies.trueTime
 
     // Database
     implementation globalDependencies.roomRuntime
