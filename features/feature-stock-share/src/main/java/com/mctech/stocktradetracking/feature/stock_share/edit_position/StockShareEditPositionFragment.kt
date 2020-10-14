@@ -1,7 +1,12 @@
 package com.mctech.stocktradetracking.feature.stock_share.edit_position
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -21,102 +26,110 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StockShareEditPositionFragment : Fragment() {
 
-	private val viewModel 	: StockShareEditPositionViewModel 		by viewModel()
-	private val navigator   : StockShareNavigator 					by inject()
-	private var binding   	: FragmentStockShareEditPriceBinding? 	= null
+  private val viewModel: StockShareEditPositionViewModel by viewModel()
+  private val navigator: StockShareNavigator by inject()
+  private var binding: FragmentStockShareEditPriceBinding? = null
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-		setHasOptionsMenu(true)
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View {
+    setHasOptionsMenu(true)
 
-		return FragmentStockShareEditPriceBinding.inflate(inflater, container, false).let {
-			binding = it
-			binding?.lifecycleOwner = this
-			it.root
-		}
-	}
+    return FragmentStockShareEditPriceBinding.inflate(inflater, container, false).let {
+      binding = it
+      binding?.lifecycleOwner = this
+      it.root
+    }
+  }
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		bindCommand(viewModel){ handleCommands(it) }
-		bindState(viewModel.currentStockShare){ handleStockShareState(it) }
-		bindListeners()
-	}
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    bindCommand(viewModel) { handleCommands(it) }
+    bindState(viewModel.currentStockShare) { handleStockShareState(it) }
+    bindListeners()
+  }
 
-	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-		inflater.inflate(R.menu.stock_share_delete_menu, menu)
-	}
+  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    inflater.inflate(R.menu.stock_share_delete_menu, menu)
+  }
 
-	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		when(item.itemId){
-			R.id.menu_delete -> confirmationDialog(R.string.question_delete){
-				viewModel.interact(StockShareEditPositionInteraction.DeleteStockShare)
-			}
-			R.id.menu_close_item -> confirmationDialog(R.string.question_close){
-				viewModel.interact(StockShareEditPositionInteraction.CloseStockPosition(
-					binding?.etSharePrice?.getValue()?.toDouble()
-				))
-			}
-		}
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    when (item.itemId) {
+      R.id.menu_delete -> confirmationDialog(R.string.question_delete) {
+        viewModel.interact(StockShareEditPositionInteraction.DeleteStockShare)
+      }
+      R.id.menu_close_item -> confirmationDialog(R.string.question_close) {
+        viewModel.interact(
+          StockShareEditPositionInteraction.CloseStockPosition(
+            binding?.etSharePrice?.getValue()?.toDouble()
+          )
+        )
+      }
+    }
 
-		return true
-	}
+    return true
+  }
 
-	private fun handleStockShareState(state: ComponentState<StockShare>) {
-		when(state){
-			is ComponentState.Initializing -> {
-				viewModel.interact(StockShareEditPositionInteraction.OpenStockShareDetails(
-					stockShareFromBundle(requireArguments())
-				))
-			}
-			is ComponentState.Success -> {
-				binding?.stockShare = state.result
-				binding?.executePendingBindings()
-			}
-		}
-	}
+  private fun handleStockShareState(state: ComponentState<StockShare>) {
+    when (state) {
+      is ComponentState.Initializing -> {
+        viewModel.interact(
+          StockShareEditPositionInteraction.OpenStockShareDetails(
+            stockShareFromBundle(requireArguments())
+          )
+        )
+      }
+      is ComponentState.Success -> {
+        binding?.stockShare = state.result
+        binding?.executePendingBindings()
+      }
+    }
+  }
 
-	private fun handleCommands(command: ViewCommand) {
-		when(command){
-			is StockShareEditPositionCommand.NavigateBack -> {
-				navigator.navigateBack()
-			}
-		}
-	}
+  private fun handleCommands(command: ViewCommand) {
+    when (command) {
+      is StockShareEditPositionCommand.NavigateBack -> {
+        navigator.navigateBack()
+      }
+    }
+  }
 
-	private fun bindListeners() {
-		binding?.let { binding ->
-			binding.btUpdateStockPrice.setOnClickListener {
-				viewModel.interact(
-					StockShareEditPositionInteraction.UpdateStockPrice(
-						binding.etShareCode.getValue(),
-						binding.etShareAmount.getValue().toLong(),
-						binding.etSharePurchasePrice.getValue().toDouble(),
-						binding.etSharePrice.getValue().toDouble()
-					)
-				)
+  private fun bindListeners() {
+    binding?.let { binding ->
+      binding.btUpdateStockPrice.setOnClickListener {
+        viewModel.interact(
+          StockShareEditPositionInteraction.UpdateStockPrice(
+            binding.etShareCode.getValue(),
+            binding.etShareAmount.getValue().toLong(),
+            binding.etSharePurchasePrice.getValue().toDouble(),
+            binding.etSharePrice.getValue().toDouble()
+          )
+        )
 
-				closeKeyboard()
-			}
-		}
-	}
+        closeKeyboard()
+      }
+    }
+  }
 
-	private fun closeKeyboard() {
-		activity?.currentFocus?.run {
-			if(this is EditText){
-				context?.closeKeyboard(this)
-			}
-		}
-	}
+  private fun closeKeyboard() {
+    activity?.currentFocus?.run {
+      if (this is EditText) {
+        context?.closeKeyboard(this)
+      }
+    }
+  }
 
-	private fun confirmationDialog(question : Int, blockConfirmation : () -> Unit){
-		closeKeyboard()
+  private fun confirmationDialog(question: Int, blockConfirmation: () -> Unit) {
+    closeKeyboard()
 
-		AlertDialog.Builder(requireActivity())
-			.setTitle(R.string.confirmation)
-			.setMessage(question)
-			.setPositiveButton(R.string.yes) {
-					_, _ -> blockConfirmation.invoke()
-			}
-			.setNegativeButton(R.string.no, null)
-			.show()
-	}
+    AlertDialog.Builder(requireActivity())
+      .setTitle(R.string.confirmation)
+      .setMessage(question)
+      .setPositiveButton(R.string.yes) { _, _ ->
+        blockConfirmation.invoke()
+      }
+      .setNegativeButton(R.string.no, null)
+      .show()
+  }
 }

@@ -12,40 +12,40 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class SyncStockSharePriceCaseTest{
-    private val service         = mock<StockShareService>()
-    private val logger          = mock<Logger>()
+class SyncStockSharePriceCaseTest {
+  private val service = mock<StockShareService>()
+  private val logger = mock<Logger>()
 
-    private val expectedError   = RuntimeException()
+  private val expectedError = RuntimeException()
 
-    private lateinit var useCase: SyncStockSharePriceCase
+  private lateinit var useCase: SyncStockSharePriceCase
 
-    @Before
-    fun `before each test`() {
-        useCase = SyncStockSharePriceCase(service, logger)
+  @Before
+  fun `before each test`() {
+    useCase = SyncStockSharePriceCase(service, logger)
+  }
+
+  @Test
+  fun `should delegate calling`() = testScenario(
+    action = {
+      useCase.execute()
+    },
+    assertions = {
+      verify(service).syncStockSharePrice()
+      verifyNoMoreInteractions(service)
     }
+  )
 
-    @Test
-    fun `should delegate calling`() = testScenario(
-        action = {
-            useCase.execute()
-        },
-        assertions = {
-            verify(service).syncStockSharePrice()
-            verifyNoMoreInteractions(service)
-        }
-    )
-
-    @Test
-    fun `should log error`() = testScenario(
-        scenario = {
-            whenever(service.syncStockSharePrice()).thenThrow(expectedError)
-        },
-        action = {
-            useCase.execute()
-        },
-        assertions = {
-            verify(logger).e(e = expectedError)
-        }
-    )
+  @Test
+  fun `should log error`() = testScenario(
+    scenario = {
+      whenever(service.syncStockSharePrice()).thenThrow(expectedError)
+    },
+    action = {
+      useCase.execute()
+    },
+    assertions = {
+      verify(logger).e(e = expectedError)
+    }
+  )
 }

@@ -5,52 +5,52 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.adarshr.test-logger'
 
 android {
-	dataBinding {
-		enabled = true
-		enabledForTests = true
-	}
+    dataBinding {
+        enabled = true
+        enabledForTests = true
+    }
 }
 
 dependencies {
-	implementation project(path: submodulesPlatform.domain)
-	implementation project(path: submodulesLibraries.designSystem)
+    implementation project(path: submodulesPlatform.domain)
+    implementation project(path: submodulesLibraries.designSystem)
 
-	// Personal libs
-	implementation globalDependencies.mvvmArchitectureCore
-	implementation globalDependencies.mvvmArchitectureCoreKtx
-	implementation globalDependencies.mvvmArchitectureViewKtx
-	implementation globalDependencies.mvvmArchitectureCoreDatabinding
-	implementation globalDependencies.mvvmArchitectureCoreTesting
-	implementation globalDependencies.keyboardMonitor
-	implementation globalDependencies.keyboardMonitorKtx
+    // Personal libs
+    implementation globalDependencies.mvvmArchitectureCore
+    implementation globalDependencies.mvvmArchitectureCoreKtx
+    implementation globalDependencies.mvvmArchitectureViewKtx
+    implementation globalDependencies.mvvmArchitectureCoreDatabinding
+    implementation globalDependencies.mvvmArchitectureCoreTesting
+    implementation globalDependencies.keyboardMonitor
+    implementation globalDependencies.keyboardMonitorKtx
 
-	// Platform
-	implementation globalDependencies.appCompact
-	implementation globalDependencies.kotlinStdLib
+    // Platform
+    implementation globalDependencies.appCompact
+    implementation globalDependencies.kotlinStdLib
 
-	// Android ARQ
-	implementation globalDependencies.lifeCycleLiveRuntime
-	implementation globalDependencies.lifeCycleLiveExtensions
-	implementation globalDependencies.lifeCycleViewModel
-	implementation globalDependencies.lifeCycleLiveData
+    // Android ARQ
+    implementation globalDependencies.lifeCycleLiveRuntime
+    implementation globalDependencies.lifeCycleLiveExtensions
+    implementation globalDependencies.lifeCycleViewModel
+    implementation globalDependencies.lifeCycleLiveData
 
-	// View
-	implementation globalDependencies.recyclerView
-	implementation globalDependencies.materialDesign
-	implementation globalDependencies.constraintLayout
-	// KOIN
-	implementation globalDependencies.koin
-	implementation globalDependencies.koinViewModel
+    // View
+    implementation globalDependencies.recyclerView
+    implementation globalDependencies.materialDesign
+    implementation globalDependencies.constraintLayout
+    // KOIN
+    implementation globalDependencies.koin
+    implementation globalDependencies.koinViewModel
 
-	testImplementation project(path: submodulesTest.dataFactory)
-	testImplementation globalTestDependencies.jUnit
-	testImplementation globalTestDependencies.testRunner
-	testImplementation globalTestDependencies.assertJ
-	testImplementation globalTestDependencies.coroutines
-	testImplementation globalTestDependencies.mockitoKotlin
-	testImplementation globalTestDependencies.mockitoInline
-	testImplementation globalTestDependencies.testArqCor
-	testImplementation globalTestDependencies.roboletric
-	testImplementation globalTestDependencies.barista
+    testImplementation project(path: submodulesTest.dataFactory)
+    testImplementation globalTestDependencies.jUnit
+    testImplementation globalTestDependencies.testRunner
+    testImplementation globalTestDependencies.assertJ
+    testImplementation globalTestDependencies.coroutines
+    testImplementation globalTestDependencies.mockitoKotlin
+    testImplementation globalTestDependencies.mockitoInline
+    testImplementation globalTestDependencies.testArqCor
+    testImplementation globalTestDependencies.roboletric
+    testImplementation globalTestDependencies.barista
 
 }

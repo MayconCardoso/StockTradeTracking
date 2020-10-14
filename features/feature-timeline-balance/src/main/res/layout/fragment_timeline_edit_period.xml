@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="period"
             type="com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBalance" />
     </data>
-    
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -70,7 +71,7 @@
                 android:id="@+id/etProfit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType ="numberDecimal|numberSigned"
+                android:inputType="numberDecimal|numberSigned"
                 android:lines="1"
                 android:text='@{period.periodProfit + ""}'
                 tools:text="2000"
@@ -92,7 +93,7 @@
                 android:id="@+id/etFinalBalance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType ="numberDecimal|numberSigned"
+                android:inputType="numberDecimal|numberSigned"
                 android:lines="1"
                 android:text='@{period.finalBalance + ""}'
                 tools:text="200000"

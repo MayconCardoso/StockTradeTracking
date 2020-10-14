@@ -23,164 +23,177 @@ import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.O
 import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.SelectStockStrategy
 import com.mctech.stocktradetracking.domain.stock_share_filter.entity.StockFilter
 import com.mctech.stocktradetracking.domain.stock_share_filter.interaction.ObserveCurrentFilterCase
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.plus
 
 @ExperimentalCoroutinesApi
 open class StockShareListViewModel constructor(
-	private val observeStockListCase		: ObserveStockListStrategy,
-	private val observeCurrentFilterCase	: ObserveCurrentFilterCase,
+  private val observeStockListCase: ObserveStockListStrategy,
+  private val observeCurrentFilterCase: ObserveCurrentFilterCase,
 
-	private val getMarketStatusCase			: GetMarketStatusCase,
-	private val selectWorstStockShareCase	: SelectStockStrategy,
-	private val selectBestStockShareCase	: SelectStockStrategy,
-	private val syncStockSharePriceCase		: SyncStockSharePriceCase,
+  private val getMarketStatusCase: GetMarketStatusCase,
+  private val selectWorstStockShareCase: SelectStockStrategy,
+  private val selectBestStockShareCase: SelectStockStrategy,
+  private val syncStockSharePriceCase: SyncStockSharePriceCase,
 
-	private val filterStockListCase			: FilterStockListStrategy,
-	private val getFinalBalanceCase			: ComputeBalanceStrategy
+  private val filterStockListCase: FilterStockListStrategy,
+  private val getFinalBalanceCase: ComputeBalanceStrategy
 ) : BaseViewModel() {
 
-	private val originalStockList 			= mutableListOf<StockShare>()
-	private var realtimeJob 				: Job? = null
-	private var dataTransformerScope		: CoroutineScope? = null
+  private val originalStockList = mutableListOf<StockShare>()
+  private var realtimeJob: Job? = null
+  private var dataTransformerScope: CoroutineScope? = null
 
-	private val _shareList : MutableLiveData<ComponentState<List<StockShare>>> = MutableLiveData(ComponentState.Initializing)
-	val shareList : LiveData<ComponentState<List<StockShare>>> = _shareList
+  private val _shareList: MutableLiveData<ComponentState<List<StockShare>>> =
+    MutableLiveData(ComponentState.Initializing)
+  val shareList: LiveData<ComponentState<List<StockShare>>> = _shareList
 
-	private val _stockShareFinalBalance : MutableLiveData<ComponentState<StockShareFinalBalance>> = MutableLiveData(ComponentState.Initializing)
-	val stockShareFinalBalance : LiveData<ComponentState<StockShareFinalBalance>> = _stockShareFinalBalance
+  private val _stockShareFinalBalance: MutableLiveData<ComponentState<StockShareFinalBalance>> =
+    MutableLiveData(ComponentState.Initializing)
+  val stockShareFinalBalance: LiveData<ComponentState<StockShareFinalBalance>> =
+    _stockShareFinalBalance
 
-	private val _bestStockShare : MutableLiveData<ComponentState<SelectedStock?>> = MutableLiveData(ComponentState.Initializing)
-	val bestStockShare : LiveData<ComponentState<SelectedStock?>> = _bestStockShare
+  private val _bestStockShare: MutableLiveData<ComponentState<SelectedStock?>> =
+    MutableLiveData(ComponentState.Initializing)
+  val bestStockShare: LiveData<ComponentState<SelectedStock?>> = _bestStockShare
 
-	private val _worstStockShare : MutableLiveData<ComponentState<SelectedStock?>> = MutableLiveData(ComponentState.Initializing)
-	val worstStockShare : LiveData<ComponentState<SelectedStock?>> = _worstStockShare
+  private val _worstStockShare: MutableLiveData<ComponentState<SelectedStock?>> =
+    MutableLiveData(ComponentState.Initializing)
+  val worstStockShare: LiveData<ComponentState<SelectedStock?>> = _worstStockShare
 
-	private val _marketStatus : MutableLiveData<ComponentState<MarketStatus>> = MutableLiveData(ComponentState.Initializing)
-	val marketStatus : LiveData<ComponentState<MarketStatus>> = _marketStatus
+  private val _marketStatus: MutableLiveData<ComponentState<MarketStatus>> =
+    MutableLiveData(ComponentState.Initializing)
+  val marketStatus: LiveData<ComponentState<MarketStatus>> = _marketStatus
 
-	override suspend fun handleUserInteraction(interaction: UserInteraction) {
-		when(interaction){
-			is StockShareListInteraction.LoadStockShare -> {
-				loadStockShareListInteraction()
-			}
-			is StockShareListInteraction.SyncStockPrice -> {
-				syncStockPriceInteraction()
-			}
-			is StockShareListInteraction.StartRealtimePosition -> {
-				loadMarketStatusInteraction()
-			}
-			is StockShareListInteraction.StopRealtimePosition -> {
-				stopRealtimePositionInteraction()
-			}
-		}
-	}
+  override suspend fun handleUserInteraction(interaction: UserInteraction) {
+    when (interaction) {
+      is StockShareListInteraction.LoadStockShare -> {
+        loadStockShareListInteraction()
+      }
+      is StockShareListInteraction.SyncStockPrice -> {
+        syncStockPriceInteraction()
+      }
+      is StockShareListInteraction.StartRealtimePosition -> {
+        loadMarketStatusInteraction()
+      }
+      is StockShareListInteraction.StopRealtimePosition -> {
+        stopRealtimePositionInteraction()
+      }
+    }
+  }
 
-	private suspend fun loadStockShareListInteraction() {
-		observeStockListCase.execute()
-			.onStart {
-				_shareList.changeToListLoadingState()
-			}
-			.catch { exception ->
-				_shareList.changeToErrorState(exception)
-			}
-			.combine(observeCurrentFilterCase.execute()){ list, filter ->
-				StockShareListResult(list, filter)
-			}
-			.collect { result ->
-				computeStockScore(result.list)
-				organizeStockListBeforeShowIt(result)
-			}
-	}
+  private suspend fun loadStockShareListInteraction() {
+    observeStockListCase.execute()
+      .onStart {
+        _shareList.changeToListLoadingState()
+      }
+      .catch { exception ->
+        _shareList.changeToErrorState(exception)
+      }
+      .combine(observeCurrentFilterCase.execute()) { list, filter ->
+        StockShareListResult(list, filter)
+      }
+      .collect { result ->
+        computeStockScore(result.list)
+        organizeStockListBeforeShowIt(result)
+      }
+  }
 
-	private suspend fun syncStockPriceInteraction() {
-		syncStockSharePriceCase.execute()
-	}
+  private suspend fun syncStockPriceInteraction() {
+    syncStockSharePriceCase.execute()
+  }
 
-	private suspend fun loadMarketStatusInteraction(){
-		_marketStatus.changeToLoadingState()
-		when(val result = getMarketStatusCase.execute()){
-			is Result.Success -> {
+  private suspend fun loadMarketStatusInteraction() {
+    _marketStatus.changeToLoadingState()
+    when (val result = getMarketStatusCase.execute()) {
+      is Result.Success -> {
 
-				if(result.result.isOperation){
-					startRealtimePositionInteraction()
-				}
-				_marketStatus.changeToSuccessState(result.result)
-			}
-			is Result.Failure -> {
-				_marketStatus.changeToErrorState(result.throwable)
-			}
-		}
-	}
+        if (result.result.isOperation) {
+          startRealtimePositionInteraction()
+        }
+        _marketStatus.changeToSuccessState(result.result)
+      }
+      is Result.Failure -> {
+        _marketStatus.changeToErrorState(result.throwable)
+      }
+    }
+  }
 
-	private fun stopRealtimePositionInteraction() {
-		realtimeJob?.cancel()
-	}
+  private fun stopRealtimePositionInteraction() {
+    realtimeJob?.cancel()
+  }
 
-	private suspend fun startRealtimePositionInteraction() {
-		stopRealtimePositionInteraction()
+  private suspend fun startRealtimePositionInteraction() {
+    stopRealtimePositionInteraction()
 
-		realtimeJob = viewModelScope.async {
-			do{
-				syncStockPriceInteraction()
-				delay(4000)
-			}while (isActive)
-		}
-	}
+    realtimeJob = viewModelScope.async {
+      do {
+        syncStockPriceInteraction()
+        delay(4000)
+      } while (isActive)
+    }
+  }
 
-	private fun organizeStockListBeforeShowIt(result: StockShareListResult) {
-		// Filter list
-		val stockShareList = filterStockListCase.execute(result.list, result.filter)
+  private fun organizeStockListBeforeShowIt(result: StockShareListResult) {
+    // Filter list
+    val stockShareList = filterStockListCase.execute(result.list, result.filter)
 
-		// Refresh adapter.
-		originalStockList.clear()
-		originalStockList.addAll(stockShareList)
+    // Refresh adapter.
+    originalStockList.clear()
+    originalStockList.addAll(stockShareList)
 
-		// Change component state.
-		_shareList.changeToSuccessState(stockShareList)
-	}
+    // Change component state.
+    _shareList.changeToSuccessState(stockShareList)
+  }
 
-	private fun computeStockScore(stockShareList: List<StockShare>) {
-		dataTransformerScope?.cancel()
+  private fun computeStockScore(stockShareList: List<StockShare>) {
+    dataTransformerScope?.cancel()
 
-		dataTransformerScope = viewModelScope + Job()
+    dataTransformerScope = viewModelScope + Job()
 
-		dataTransformerScope?.async { computeFinalBalance(stockShareList) }
-		dataTransformerScope?.async { computeBestStock(stockShareList) }
-		dataTransformerScope?.async { computeWorstStock(stockShareList) }
-	}
+    dataTransformerScope?.async { computeFinalBalance(stockShareList) }
+    dataTransformerScope?.async { computeBestStock(stockShareList) }
+    dataTransformerScope?.async { computeWorstStock(stockShareList) }
+  }
 
-	private fun computeFinalBalance(stockShareList: List<StockShare>) {
-		_stockShareFinalBalance.changeToLoadingState()
-		_stockShareFinalBalance.changeToSuccessState(
-			getFinalBalanceCase.execute(stockShareList)
-		)
-	}
+  private fun computeFinalBalance(stockShareList: List<StockShare>) {
+    _stockShareFinalBalance.changeToLoadingState()
+    _stockShareFinalBalance.changeToSuccessState(
+      getFinalBalanceCase.execute(stockShareList)
+    )
+  }
 
-	private fun computeWorstStock(stockShareList: List<StockShare>) {
-		_worstStockShare.changeToLoadingState()
-		_worstStockShare.changeToSuccessState(
-			selectWorstStockShareCase.execute(stockShareList)
-		)
-	}
+  private fun computeWorstStock(stockShareList: List<StockShare>) {
+    _worstStockShare.changeToLoadingState()
+    _worstStockShare.changeToSuccessState(
+      selectWorstStockShareCase.execute(stockShareList)
+    )
+  }
 
-	private fun computeBestStock(stockShareList: List<StockShare>) {
-		_bestStockShare.changeToLoadingState()
-		_bestStockShare.changeToSuccessState(
-			selectBestStockShareCase.execute(stockShareList)
-		)
-	}
+  private fun computeBestStock(stockShareList: List<StockShare>) {
+    _bestStockShare.changeToLoadingState()
+    _bestStockShare.changeToSuccessState(
+      selectBestStockShareCase.execute(stockShareList)
+    )
+  }
 
-	override fun onCleared() {
-		stopRealtimePositionInteraction()
-		super.onCleared()
-	}
+  override fun onCleared() {
+    stopRealtimePositionInteraction()
+    super.onCleared()
+  }
 }
 
 private data class StockShareListResult(
-	val list : List<StockShare>,
-	val filter : StockFilter
+  val list: List<StockShare>,
+  val filter: StockFilter
 )

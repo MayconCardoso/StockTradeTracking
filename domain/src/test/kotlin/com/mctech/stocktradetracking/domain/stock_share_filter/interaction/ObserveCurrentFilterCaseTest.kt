@@ -19,69 +19,69 @@ import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class ObserveCurrentFilterCaseTest {
-    @get:Rule
-    val coroutinesTestRule = CoroutinesMainTestRule()
+  @get:Rule
+  val coroutinesTestRule = CoroutinesMainTestRule()
 
-    private val service         = mock<StockShareFilterService>()
-    private lateinit var useCase: ObserveCurrentFilterCase
+  private val service = mock<StockShareFilterService>()
+  private lateinit var useCase: ObserveCurrentFilterCase
 
-    private val savedFlow = StockShareFilterDataFactory.single(
-        false,
-        FilterSort.NameAsc,
-        RankingQualifier.Percent
-    )
+  private val savedFlow = StockShareFilterDataFactory.single(
+    false,
+    FilterSort.NameAsc,
+    RankingQualifier.Percent
+  )
 
-    @Before
-    fun `before each test`() {
-        useCase = ObserveCurrentFilterCase(service)
+  @Before
+  fun `before each test`() {
+    useCase = ObserveCurrentFilterCase(service)
+  }
+
+  @Test
+  fun `should delegate calling`() = testScenario(
+    action = {
+      useCase.execute()
+    },
+    assertions = {
+      verify(service).observeStockShareFilter()
+      verifyNoMoreInteractions(service)
     }
+  )
 
-    @Test
-    fun `should delegate calling`() = testScenario(
-        action = {
-            useCase.execute()
-        },
-        assertions = {
-            verify(service).observeStockShareFilter()
-            verifyNoMoreInteractions(service)
-        }
-    )
+  @Test
+  fun `should return current filter`() = testMockedFlowScenario(
+    observe = {
+      useCase.execute()
+    },
+    scenario = { mockedFlow ->
+      whenever(service.observeStockShareFilter()).thenReturn(mockedFlow)
+    },
+    action = { emitter ->
+      emitter.emit(savedFlow)
+    },
+    assertions = {
+      assertThat(it.size).isEqualTo(1)
+      assertThat(it.first().isGroupingStock).isFalse()
+      assertThat(it.first().sort).isEqualTo(FilterSort.NameAsc)
+      assertThat(it.first().rankingQualifier).isEqualTo(RankingQualifier.Percent)
+    }
+  )
 
-    @Test
-    fun `should return current filter`() = testMockedFlowScenario(
-        observe = {
-            useCase.execute()
-        },
-        scenario = { mockedFlow ->
-            whenever(service.observeStockShareFilter()).thenReturn(mockedFlow)
-        },
-        action = { emitter ->
-            emitter.emit(savedFlow)
-        },
-        assertions = {
-            assertThat(it.size).isEqualTo(1)
-            assertThat(it.first().isGroupingStock).isFalse()
-            assertThat(it.first().sort).isEqualTo(FilterSort.NameAsc)
-            assertThat(it.first().rankingQualifier).isEqualTo(RankingQualifier.Percent)
-        }
-    )
-
-    @Test
-    fun `should return default filter`() = testMockedFlowScenario(
-        observe = {
-            useCase.execute()
-        },
-        scenario = { mockedFlow ->
-            whenever(service.observeStockShareFilter()).thenReturn(mockedFlow)
-        },
-        action = { emitter ->
-            emitter.emit(null)
-        },
-        assertions = {
-            assertThat(it.size).isEqualTo(1)
-            assertThat(it.first().isGroupingStock).isTrue()
-            assertThat(it.first().sort).isEqualTo(FilterSort.BalanceDesc)
-            assertThat(it.first().rankingQualifier).isEqualTo(RankingQualifier.Balance)
-        }
-    )
+  @Test
+  fun `should return default filter`() = testMockedFlowScenario(
+    observe = {
+      useCase.execute()
+    },
+    scenario = { mockedFlow ->
+      whenever(service.observeStockShareFilter()).thenReturn(mockedFlow)
+    },
+    action = { emitter ->
+      emitter.emit(null)
+    },
+    assertions = {
+      assertThat(it.size).isEqualTo(1)
+      assertThat(it.first().isGroupingStock).isTrue()
+      assertThat(it.first().sort).isEqualTo(FilterSort.BalanceDesc)
+      assertThat(it.first().rankingQualifier).isEqualTo(RankingQualifier.Balance)
+    }
+  )
 }

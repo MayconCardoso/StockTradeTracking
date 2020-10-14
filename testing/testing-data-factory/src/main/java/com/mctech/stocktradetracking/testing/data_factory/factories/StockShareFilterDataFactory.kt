@@ -5,13 +5,13 @@ import com.mctech.stocktradetracking.domain.stock_share_filter.entity.RankingQua
 import com.mctech.stocktradetracking.domain.stock_share_filter.entity.StockFilter
 
 object StockShareFilterDataFactory {
-    fun single(
-        isToGroup: Boolean = true,
-        sort: FilterSort = FilterSort.NameAsc,
-        ranking: RankingQualifier = RankingQualifier.Percent
-    ) = StockFilter(
-        isToGroup,
-        sort,
-        ranking
-    )
+  fun single(
+    isToGroup: Boolean = true,
+    sort: FilterSort = FilterSort.NameAsc,
+    ranking: RankingQualifier = RankingQualifier.Percent
+  ) = StockFilter(
+    isToGroup,
+    sort,
+    ranking
+  )
 }

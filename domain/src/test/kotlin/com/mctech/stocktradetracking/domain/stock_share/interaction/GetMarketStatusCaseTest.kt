@@ -15,58 +15,58 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class GetMarketStatusCaseTest{
-    private val service         = mock<StockShareService>()
-    private val exception       = mock<RuntimeException>()
-    private val logger          = mock<Logger>()
-    private val expectedValue   = MarketStatus("", true)
+class GetMarketStatusCaseTest {
+  private val service = mock<StockShareService>()
+  private val exception = mock<RuntimeException>()
+  private val logger = mock<Logger>()
+  private val expectedValue = MarketStatus("", true)
 
-    private lateinit var useCase: GetMarketStatusCase
+  private lateinit var useCase: GetMarketStatusCase
 
-    @Before
-    fun `before each test`() {
-        useCase = GetMarketStatusCase(service, logger)
+  @Before
+  fun `before each test`() {
+    useCase = GetMarketStatusCase(service, logger)
+  }
+
+  @Test
+  fun `should delegate calling`() = testScenario(
+    scenario = {
+      whenever(service.getMarketStatus()).thenReturn(expectedValue)
+    },
+    action = {
+      useCase.execute()
+    },
+    assertions = {
+      verify(service).getMarketStatus()
+      verifyNoMoreInteractions(service)
     }
+  )
 
-    @Test
-    fun `should delegate calling`() = testScenario(
-        scenario = {
-            whenever(service.getMarketStatus()).thenReturn(expectedValue)
-        },
-        action = {
-            useCase.execute()
-        },
-        assertions = {
-            verify(service).getMarketStatus()
-            verifyNoMoreInteractions(service)
-        }
-    )
+  @Test
+  fun `should return status`() = testScenario(
+    scenario = {
+      whenever(service.getMarketStatus()).thenReturn(expectedValue)
+    },
+    action = {
+      useCase.execute()
+    },
+    assertions = { result ->
+      result.assertResultSuccess(expectedValue)
+    }
+  )
 
-    @Test
-    fun `should return status`() = testScenario(
-        scenario = {
-            whenever(service.getMarketStatus()).thenReturn(expectedValue)
-        },
-        action = {
-            useCase.execute()
-        },
-        assertions = { result ->
-            result.assertResultSuccess(expectedValue)
-        }
-    )
-
-    @Test
-    fun `should return unknown exception`() = testScenario(
-        scenario = {
-            whenever(service.getMarketStatus()).thenThrow(exception)
-        },
-        action = {
-            useCase.execute()
-        },
-        assertions = { result ->
-            result.assertResultFailure(exception)
-            verify(logger).e(e = exception)
-        }
-    )
+  @Test
+  fun `should return unknown exception`() = testScenario(
+    scenario = {
+      whenever(service.getMarketStatus()).thenThrow(exception)
+    },
+    action = {
+      useCase.execute()
+    },
+    assertions = { result ->
+      result.assertResultFailure(exception)
+      verify(logger).e(e = exception)
+    }
+  )
 
 }

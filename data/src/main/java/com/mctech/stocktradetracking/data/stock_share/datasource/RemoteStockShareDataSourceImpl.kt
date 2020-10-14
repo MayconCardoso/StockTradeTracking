@@ -4,11 +4,11 @@ import com.mctech.library.core.networking.secureRequest
 import com.mctech.stocktradetracking.data.stock_share.api.StockSharePriceAPI
 
 class RemoteStockShareDataSourceImpl(
-    private val api: StockSharePriceAPI
+  private val api: StockSharePriceAPI
 ) : RemoteStockShareDataSource {
 
-	override suspend fun getCurrentStockSharePrice(stockCode: String) = secureRequest {
-        api.getCurrentStockPrice(stockCode)
-    }
+  override suspend fun getCurrentStockSharePrice(stockCode: String) = secureRequest {
+    api.getCurrentStockPrice(stockCode)
+  }
 
 }

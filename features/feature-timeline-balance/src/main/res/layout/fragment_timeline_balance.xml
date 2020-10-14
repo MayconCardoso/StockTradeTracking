@@ -86,7 +86,7 @@
             app:priceTextColor="@{finalBalance.finalProfit}"
             app:showOnSuccessWithNotEmptyData="@{viewModel.periodList}"
             tools:text="R$7.000,00"
-            tools:textColor="@color/colorSuccessDark"/>
+            tools:textColor="@color/colorSuccessDark" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tbVariationTotal"

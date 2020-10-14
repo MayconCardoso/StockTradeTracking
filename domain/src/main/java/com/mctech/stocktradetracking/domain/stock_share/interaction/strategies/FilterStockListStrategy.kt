@@ -6,16 +6,19 @@ import com.mctech.stocktradetracking.domain.stock_share_filter.entity.FilterSort
 import com.mctech.stocktradetracking.domain.stock_share_filter.entity.StockFilter
 
 abstract class FilterStockListStrategy(
-    private val groupStockShareListCase: GroupStockShareListCase
+  private val groupStockShareListCase: GroupStockShareListCase
 ) {
-    fun execute(stockShareList : List<StockShare>, filter : StockFilter) : List<StockShare> {
-        val resolvedList = if(filter.isGroupingStock)
-            groupStockShareListCase.transform(stockShareList)
-        else
-            stockShareList
+  fun execute(stockShareList: List<StockShare>, filter: StockFilter): List<StockShare> {
+    val resolvedList = if (filter.isGroupingStock)
+      groupStockShareListCase.transform(stockShareList)
+    else
+      stockShareList
 
-        return sort(resolvedList, filter.sort)
-    }
+    return sort(resolvedList, filter.sort)
+  }
 
-    protected abstract fun sort(stockShareList : List<StockShare>, filterSort: FilterSort) : List<StockShare>
+  protected abstract fun sort(
+    stockShareList: List<StockShare>,
+    filterSort: FilterSort
+  ): List<StockShare>
 }

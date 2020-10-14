@@ -303,7 +303,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvMarketStatus"
             app:showOnSuccessWithNotEmptyData="@{viewModel.shareList}"
-            tools:visibility="visible" >
+            tools:visibility="visible">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -311,7 +311,7 @@
                 android:layout_height="match_parent"
                 android:overScrollMode="never"
                 tools:itemCount="20"
-                tools:listitem="@layout/item_stock_share_list"/>
+                tools:listitem="@layout/item_stock_share_list" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

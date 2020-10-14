@@ -4,6 +4,6 @@ import com.mctech.stocktradetracking.domain.stock_share_filter.entity.StockFilte
 import kotlinx.coroutines.flow.Flow
 
 interface StockShareFilterService {
-    fun observeStockShareFilter(): Flow<StockFilter?>
-    suspend fun saveFilter(stockFilter: StockFilter)
+  fun observeStockShareFilter(): Flow<StockFilter?>
+  suspend fun saveFilter(stockFilter: StockFilter)
 }

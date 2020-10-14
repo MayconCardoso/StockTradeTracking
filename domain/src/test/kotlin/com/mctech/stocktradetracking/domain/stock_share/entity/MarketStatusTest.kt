@@ -6,12 +6,12 @@ import org.junit.Test
 /**
  * @author MAYCON CARDOSO on 03/05/20.
  */
-class MarketStatusTest{
+class MarketStatusTest {
 
-    @Test
-    fun `should test entity`(){
-        val marketStatus = MarketStatus("AA", true)
-        Assertions.assertThat(marketStatus.message).isEqualTo("AA")
-        Assertions.assertThat(marketStatus.isOperation).isTrue()
-    }
+  @Test
+  fun `should test entity`() {
+    val marketStatus = MarketStatus("AA", true)
+    Assertions.assertThat(marketStatus.message).isEqualTo("AA")
+    Assertions.assertThat(marketStatus.isOperation).isTrue()
+  }
 }

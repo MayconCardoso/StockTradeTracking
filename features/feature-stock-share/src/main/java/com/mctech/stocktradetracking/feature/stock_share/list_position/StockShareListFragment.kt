@@ -8,9 +8,12 @@ import org.koin.core.qualifier.named
 
 class StockShareListFragment : BaseShareListFragment<ItemStockShareListBinding>() {
 
-	override val viewModel: StockShareListViewModel by sharedViewModel(named("stockShareViewModel"))
+  override val viewModel: StockShareListViewModel by sharedViewModel(named("stockShareViewModel"))
 
-    override fun createListItemBinding(parent: ViewGroup, inflater: LayoutInflater): ItemStockShareListBinding {
-        return ItemStockShareListBinding.inflate(inflater, parent, false)
-    }
+  override fun createListItemBinding(
+    parent: ViewGroup,
+    inflater: LayoutInflater
+  ): ItemStockShareListBinding {
+    return ItemStockShareListBinding.inflate(inflater, parent, false)
+  }
 }

@@ -4,44 +4,43 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.adarshr.test-logger'
 
-
 android {
-	dataBinding {
-		enabled = true
-		enabledForTests = true
-	}
+    dataBinding {
+        enabled = true
+        enabledForTests = true
+    }
 }
 
 dependencies {
-	implementation project(path: submodulesPlatform.domain)
-	implementation project(path: submodulesLibraries.designSystem)
+    implementation project(path: submodulesPlatform.domain)
+    implementation project(path: submodulesLibraries.designSystem)
 
-	// Personal libs
-	implementation globalDependencies.mvvmArchitectureCore
-	implementation globalDependencies.mvvmArchitectureCoreKtx
-	implementation globalDependencies.mvvmArchitectureViewKtx
-	implementation globalDependencies.mvvmArchitectureCoreDatabinding
-	implementation globalDependencies.mvvmArchitectureCoreTesting
-	implementation globalDependencies.keyboardMonitor
-	implementation globalDependencies.keyboardMonitorKtx
+    // Personal libs
+    implementation globalDependencies.mvvmArchitectureCore
+    implementation globalDependencies.mvvmArchitectureCoreKtx
+    implementation globalDependencies.mvvmArchitectureViewKtx
+    implementation globalDependencies.mvvmArchitectureCoreDatabinding
+    implementation globalDependencies.mvvmArchitectureCoreTesting
+    implementation globalDependencies.keyboardMonitor
+    implementation globalDependencies.keyboardMonitorKtx
 
-	// Platform
-	implementation globalDependencies.appCompact
-	implementation globalDependencies.kotlinStdLib
+    // Platform
+    implementation globalDependencies.appCompact
+    implementation globalDependencies.kotlinStdLib
 
-	// Android ARQ
-	implementation globalDependencies.lifeCycleLiveRuntime
-	implementation globalDependencies.lifeCycleLiveExtensions
-	implementation globalDependencies.lifeCycleViewModel
-	implementation globalDependencies.lifeCycleLiveData
+    // Android ARQ
+    implementation globalDependencies.lifeCycleLiveRuntime
+    implementation globalDependencies.lifeCycleLiveExtensions
+    implementation globalDependencies.lifeCycleViewModel
+    implementation globalDependencies.lifeCycleLiveData
 
-	// View
-	implementation globalDependencies.recyclerView
-	implementation globalDependencies.swipeRefresh
-	implementation globalDependencies.materialDesign
-	implementation globalDependencies.constraintLayout
+    // View
+    implementation globalDependencies.recyclerView
+    implementation globalDependencies.swipeRefresh
+    implementation globalDependencies.materialDesign
+    implementation globalDependencies.constraintLayout
 
-	// Koin
-	implementation globalDependencies.koin
-	implementation globalDependencies.koinViewModel
+    // Koin
+    implementation globalDependencies.koin
+    implementation globalDependencies.koinViewModel
 }

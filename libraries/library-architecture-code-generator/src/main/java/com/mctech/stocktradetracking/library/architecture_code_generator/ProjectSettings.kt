@@ -11,30 +11,30 @@ import com.mctech.stocktradetracking.library.architecture_code_generator.templat
 
 object ProjectSettings {
 
-    val featureSettings by lazy {
-        FeatureSettings(
-            createDependencyInjectionModules = false,
-            createBothRemoteAndLocalDataSources = false,
-            presentationViewModel = PresentationMode.Fragment,
-            projectSettings = ProjectSettings(
-                basePackageName = Package("com.mctech.stocktradetracking")
-            ),
-            fileDuplicatedStrategy = FileDuplicatedStrategy.Ignore,
-            featureDuplicatedStrategy = FileDuplicatedStrategy.Ignore
-        )
-    }
+  val featureSettings by lazy {
+    FeatureSettings(
+      createDependencyInjectionModules = false,
+      createBothRemoteAndLocalDataSources = false,
+      presentationViewModel = PresentationMode.Fragment,
+      projectSettings = ProjectSettings(
+        basePackageName = Package("com.mctech.stocktradetracking")
+      ),
+      fileDuplicatedStrategy = FileDuplicatedStrategy.Ignore,
+      featureDuplicatedStrategy = FileDuplicatedStrategy.Ignore
+    )
+  }
 
-    // ==========================================================================
-    // DO NOT CHANGE THE CUSTOM TEMPLATES - IT WILL CREATE THE RIGHT FILE FOR THE CURRENT PROJECT
-    // ==========================================================================
-    val presentationBuildGradle by lazy {
-        StockTradeFeatureGradleModuleTemplate(ModuleDefaultLayers.GeneratedFeature.moduleFile)
-    }
-    val baseArchitecturePath by lazy {
-        ModuleFilePath(
-            moduleLocation = "",
-            gradleModuleName = "]",
-            packageValue = Package("com.mctech.architecture.mvvm.x.core")
-        )
-    }
+  // ==========================================================================
+  // DO NOT CHANGE THE CUSTOM TEMPLATES - IT WILL CREATE THE RIGHT FILE FOR THE CURRENT PROJECT
+  // ==========================================================================
+  val presentationBuildGradle by lazy {
+    StockTradeFeatureGradleModuleTemplate(ModuleDefaultLayers.GeneratedFeature.moduleFile)
+  }
+  val baseArchitecturePath by lazy {
+    ModuleFilePath(
+      moduleLocation = "",
+      gradleModuleName = "]",
+      packageValue = Package("com.mctech.architecture.mvvm.x.core")
+    )
+  }
 }

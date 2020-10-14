@@ -19,64 +19,64 @@ import org.robolectric.RobolectricTestRunner
 @FlowPreview
 @RunWith(RobolectricTestRunner::class)
 class LocalStockShareFilterDataSourceImplTest {
-    private val expectedSingle = StockShareFilterDataFactory.single()
-    private lateinit var preference: SharedPreferences
+  private val expectedSingle = StockShareFilterDataFactory.single()
+  private lateinit var preference: SharedPreferences
 
-    private lateinit var dataSource: LocalStockShareFilterDataSourceImpl
+  private lateinit var dataSource: LocalStockShareFilterDataSourceImpl
 
-    @Before
-    fun `before each test`() {
-        val app = ApplicationProvider.getApplicationContext<Application>()
-        preference = app.getSharedPreferences("Teste", Context.MODE_PRIVATE)
+  @Before
+  fun `before each test`() {
+    val app = ApplicationProvider.getApplicationContext<Application>()
+    preference = app.getSharedPreferences("Teste", Context.MODE_PRIVATE)
 
-        dataSource = LocalStockShareFilterDataSourceImpl(
-            preference, Gson()
-        )
+    dataSource = LocalStockShareFilterDataSourceImpl(
+      preference, Gson()
+    )
+  }
+
+  @Test
+  fun `should restore empty`() = testFlowScenario(
+    scenario = {
+      preference.edit().clear()
+    },
+    observe = {
+      dataSource.observeStockShareFilter()
+    },
+    assertions = {
+      Assertions.assertThat(it).isEmpty()
     }
+  )
 
-    @Test
-    fun `should restore empty`() = testFlowScenario(
-        scenario = {
-            preference.edit().clear()
-        },
-        observe = {
-            dataSource.observeStockShareFilter()
-        },
-        assertions = {
-            Assertions.assertThat(it).isEmpty()
-        }
-    )
+  @Test
+  fun `should restore last`() = testFlowScenario(
+    scenario = {
+      preference
+        .edit()
+        .putString(
+          LocalStockShareFilterDataSourceImpl.PREFERENCE_KEY,
+          Gson().toJson(expectedSingle)
+        )
+        .apply()
+    },
+    observe = {
+      dataSource.observeStockShareFilter()
+    },
+    assertions = {
+      Assertions.assertThat(it).isNotEmpty
+    }
+  )
 
-    @Test
-    fun `should restore last`() = testFlowScenario(
-        scenario = {
-            preference
-                .edit()
-                .putString(
-                    LocalStockShareFilterDataSourceImpl.PREFERENCE_KEY,
-                    Gson().toJson(expectedSingle)
-                )
-                .apply()
-        },
-        observe = {
-            dataSource.observeStockShareFilter()
-        },
-        assertions = {
-            Assertions.assertThat(it).isNotEmpty
-        }
-    )
-
-    @Test
-    fun `should save filter`() = testFlowScenario(
-        observe = {
-            dataSource.observeStockShareFilter()
-        },
-        action = {
-            dataSource.saveFilter(expectedSingle)
-        },
-        assertions = {
-            Assertions.assertThat(it).isNotEmpty
-            Assertions.assertThat(it.first()).isEqualTo(expectedSingle)
-        }
-    )
+  @Test
+  fun `should save filter`() = testFlowScenario(
+    observe = {
+      dataSource.observeStockShareFilter()
+    },
+    action = {
+      dataSource.saveFilter(expectedSingle)
+    },
+    assertions = {
+      Assertions.assertThat(it).isNotEmpty
+      Assertions.assertThat(it.first()).isEqualTo(expectedSingle)
+    }
+  )
 }

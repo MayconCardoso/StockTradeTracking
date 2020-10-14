@@ -9,76 +9,76 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class GetFinalDailyBalanceCaseTest{
-    private val positiveList        = StockShareDataFactory.finalBalancePositiveList()
-    private val negativeList        = StockShareDataFactory.finalBalanceNegativeList()
-    private val neutralList         = StockShareDataFactory.finalBalanceNeutralList()
-    private val emptyList           = listOf<StockShare>()
+class GetFinalDailyBalanceCaseTest {
+  private val positiveList = StockShareDataFactory.finalBalancePositiveList()
+  private val negativeList = StockShareDataFactory.finalBalanceNegativeList()
+  private val neutralList = StockShareDataFactory.finalBalanceNeutralList()
+  private val emptyList = listOf<StockShare>()
 
-    private lateinit var useCase    : GetFinalDailyBalanceCase
+  private lateinit var useCase: GetFinalDailyBalanceCase
 
-    @Before
-    fun `before each test`() {
-        useCase = GetFinalDailyBalanceCase()
+  @Before
+  fun `before each test`() {
+    useCase = GetFinalDailyBalanceCase()
+  }
+
+  @Test
+  fun `should compute position balance`() = testScenario(
+    action = {
+      useCase.execute(positiveList)
+    },
+    assertions = {
+      Assertions.assertThat(it.balance).isEqualTo(800.0)
+      Assertions.assertThat(it.investment).isEqualTo(2400.0)
+      Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$2.400,00")
+      Assertions.assertThat(it.getBalanceDescription()).isEqualTo("R$800,00")
+      Assertions.assertThat(it.variation).isEqualTo(33.33)
+      Assertions.assertThat(it.getVariationDescription()).isEqualTo("33.33%")
     }
+  )
 
-    @Test
-    fun `should compute position balance`() = testScenario(
-        action = {
-            useCase.execute(positiveList)
-        },
-        assertions = {
-            Assertions.assertThat(it.balance).isEqualTo(800.0)
-            Assertions.assertThat(it.investment).isEqualTo(2400.0)
-            Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$2.400,00")
-            Assertions.assertThat(it.getBalanceDescription()).isEqualTo("R$800,00")
-            Assertions.assertThat(it.variation).isEqualTo(33.33)
-            Assertions.assertThat(it.getVariationDescription()).isEqualTo("33.33%")
-        }
-    )
+  @Test
+  fun `should compute negative balance`() = testScenario(
+    action = {
+      useCase.execute(negativeList)
+    },
+    assertions = {
+      Assertions.assertThat(it.balance).isEqualTo(-400.0)
+      Assertions.assertThat(it.investment).isEqualTo(1600.0)
+      Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$1.600,00")
+      Assertions.assertThat(it.getBalanceDescription()).isEqualTo("-R$400,00")
+      Assertions.assertThat(it.variation).isEqualTo(-25.0)
+      Assertions.assertThat(it.getVariationDescription()).isEqualTo("-25.0%")
+    }
+  )
 
-    @Test
-    fun `should compute negative balance`() = testScenario(
-        action = {
-            useCase.execute(negativeList)
-        },
-        assertions = {
-            Assertions.assertThat(it.balance).isEqualTo(-400.0)
-            Assertions.assertThat(it.investment).isEqualTo(1600.0)
-            Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$1.600,00")
-            Assertions.assertThat(it.getBalanceDescription()).isEqualTo("-R$400,00")
-            Assertions.assertThat(it.variation).isEqualTo(-25.0)
-            Assertions.assertThat(it.getVariationDescription()).isEqualTo("-25.0%")
-        }
-    )
+  @Test
+  fun `should compute neutral balance`() = testScenario(
+    action = {
+      useCase.execute(neutralList)
+    },
+    assertions = {
+      Assertions.assertThat(it.balance).isEqualTo(0.0)
+      Assertions.assertThat(it.investment).isEqualTo(2000.0)
+      Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$2.000,00")
+      Assertions.assertThat(it.getBalanceDescription()).isEqualTo("R$0,00")
+      Assertions.assertThat(it.variation).isEqualTo(0.0)
+      Assertions.assertThat(it.getVariationDescription()).isEqualTo("0.0%")
+    }
+  )
 
-    @Test
-    fun `should compute neutral balance`() = testScenario(
-        action = {
-            useCase.execute(neutralList)
-        },
-        assertions = {
-            Assertions.assertThat(it.balance).isEqualTo(0.0)
-            Assertions.assertThat(it.investment).isEqualTo(2000.0)
-            Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$2.000,00")
-            Assertions.assertThat(it.getBalanceDescription()).isEqualTo("R$0,00")
-            Assertions.assertThat(it.variation).isEqualTo(0.0)
-            Assertions.assertThat(it.getVariationDescription()).isEqualTo("0.0%")
-        }
-    )
-
-    @Test
-    fun `should compute empty balance`() = testScenario(
-        action = {
-            useCase.execute(emptyList)
-        },
-        assertions = {
-            Assertions.assertThat(it.balance).isEqualTo(0.0)
-            Assertions.assertThat(it.investment).isEqualTo(0.0)
-            Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$0,00")
-            Assertions.assertThat(it.getBalanceDescription()).isEqualTo("R$0,00")
-            Assertions.assertThat(it.variation).isEqualTo(0.0)
-            Assertions.assertThat(it.getVariationDescription()).isEqualTo("0.0%")
-        }
-    )
+  @Test
+  fun `should compute empty balance`() = testScenario(
+    action = {
+      useCase.execute(emptyList)
+    },
+    assertions = {
+      Assertions.assertThat(it.balance).isEqualTo(0.0)
+      Assertions.assertThat(it.investment).isEqualTo(0.0)
+      Assertions.assertThat(it.getInvestmentDescription()).isEqualTo("R$0,00")
+      Assertions.assertThat(it.getBalanceDescription()).isEqualTo("R$0,00")
+      Assertions.assertThat(it.variation).isEqualTo(0.0)
+      Assertions.assertThat(it.getVariationDescription()).isEqualTo("0.0%")
+    }
+  )
 }

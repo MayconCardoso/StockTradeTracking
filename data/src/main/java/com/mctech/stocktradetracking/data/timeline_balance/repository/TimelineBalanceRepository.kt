@@ -4,5 +4,5 @@ import com.mctech.stocktradetracking.data.timeline_balance.datasource.TimelineBa
 import com.mctech.stocktradetracking.domain.timeline_balance.service.TimelineBalanceService
 
 class TimelineBalanceRepository(
-	private val localDataSource: TimelineBalanceDataSource
+  private val localDataSource: TimelineBalanceDataSource
 ) : TimelineBalanceService by localDataSource
