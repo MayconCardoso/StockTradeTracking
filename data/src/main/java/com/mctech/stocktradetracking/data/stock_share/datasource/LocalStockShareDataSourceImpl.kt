@@ -13,11 +13,11 @@ class LocalStockShareDataSourceImpl(
   private val stockShareDao: StockShareDao
 ) : LocalStockShareDataSource {
 
-  override suspend fun observeStockShareList(): Flow<List<StockShare>> {
+  override fun observeStockShareList(): Flow<List<StockShare>> {
     return stockShareDao.observeAllOpenedPosition()
   }
 
-  override suspend fun observeStockClosedList(): Flow<List<StockShare>> {
+  override fun observeStockClosedList(): Flow<List<StockShare>> {
     return stockShareDao.observeStockClosedList()
   }
 
@@ -44,6 +44,10 @@ class LocalStockShareDataSourceImpl(
         MarketStatus("Ibovespa is closed.", false)
       }
     }
+  }
+
+  override suspend fun getAllByCode(code: String): List<StockShare> {
+    return stockShareDao.loadAllStockSharesByCode(code)
   }
 
   override suspend fun getDistinctStockCode(): List<String> {

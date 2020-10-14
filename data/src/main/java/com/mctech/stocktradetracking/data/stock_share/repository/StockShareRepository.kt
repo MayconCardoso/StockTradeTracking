@@ -23,9 +23,9 @@ class StockShareRepository(
   private var syncPrinceScope: CoroutineScope? = null
   private var syncPricesDefer = mutableListOf<Deferred<Unit>>()
 
-  override suspend fun observeStockShareList() = localDataSource.observeStockShareList()
+  override fun observeStockShareList() = localDataSource.observeStockShareList()
 
-  override suspend fun observeStockClosedList() = localDataSource.observeStockClosedList()
+  override fun observeStockClosedList() = localDataSource.observeStockClosedList()
 
   override suspend fun saveStockShare(share: StockShare) = localDataSource.saveStockShare(share)
 
@@ -36,6 +36,8 @@ class StockShareRepository(
   override suspend fun closeStockShare(share: StockShare) = localDataSource.closeStockShare(share)
 
   override suspend fun getMarketStatus() = localDataSource.getMarketStatus()
+
+  override suspend fun getAllByCode(code: String) = localDataSource.getAllByCode(code)
 
   override suspend fun editStockShareValue(shareCode: String, value: Double) =
     localDataSource.editStockShareValue(

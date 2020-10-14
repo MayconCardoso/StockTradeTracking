@@ -35,27 +35,6 @@
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tlSharePrice"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="@string/split_price"
-            app:layout_constraintEnd_toEndOf="@+id/tlShareAmount"
-            app:layout_constraintStart_toStartOf="@+id/tlShareAmount"
-            app:layout_constraintTop_toBottomOf="@id/tlShareAmount">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSharePrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:lines="1"
-                android:maxLength="10"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btSplit"
             style="@style/Widget.MaterialComponents.Button"
@@ -63,9 +42,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="@string/split_position"
-            app:layout_constraintEnd_toEndOf="@+id/tlSharePrice"
-            app:layout_constraintStart_toStartOf="@+id/tlSharePrice"
-            app:layout_constraintTop_toBottomOf="@id/tlSharePrice" />
+            app:layout_constraintEnd_toEndOf="@+id/tlShareAmount"
+            app:layout_constraintStart_toStartOf="@+id/tlShareAmount"
+            app:layout_constraintTop_toBottomOf="@id/tlShareAmount" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

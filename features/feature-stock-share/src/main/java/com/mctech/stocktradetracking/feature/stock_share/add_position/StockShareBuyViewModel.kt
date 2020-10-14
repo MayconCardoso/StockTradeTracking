@@ -28,7 +28,8 @@ class StockShareBuyViewModel constructor(
         code = code.toUpperCase(Locale.getDefault()),
         shareAmount = amount,
         purchasePrice = price,
-        purchaseDate = Calendar.getInstance().time
+        purchaseDate = Calendar.getInstance().time,
+        isPositionOpened = true
       )
     )
 

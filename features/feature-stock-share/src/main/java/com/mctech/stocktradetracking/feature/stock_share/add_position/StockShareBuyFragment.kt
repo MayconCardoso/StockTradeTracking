@@ -92,7 +92,8 @@ class StockShareBuyFragment : Fragment() {
       val stockShare = StockShare(
         code = binding.etShareCode.getValue(),
         purchasePrice = binding.etSharePrice.getValue().toDoubleOrNull() ?: 0.0,
-        shareAmount = binding.etShareAmount.getValue().toLongOrNull() ?: 0
+        shareAmount = binding.etShareAmount.getValue().toLongOrNull() ?: 0,
+        isPositionOpened = true
       )
 
       binding.itemInvestmentAmount.text = stockShare.getInvestmentValueDescription()

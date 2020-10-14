@@ -65,7 +65,7 @@ val stockShareViewModelModule = module {
 
   viewModel {
     StockSplitPositionViewModel(
-
+      splitStockShareCase = get()
     )
   }
 }

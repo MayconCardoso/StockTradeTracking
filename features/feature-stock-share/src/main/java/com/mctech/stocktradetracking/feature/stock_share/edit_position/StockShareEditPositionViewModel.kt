@@ -18,7 +18,7 @@ class StockShareEditPositionViewModel constructor(
   private val deleteStockShareCase: DeleteStockShareCase,
   private val closeStockShareCase: CloseStockShareCase
 ) : BaseViewModel() {
-  private var currentStock: StockShare? = null
+  var currentStock: StockShare? = null
 
   private val _currentStockShare: MutableLiveData<ComponentState<StockShare>> =
     MutableLiveData(ComponentState.Initializing)

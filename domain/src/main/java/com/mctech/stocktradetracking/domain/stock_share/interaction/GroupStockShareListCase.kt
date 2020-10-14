@@ -16,7 +16,8 @@ class GroupStockShareListCase {
           purchaseDate = stockShare.purchaseDate,
           salePrice = (acc.getFinalStockPrice() + stockShare.getFinalStockPrice()) / (acc.shareAmount + stockShare.shareAmount),
           marketChange = stockShare.marketChange,
-          previousClose = stockShare.previousClose
+          previousClose = stockShare.previousClose,
+          isPositionOpened = stockShare.isPositionOpened
         )
       }
     }

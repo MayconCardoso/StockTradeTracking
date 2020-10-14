@@ -15,7 +15,7 @@ data class StockShare(
   var salePrice: Double = purchasePrice,
   val purchaseDate: Date = Calendar.getInstance().time,
   var saleDate: Date? = null,
-  var isPositionOpened: Boolean = true,
+  var isPositionOpened: Boolean,
 
   var marketChange: Double? = null,
   var previousClose: Double? = null

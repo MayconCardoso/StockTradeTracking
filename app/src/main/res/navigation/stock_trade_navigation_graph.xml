@@ -45,9 +45,15 @@
         <argument
             android:name="stockShare"
             app:argType="com.mctech.stocktradetracking.domain.stock_share.entity.StockShare" />
+
         <action
             android:id="@+id/action_stockShareEditPriceFragment_to_stockSplitPositionFragment"
-            app:destination="@id/stockSplitPositionFragment" />
+            app:destination="@id/stockSplitPositionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpToInclusive="true" />
 
     </fragment>
 

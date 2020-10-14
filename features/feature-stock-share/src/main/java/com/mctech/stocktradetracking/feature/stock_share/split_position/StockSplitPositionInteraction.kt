@@ -9,7 +9,6 @@ sealed class StockSplitPositionInteraction : UserInteraction {
   ) : StockSplitPositionInteraction()
 
   data class SplitStock(
-    val splitRatio: Long,
-    val lastPrice: Double
+    val splitRatio: Int
   ) : StockSplitPositionInteraction()
 }

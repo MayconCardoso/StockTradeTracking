@@ -81,15 +81,14 @@ class StockSplitPositionFragment : Fragment() {
   }
 
   private fun validateForm(binding: FragmentStockShareSplitBinding) {
-    if (isFieldInvalid(binding.tlShareAmount, binding.tlSharePrice)) {
+    if (isFieldInvalid(binding.tlShareAmount)) {
       return
     }
 
     confirmationDialog {
       viewModel.interact(
         StockSplitPositionInteraction.SplitStock(
-          binding.etShareAmount.getValue().toLong(),
-          binding.etSharePrice.getValue().toDouble()
+          binding.etShareAmount.getValue().toInt()
         )
       )
     }

@@ -43,7 +43,8 @@ object StockShareDataFactory {
           shareAmount = 100,
           purchaseDate = Calendar.getInstance().time,
           marketChange = 2.0,
-          previousClose = 8.0
+          previousClose = 8.0,
+          isPositionOpened = true
         )
       )
 
@@ -55,7 +56,8 @@ object StockShareDataFactory {
           shareAmount = 100,
           purchaseDate = Calendar.getInstance().time,
           marketChange = 2.0,
-          previousClose = 8.0
+          previousClose = 8.0,
+          isPositionOpened = true
         )
       )
     }
@@ -71,7 +73,8 @@ object StockShareDataFactory {
           shareAmount = 100,
           purchaseDate = Calendar.getInstance().time,
           previousClose = 10.0,
-          marketChange = 2.0
+          marketChange = 2.0,
+          isPositionOpened = true
         )
       )
 
@@ -83,7 +86,8 @@ object StockShareDataFactory {
           shareAmount = 100,
           purchaseDate = Calendar.getInstance().time,
           previousClose = 10.0,
-          marketChange = 2.0
+          marketChange = 2.0,
+          isPositionOpened = true
         )
       )
     }
@@ -99,7 +103,8 @@ object StockShareDataFactory {
           shareAmount = 100,
           purchaseDate = Calendar.getInstance().time,
           marketChange = 0.0,
-          previousClose = 10.0
+          previousClose = 10.0,
+          isPositionOpened = true
         )
       )
 
@@ -111,7 +116,8 @@ object StockShareDataFactory {
           shareAmount = 100,
           purchaseDate = Calendar.getInstance().time,
           marketChange = 0.0,
-          previousClose = 10.0
+          previousClose = 10.0,
+          isPositionOpened = true
         )
       )
     }
@@ -127,7 +133,8 @@ object StockShareDataFactory {
           shareAmount = 100,
           purchaseDate = Calendar.getInstance().time,
           marketChange = 2.0,
-          previousClose = 8.0
+          previousClose = 8.0,
+          isPositionOpened = true
         )
       )
 
@@ -139,7 +146,8 @@ object StockShareDataFactory {
           shareAmount = 400,
           purchaseDate = Calendar.getInstance().time,
           marketChange = 2.0,
-          previousClose = 8.0
+          previousClose = 8.0,
+          isPositionOpened = true
         )
       )
 
@@ -151,7 +159,8 @@ object StockShareDataFactory {
           shareAmount = 200,
           purchaseDate = Calendar.getInstance().time,
           marketChange = 2.0,
-          previousClose = 8.0
+          previousClose = 8.0,
+          isPositionOpened = true
         )
       )
 
@@ -163,7 +172,8 @@ object StockShareDataFactory {
           shareAmount = 400,
           purchaseDate = Calendar.getInstance().time,
           marketChange = 0.0,
-          previousClose = 10.0
+          previousClose = 10.0,
+          isPositionOpened = true
         )
       )
 
@@ -175,7 +185,8 @@ object StockShareDataFactory {
           shareAmount = 200,
           purchaseDate = Calendar.getInstance().time,
           marketChange = 0.0,
-          previousClose = 10.0
+          previousClose = 10.0,
+          isPositionOpened = true
         )
       )
 
@@ -187,7 +198,8 @@ object StockShareDataFactory {
           shareAmount = 100,
           purchaseDate = Calendar.getInstance().time,
           marketChange = 0.0,
-          previousClose = 2.0
+          previousClose = 2.0,
+          isPositionOpened = true
         )
       )
     }
@@ -203,7 +215,8 @@ object StockShareDataFactory {
           shareAmount = 100,
           purchaseDate = Calendar.getInstance().time,
           marketChange = 2.0,
-          previousClose = 8.0
+          previousClose = 8.0,
+          isPositionOpened = true
         )
       )
 
@@ -215,7 +228,8 @@ object StockShareDataFactory {
           shareAmount = 200,
           purchaseDate = Calendar.getInstance().time,
           marketChange = 0.0,
-          previousClose = 10.0
+          previousClose = 10.0,
+          isPositionOpened = true
         )
       )
 
@@ -227,9 +241,41 @@ object StockShareDataFactory {
           shareAmount = 100,
           purchaseDate = Calendar.getInstance().time,
           marketChange = 0.0,
-          previousClose = 2.0
+          previousClose = 2.0,
+          isPositionOpened = true
         )
       )
     }
   }
+
+  fun splitList(): List<StockShare> {
+    return mutableListOf<StockShare>().apply {
+      add(
+        StockShare(
+          code = "MGLU3",
+          purchasePrice = 10.0,
+          salePrice = 8.0,
+          shareAmount = 100,
+          purchaseDate = Calendar.getInstance().time,
+          previousClose = 10.0,
+          marketChange = 2.0,
+          isPositionOpened = true
+        )
+      )
+
+      add(
+        StockShare(
+          code = "MGLU3",
+          purchasePrice = 20.0,
+          salePrice = 8.0,
+          shareAmount = 200,
+          purchaseDate = Calendar.getInstance().time,
+          previousClose = 10.0,
+          marketChange = 2.0,
+          isPositionOpened = true
+        )
+      )
+    }
+  }
+
 }

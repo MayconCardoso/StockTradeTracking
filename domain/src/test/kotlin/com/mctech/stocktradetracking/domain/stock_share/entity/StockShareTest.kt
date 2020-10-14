@@ -38,7 +38,8 @@ class StockShareTest {
     shareAmount = 200,
     purchasePrice = 27.92,
     purchaseDate = expectedDate,
-    previousClose = 0.0
+    previousClose = 0.0,
+    isPositionOpened = true
   )
 
   private val expectedEmpty = StockShare(
@@ -46,7 +47,8 @@ class StockShareTest {
     code = "MGLU3",
     shareAmount = 0,
     purchasePrice = 0.0,
-    purchaseDate = expectedDate
+    purchaseDate = expectedDate,
+    isPositionOpened = true
   )
 
   @Test
