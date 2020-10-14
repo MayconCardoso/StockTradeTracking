@@ -8,25 +8,27 @@ import com.mctech.stocktradetracking.library.design_system.PulseView
 
 
 @BindingAdapter("changeMarketState", requireAll = false)
-fun PulseView.changeMarketState(marketStatus : ComponentState<MarketStatus>) {
-    stopPulse()
-    when(marketStatus){
-        is ComponentState.Success -> {
-            if(marketStatus.result.isOperation){
-                changeViewColor(R.color.colorSuccessDark)
-                startPulse()
-            }
-            else{
-                changeViewColor(R.color.colorDangerDark)
-            }
-        }
+fun PulseView.changeMarketState(marketStatus: ComponentState<MarketStatus>) {
+  when (marketStatus) {
+    is ComponentState.Success -> {
+      startPulse()
+      if (marketStatus.result.isOperation) {
+        changeViewColor(R.color.colorSuccessDark)
+      } else {
+        changeViewColor(R.color.colorDangerDark)
+      }
     }
+    else -> {
+      stopPulse()
+    }
+  }
 }
+
 @BindingAdapter("changeMarketStateMessage", requireAll = false)
-fun TextView.changeMarketStateMessage(marketStatus : ComponentState<MarketStatus>) {
-    when(marketStatus){
-        is ComponentState.Success-> {
-            text = marketStatus.result.message
-        }
+fun TextView.changeMarketStateMessage(marketStatus: ComponentState<MarketStatus>) {
+  when (marketStatus) {
+    is ComponentState.Success -> {
+      text = marketStatus.result.message
     }
+  }
 }
