@@ -7,21 +7,21 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val timelineBalanceViewModel = module {
-    viewModel {
-        TimelineBalanceListViewModel(
-            getCurrentPeriodBalanceCase = get()
-        )
-    }
+  viewModel {
+    TimelineBalanceListViewModel(
+      getCurrentPeriodBalanceCase = get()
+    )
+  }
 
-    viewModel {
-        TimelineBalanceAddViewModel(
-            createPeriodCase = get()
-        )
-    }
+  viewModel {
+    TimelineBalanceAddViewModel(
+      createPeriodCase = get()
+    )
+  }
 
-    viewModel {
-        TimelineBalanceEditViewModel(
-            editPeriodCase = get()
-        )
-    }
+  viewModel {
+    TimelineBalanceEditViewModel(
+      editPeriodCase = get()
+    )
+  }
 }

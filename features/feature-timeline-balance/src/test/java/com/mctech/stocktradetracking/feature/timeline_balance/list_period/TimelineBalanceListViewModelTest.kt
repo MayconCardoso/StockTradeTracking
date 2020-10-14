@@ -16,79 +16,79 @@ import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class TimelineBalanceListViewModelTest : BaseViewModelTest() {
-    private val loaderUseCase	    = mock<GetCurrentPeriodBalanceCase>()
-    private val expectedList        = TimelineBalanceFactory.listOf(10)
-    private val expectedException   = TimelineBalanceError.UnknownExceptionException
+  private val loaderUseCase = mock<GetCurrentPeriodBalanceCase>()
+  private val expectedList = TimelineBalanceFactory.listOf(10)
+  private val expectedException = TimelineBalanceError.UnknownExceptionException
 
-    private lateinit var viewModel  : TimelineBalanceListViewModel
+  private lateinit var viewModel: TimelineBalanceListViewModel
 
-    @Before
-    fun `before each test`() {
-        viewModel = TimelineBalanceListViewModel(loaderUseCase)
+  @Before
+  fun `before each test`() {
+    viewModel = TimelineBalanceListViewModel(loaderUseCase)
+  }
+
+  @Test
+  fun `should initialize components`() = testLiveDataScenario {
+    assertLiveDataFlow(viewModel.periodList) {
+      it.assertFlow(ComponentState.Initializing)
     }
 
-    @Test
-    fun `should initialize components`() = testLiveDataScenario {
-        assertLiveDataFlow(viewModel.periodList){
-            it.assertFlow(ComponentState.Initializing)
-        }
+    assertLiveDataFlow(viewModel.finalBalance) {
+      it.assertFlow(ComponentState.Initializing)
+    }
+  }
 
-        assertLiveDataFlow(viewModel.finalBalance){
-            it.assertFlow(ComponentState.Initializing)
-        }
+  @Test
+  fun `should return list`() = testLiveDataScenario {
+    whenThisScenario {
+      whenever(loaderUseCase.execute()).thenReturn(Result.Success(expectedList))
     }
 
-    @Test
-    fun `should return list`() = testLiveDataScenario {
-        whenThisScenario{
-            whenever(loaderUseCase.execute()).thenReturn(Result.Success(expectedList))
-        }
-
-        onThisAction {
-            viewModel.interact(TimelineBalanceListInteraction.LoadTimelineComponent)
-        }
-
-        assertLiveDataFlow(viewModel.periodList){
-            it.assertFlow(
-                ComponentState.Initializing,
-                ComponentState.Loading.FromEmpty,
-                ComponentState.Success(expectedList)
-            )
-        }
-
-        assertLiveDataFlow(viewModel.finalBalance){
-            it.assertFlow(
-                ComponentState.Initializing,
-                ComponentState.Loading.FromEmpty,
-                ComponentState.Success(expectedList.first())
-            )
-        }
+    onThisAction {
+      viewModel.interact(TimelineBalanceListInteraction.LoadTimelineComponent)
     }
 
-    @Test
-    fun `should return error`() = testLiveDataScenario {
-        whenThisScenario{
-            whenever(loaderUseCase.execute()).thenReturn(Result.Failure(expectedException))
-        }
-
-        onThisAction {
-            viewModel.interact(TimelineBalanceListInteraction.LoadTimelineComponent)
-        }
-
-        assertLiveDataFlow(viewModel.periodList){
-            it.assertFlow(
-                ComponentState.Initializing,
-                ComponentState.Loading.FromEmpty,
-                ComponentState.Error(expectedException)
-            )
-        }
-
-        assertLiveDataFlow(viewModel.finalBalance){
-            it.assertFlow(
-                ComponentState.Initializing,
-                ComponentState.Loading.FromEmpty,
-                ComponentState.Error(expectedException)
-            )
-        }
+    assertLiveDataFlow(viewModel.periodList) {
+      it.assertFlow(
+        ComponentState.Initializing,
+        ComponentState.Loading.FromEmpty,
+        ComponentState.Success(expectedList)
+      )
     }
+
+    assertLiveDataFlow(viewModel.finalBalance) {
+      it.assertFlow(
+        ComponentState.Initializing,
+        ComponentState.Loading.FromEmpty,
+        ComponentState.Success(expectedList.first())
+      )
+    }
+  }
+
+  @Test
+  fun `should return error`() = testLiveDataScenario {
+    whenThisScenario {
+      whenever(loaderUseCase.execute()).thenReturn(Result.Failure(expectedException))
+    }
+
+    onThisAction {
+      viewModel.interact(TimelineBalanceListInteraction.LoadTimelineComponent)
+    }
+
+    assertLiveDataFlow(viewModel.periodList) {
+      it.assertFlow(
+        ComponentState.Initializing,
+        ComponentState.Loading.FromEmpty,
+        ComponentState.Error(expectedException)
+      )
+    }
+
+    assertLiveDataFlow(viewModel.finalBalance) {
+      it.assertFlow(
+        ComponentState.Initializing,
+        ComponentState.Loading.FromEmpty,
+        ComponentState.Error(expectedException)
+      )
+    }
+  }
 }

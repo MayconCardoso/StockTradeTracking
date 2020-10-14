@@ -10,6 +10,7 @@ include ':libraries:library-architecture-code-generator'
 include ':libraries:library-logger'
 include ':libraries:library-logger-android'
 include ':libraries:library-design-system'
+include ':libraries:library-chart'
 
 include ':features:feature-stock-share'
 include ':features:feature-timeline-balance'

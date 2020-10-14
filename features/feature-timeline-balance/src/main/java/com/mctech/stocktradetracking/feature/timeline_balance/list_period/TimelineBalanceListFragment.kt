@@ -1,7 +1,12 @@
 package com.mctech.stocktradetracking.feature.timeline_balance.list_period
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import com.mctech.architecture.mvvm.x.core.ComponentState
@@ -12,102 +17,113 @@ import com.mctech.stocktradetracking.feature.timeline_balance.R
 import com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceNavigator
 import com.mctech.stocktradetracking.feature.timeline_balance.databinding.FragmentTimelineBalanceBinding
 import com.mctech.stocktradetracking.feature.timeline_balance.databinding.ItemTimelinePeriodListBinding
+import com.mctech.stocktradetracking.library.chart.money.MoneyVariationEntry
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class TimelineBalanceListFragment : Fragment() {
-	private val viewModel : TimelineBalanceListViewModel 	by sharedViewModel()
-	private val navigator : TimelineBalanceNavigator 		by inject()
-	private var binding   : FragmentTimelineBalanceBinding? = null
+  private val viewModel: TimelineBalanceListViewModel by sharedViewModel()
+  private val navigator: TimelineBalanceNavigator by inject()
+  private var binding: FragmentTimelineBalanceBinding? = null
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-		setHasOptionsMenu(true)
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View {
+    setHasOptionsMenu(true)
 
-		return FragmentTimelineBalanceBinding.inflate(inflater, container, false).let {
-			binding = it
-			binding?.viewModel = viewModel
-			binding?.lifecycleOwner = this
-			it.root
-		}
-	}
+    return FragmentTimelineBalanceBinding.inflate(inflater, container, false).let {
+      binding = it
+      binding?.viewModel = viewModel
+      binding?.lifecycleOwner = this
+      it.root
+    }
+  }
 
-	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-		inflater.inflate(R.menu.timeline_balance_menu, menu)
-	}
+  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    inflater.inflate(R.menu.timeline_balance_menu, menu)
+  }
 
-	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		when(item.itemId){
-			R.id.menu_add -> {
-				navigateToAddPositionFlow()
-			}
-		}
-		return true
-	}
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    when (item.itemId) {
+      R.id.menu_add -> {
+        navigateToAddPositionFlow()
+      }
+    }
+    return true
+  }
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		bindState(viewModel.periodList){ handlePeriodListState(it) }
-		bindState(viewModel.finalBalance){ handleFinalBalanceState(it) }
-		bindListeners()
-	}
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    bindState(viewModel.periodList) { handlePeriodListState(it) }
+    bindState(viewModel.finalBalance) { handleFinalBalanceState(it) }
+    bindListeners()
+  }
 
-	override fun onStart() {
-		super.onStart()
-		viewModel.interact(TimelineBalanceListInteraction.LoadTimelineComponent)
-	}
+  override fun onStart() {
+    super.onStart()
+    viewModel.interact(TimelineBalanceListInteraction.LoadTimelineComponent)
+  }
 
-	private fun handleFinalBalanceState(finalBalanceState: ComponentState<TimelineBalance?>) {
-		when(finalBalanceState){
-			is ComponentState.Success -> {
-				binding?.finalBalance = finalBalanceState.result
-				binding?.executePendingBindings()
-			}
-		}
-	}
+  private fun handleFinalBalanceState(finalBalanceState: ComponentState<TimelineBalance?>) {
+    when (finalBalanceState) {
+      is ComponentState.Success -> {
+        binding?.finalBalance = finalBalanceState.result
+        binding?.executePendingBindings()
+      }
+    }
+  }
 
-	private fun handlePeriodListState(state: ComponentState<List<TimelineBalance>>) {
-		when(state){
-			is ComponentState.Success -> {
-				renderStockList(state.result)
-			}
-		}
-	}
+  private fun handlePeriodListState(state: ComponentState<List<TimelineBalance>>) {
+    when (state) {
+      is ComponentState.Success -> {
+        renderStockList(state.result)
+        renderChart(state.result)
+      }
+    }
+  }
 
-	private fun renderStockList(result: List<TimelineBalance>) {
-		binding?.recyclerView?.attachSimpleDataBindingData(
-			items = result,
-			viewBindingCreator = { parent, inflater ->
-				ItemTimelinePeriodListBinding.inflate(inflater, parent, false)
-			},
-			prepareHolder = { item, viewBinding, _ ->
-				viewBinding.item = item
-				viewBinding.cardItem.setOnClickListener {
-					navigateToEditPosition(item)
-				}
-			},
-			updateCallback = object : DiffUtil.ItemCallback<TimelineBalance>() {
-				override fun areItemsTheSame(left: TimelineBalance, right: TimelineBalance) = left.periodTag == right.periodTag
+  private fun renderChart(result: List<TimelineBalance>) {
+    binding?.chartView?.setData(result.reversed().map { MoneyVariationEntry(it.getFinalProfit()) })
+  }
 
-				override fun areContentsTheSame(left: TimelineBalance, right: TimelineBalance): Boolean {
-					return left.periodTag == right.periodTag
-							&& left.periodProfit == right.periodProfit
-							&& left.periodInvestment == right.periodInvestment
-							&& left.getFinalBalance() == right.getFinalBalance()
-				}
-			}
-		)
-	}
+  private fun renderStockList(result: List<TimelineBalance>) {
+    binding?.recyclerView?.attachSimpleDataBindingData(
+      items = result,
+      viewBindingCreator = { parent, inflater ->
+        ItemTimelinePeriodListBinding.inflate(inflater, parent, false)
+      },
+      prepareHolder = { item, viewBinding, _ ->
+        viewBinding.item = item
+        viewBinding.cardItem.setOnClickListener {
+          navigateToEditPosition(item)
+        }
+      },
+      updateCallback = object : DiffUtil.ItemCallback<TimelineBalance>() {
+        override fun areItemsTheSame(left: TimelineBalance, right: TimelineBalance) =
+          left.periodTag == right.periodTag
 
-	private fun bindListeners() {
-		binding?.btAddPeriod?.setOnClickListener {
-			navigateToAddPositionFlow()
-		}
-	}
+        override fun areContentsTheSame(left: TimelineBalance, right: TimelineBalance): Boolean {
+          return left.periodTag == right.periodTag
+            && left.periodProfit == right.periodProfit
+            && left.periodInvestment == right.periodInvestment
+            && left.getFinalBalance() == right.getFinalBalance()
+        }
+      }
+    )
+  }
 
-	private fun navigateToAddPositionFlow() {
-		navigator.fromTimelineToOpenPeriod()
-	}
+  private fun bindListeners() {
+    binding?.btAddPeriod?.setOnClickListener {
+      navigateToAddPositionFlow()
+    }
+  }
 
-	private fun navigateToEditPosition(item: TimelineBalance) {
-		navigator.fromTimelineToEditPeriod(item)
-	}
+  private fun navigateToAddPositionFlow() {
+    navigator.fromTimelineToOpenPeriod()
+  }
+
+  private fun navigateToEditPosition(item: TimelineBalance) {
+    navigator.fromTimelineToEditPeriod(item)
+  }
 }
