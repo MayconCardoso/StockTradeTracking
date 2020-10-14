@@ -39,6 +39,11 @@ class StockShareEditPositionViewModel constructor(
       is StockShareEditPositionInteraction.CloseStockPosition -> closeCurrentStockShareInteraction(
         interaction.price
       )
+      is StockShareEditPositionInteraction.SplitStockShare -> {
+        currentStock?.let {
+          sendCommand(StockShareEditPositionCommand.NavigateToSplitScreen(it))
+        }
+      }
     }
   }
 

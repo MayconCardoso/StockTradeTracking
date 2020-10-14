@@ -11,51 +11,56 @@ import com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceNav
 import com.mctech.stocktradetracking.feature.timeline_balance.list_period.TimelineBalanceListFragmentDirections
 
 object AppNavigatorHandler :
-    StockShareNavigator,
-    TimelineBalanceNavigator,
-    StockShareFilterNavigator
-{
-    private var navController: NavController? = null
+  StockShareNavigator,
+  TimelineBalanceNavigator,
+  StockShareFilterNavigator {
+  private var navController: NavController? = null
 
-    fun bind(navController: NavController) {
-        this.navController = navController
-    }
+  fun bind(navController: NavController) {
+    this.navController = navController
+  }
 
-    fun unbind() {
-        navController = null
-    }
+  fun unbind() {
+    navController = null
+  }
 
-    override fun navigateBack() {
-        navController?.navigateUp()
-    }
+  override fun navigateBack() {
+    navController?.navigateUp()
+  }
 
-    override fun fromStockListToEditPosition(stockShare: StockShare) {
-        val bundle = Bundle().apply {
-            putSerializable("stockShare", stockShare)
-        }
-        navController?.navigate(
-            R.id.action_global_stockShareEditPriceFragment,
-            bundle
-        )
+  override fun fromStockListToEditPosition(stockShare: StockShare) {
+    val bundle = Bundle().apply {
+      putSerializable("stockShare", stockShare)
     }
+    navController?.navigate(
+      R.id.action_global_stockShareEditPriceFragment,
+      bundle
+    )
+  }
 
-    override fun fromStockListToBuyPosition() {
-        navController?.navigate(R.id.action_global_stockShareBuyFragment)
-    }
+  override fun fromEditToSplitPosition(stockShare: StockShare) {
+    navController?.navigateUp()
+  }
 
-    override fun fromStockListToFilter() {
-        navController?.navigate(R.id.action_global_stockShareFilterFragment)
-    }
+  override fun fromStockListToBuyPosition() {
+    navController?.navigate(R.id.action_global_stockShareBuyFragment)
+  }
 
-    override fun fromTimelineToEditPeriod(currentPeriod: TimelineBalance) {
-        val destination = TimelineBalanceListFragmentDirections.actionTimelineBalanceFragmentToTimelineBalanceEditPeriodFragment(
-            currentPeriod
-        )
-        navController?.navigate(destination)
-    }
+  override fun fromStockListToFilter() {
+    navController?.navigate(R.id.action_global_stockShareFilterFragment)
+  }
 
-    override fun fromTimelineToOpenPeriod() {
-        val destination = TimelineBalanceListFragmentDirections.actionTimelineBalanceFragmentToTimelineBalanceAddPeriodFragment()
-        navController?.navigate(destination)
-    }
+  override fun fromTimelineToEditPeriod(currentPeriod: TimelineBalance) {
+    val destination =
+      TimelineBalanceListFragmentDirections.actionTimelineBalanceFragmentToTimelineBalanceEditPeriodFragment(
+        currentPeriod
+      )
+    navController?.navigate(destination)
+  }
+
+  override fun fromTimelineToOpenPeriod() {
+    val destination =
+      TimelineBalanceListFragmentDirections.actionTimelineBalanceFragmentToTimelineBalanceAddPeriodFragment()
+    navController?.navigate(destination)
+  }
 }

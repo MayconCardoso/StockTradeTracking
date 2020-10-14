@@ -66,6 +66,9 @@ class StockShareEditPositionFragment : Fragment() {
           )
         )
       }
+      R.id.menu_spit_item -> {
+        viewModel.interact(StockShareEditPositionInteraction.SplitStockShare)
+      }
     }
 
     return true
@@ -91,6 +94,9 @@ class StockShareEditPositionFragment : Fragment() {
     when (command) {
       is StockShareEditPositionCommand.NavigateBack -> {
         navigator.navigateBack()
+      }
+      is StockShareEditPositionCommand.NavigateToSplitScreen -> {
+        navigator.fromEditToSplitPosition(command.stock)
       }
     }
   }

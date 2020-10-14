@@ -7,6 +7,7 @@ interface StockShareNavigator {
   fun fromStockListToBuyPosition()
   fun fromStockListToFilter()
   fun fromStockListToEditPosition(stockShare: StockShare)
+  fun fromEditToSplitPosition(stockShare: StockShare)
   fun navigateBack()
 }
 
