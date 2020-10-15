@@ -22,7 +22,6 @@ interface StockShareDao {
   @Query("SELECT * FROM stock_share WHERE isPositionOpened = 0 ORDER BY code")
   fun observeStockClosedList(): Flow<List<StockShare>>
 
-
   // ============================================================================
   // Single shot
   // ============================================================================
@@ -33,6 +32,10 @@ interface StockShareDao {
   @Transaction
   @Query("SELECT * FROM stock_share WHERE isPositionOpened = 1 AND code = :code LIMIT 1")
   suspend fun loadStockSharePosition(code: String): StockShare?
+
+  @Transaction
+  @Query("SELECT * FROM stock_share WHERE isPositionOpened = 1 AND code = :code")
+  suspend fun loadAllStockSharesByCode(code: String): List<StockShare>
 
   @Transaction
   @Insert(onConflict = OnConflictStrategy.REPLACE)

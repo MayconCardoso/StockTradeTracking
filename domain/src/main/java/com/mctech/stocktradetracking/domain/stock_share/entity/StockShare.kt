@@ -10,19 +10,25 @@ import java.util.Date
 data class StockShare(
   val id: Long? = null,
   var code: String,
+  var initialShareAmount: Long,
   var shareAmount: Long,
+  var initialPurchasePrice: Double,
   var purchasePrice: Double,
   var salePrice: Double = purchasePrice,
   val purchaseDate: Date = Calendar.getInstance().time,
   var saleDate: Date? = null,
-  var isPositionOpened: Boolean = true,
+  var isPositionOpened: Boolean,
 
   var marketChange: Double? = null,
   var previousClose: Double? = null
 
 ) : Serializable {
+  fun getCurrentMomentDescription(): String {
+    return "NOW $shareAmount @ ${salePrice.formatBrazilianCurrency()}"
+  }
+
   fun getBuyDescription(): String {
-    return "BUY $shareAmount @ ${purchasePrice.formatBrazilianCurrency()}"
+    return "BUY $initialShareAmount @ ${initialPurchasePrice.formatBrazilianCurrency()}"
   }
 
   fun getSellDescription(): String {

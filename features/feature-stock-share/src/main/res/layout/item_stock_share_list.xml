@@ -61,10 +61,21 @@
                     android:layout_marginBottom="8dp"
                     android:text="@{item.buyDescription}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/itemCode"
                     app:layout_constraintTop_toBottomOf="@id/itemCode"
                     tools:text="BUY 300 @ R$26,91" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/itemCurrent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{item.currentMomentDescription}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/itemCode"
+                    app:layout_constraintTop_toBottomOf="@id/itemInvestment"
+                    tools:text="NOW 900 @ R$9,91" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/itemFinalPrice"
@@ -85,10 +96,9 @@
                     android:id="@+id/itemPercent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:text="@{item.variationDescription}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/itemInvestment"
                     app:layout_constraintEnd_toEndOf="@id/itemFinalPrice"
                     app:layout_constraintTop_toBottomOf="@id/itemFinalPrice"
                     app:priceTextColor="@{item.balance}"

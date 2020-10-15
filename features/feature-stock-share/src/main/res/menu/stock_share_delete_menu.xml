@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_spit_item"
+        android:icon="@drawable/ic_split"
+        android:title="@string/split"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/menu_close_item"
         android:icon="@drawable/ic_attach_money_24dp"
         android:title="@string/close"

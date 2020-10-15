@@ -9,10 +9,11 @@ abstract class FilterStockListStrategy(
   private val groupStockShareListCase: GroupStockShareListCase
 ) {
   fun execute(stockShareList: List<StockShare>, filter: StockFilter): List<StockShare> {
-    val resolvedList = if (filter.isGroupingStock)
+    val resolvedList = if (filter.isGroupingStock) {
       groupStockShareListCase.transform(stockShareList)
-    else
+    } else {
       stockShareList
+    }
 
     return sort(resolvedList, filter.sort)
   }

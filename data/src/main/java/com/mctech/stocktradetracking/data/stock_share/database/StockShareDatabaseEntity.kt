@@ -22,7 +22,9 @@ data class StockShareDatabaseEntity(
   @PrimaryKey
   val id: Long? = null,
   val code: String,
+  val initialShareAmount: Long,
   val shareAmount: Long,
+  val initialPurchasePrice: Double,
   val purchasePrice: Double,
   var salePrice: Double = purchasePrice,
   val purchaseDate: Date,

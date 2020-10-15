@@ -29,6 +29,9 @@ class StockShareEditPositionFragment : Fragment() {
   private val viewModel: StockShareEditPositionViewModel by viewModel()
   private val navigator: StockShareNavigator by inject()
   private var binding: FragmentStockShareEditPriceBinding? = null
+  private var closeMenuItem: MenuItem? = null
+  private var splitMenuItem: MenuItem? = null
+  private var removeMenuItem: MenuItem? = null
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -52,6 +55,13 @@ class StockShareEditPositionFragment : Fragment() {
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
     inflater.inflate(R.menu.stock_share_delete_menu, menu)
+    closeMenuItem = menu.findItem(R.id.menu_close_item)
+    splitMenuItem = menu.findItem(R.id.menu_spit_item)
+    removeMenuItem = menu.findItem(R.id.menu_delete)
+
+    viewModel.currentStock?.let { stock ->
+      handleMenuVisibility(stock)
+    }
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -65,6 +75,9 @@ class StockShareEditPositionFragment : Fragment() {
             binding?.etSharePrice?.getValue()?.toDouble()
           )
         )
+      }
+      R.id.menu_spit_item -> {
+        viewModel.interact(StockShareEditPositionInteraction.SplitStockShare)
       }
     }
 
@@ -87,10 +100,20 @@ class StockShareEditPositionFragment : Fragment() {
     }
   }
 
+  private fun handleMenuVisibility(stockShare: StockShare) {
+    val isMenuVisible = stockShare.isPositionOpened && stockShare.id != null
+    closeMenuItem?.isVisible = isMenuVisible
+    splitMenuItem?.isVisible = isMenuVisible
+    removeMenuItem?.isVisible = stockShare.id != null
+  }
+
   private fun handleCommands(command: ViewCommand) {
     when (command) {
       is StockShareEditPositionCommand.NavigateBack -> {
         navigator.navigateBack()
+      }
+      is StockShareEditPositionCommand.NavigateToSplitScreen -> {
+        navigator.fromEditToSplitPosition(command.stock)
       }
     }
   }

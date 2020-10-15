@@ -9,6 +9,8 @@ class StockShareTest {
   private val expectedValue = StockShare(
     id = 1,
     code = "MGLU3",
+    initialShareAmount = 100,
+    initialPurchasePrice = 20.0,
     shareAmount = 200,
     purchasePrice = 27.92,
     salePrice = 50.65,
@@ -22,6 +24,8 @@ class StockShareTest {
   private val expectedNegativeValue = StockShare(
     id = 1,
     code = "MGLU3",
+    initialShareAmount = 100,
+    initialPurchasePrice = 20.0,
     shareAmount = 200,
     purchasePrice = 45.03,
     salePrice = 40.47,
@@ -35,24 +39,32 @@ class StockShareTest {
   private val expectedDefaultValue = StockShare(
     id = 1,
     code = "MGLU3",
+    initialShareAmount = 100,
+    initialPurchasePrice = 20.0,
     shareAmount = 200,
     purchasePrice = 27.92,
     purchaseDate = expectedDate,
-    previousClose = 0.0
+    previousClose = 0.0,
+    isPositionOpened = true
   )
 
   private val expectedEmpty = StockShare(
     id = 1,
     code = "MGLU3",
+    initialShareAmount = 100,
+    initialPurchasePrice = 20.0,
     shareAmount = 0,
     purchasePrice = 0.0,
-    purchaseDate = expectedDate
+    purchaseDate = expectedDate,
+    isPositionOpened = true
   )
 
   @Test
   fun `should assert entity`() {
     assertThat(expectedValue.id).isEqualTo(1)
     assertThat(expectedValue.code).isEqualTo("MGLU3")
+    assertThat(expectedValue.initialShareAmount).isEqualTo(100)
+    assertThat(expectedValue.initialPurchasePrice).isEqualTo(20.00)
     assertThat(expectedValue.shareAmount).isEqualTo(200)
     assertThat(expectedValue.purchasePrice).isEqualTo(27.92)
     assertThat(expectedValue.salePrice).isEqualTo(50.65)
@@ -67,6 +79,8 @@ class StockShareTest {
   fun `should assert default entity`() {
     assertThat(expectedDefaultValue.id).isEqualTo(1)
     assertThat(expectedDefaultValue.code).isEqualTo("MGLU3")
+    assertThat(expectedValue.initialShareAmount).isEqualTo(100)
+    assertThat(expectedValue.initialPurchasePrice).isEqualTo(20.00)
     assertThat(expectedDefaultValue.shareAmount).isEqualTo(200)
     assertThat(expectedDefaultValue.purchasePrice).isEqualTo(27.92)
     assertThat(expectedDefaultValue.salePrice).isEqualTo(27.92)
@@ -78,11 +92,19 @@ class StockShareTest {
   }
 
   @Test
-  fun `should format buy description`() {
-    assertThat(expectedValue.getBuyDescription()).isEqualTo("BUY 200 @ R$27,92")
-    assertThat(expectedDefaultValue.getBuyDescription()).isEqualTo("BUY 200 @ R$27,92")
-    assertThat(expectedNegativeValue.getBuyDescription()).isEqualTo("BUY 200 @ R$45,03")
-    assertThat(expectedEmpty.getBuyDescription()).isEqualTo("BUY 0 @ R$0,00")
+  fun `should format current moment description`() {
+    assertThat(expectedValue.getCurrentMomentDescription()).isEqualTo("NOW 200 @ R$50,65")
+    assertThat(expectedDefaultValue.getCurrentMomentDescription()).isEqualTo("NOW 200 @ R$27,92")
+    assertThat(expectedNegativeValue.getCurrentMomentDescription()).isEqualTo("NOW 200 @ R$40,47")
+    assertThat(expectedEmpty.getCurrentMomentDescription()).isEqualTo("NOW 0 @ R$0,00")
+  }
+
+  @Test
+  fun `should format initial buy description`() {
+    assertThat(expectedValue.getBuyDescription()).isEqualTo("BUY 100 @ R$20,00")
+    assertThat(expectedDefaultValue.getBuyDescription()).isEqualTo("BUY 100 @ R$20,00")
+    assertThat(expectedNegativeValue.getBuyDescription()).isEqualTo("BUY 100 @ R$20,00")
+    assertThat(expectedEmpty.getBuyDescription()).isEqualTo("BUY 100 @ R$20,00")
   }
 
   @Test

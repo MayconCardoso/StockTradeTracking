@@ -5,9 +5,12 @@ import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import kotlinx.coroutines.flow.Flow
 
 interface LocalStockShareDataSource {
-  suspend fun observeStockShareList(): Flow<List<StockShare>>
-  suspend fun observeStockClosedList(): Flow<List<StockShare>>
+  fun observeStockShareList(): Flow<List<StockShare>>
+  fun observeStockClosedList(): Flow<List<StockShare>>
+
   suspend fun getMarketStatus(): MarketStatus
+  suspend fun getAllByCode(code: String): List<StockShare>
+
   suspend fun getDistinctStockCode(): List<String>
 
   suspend fun saveStockShare(share: StockShare)

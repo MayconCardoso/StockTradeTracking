@@ -25,6 +25,7 @@ class StockShareRepositoryTest {
   private val remoteDataSource = mock<RemoteStockShareDataSource>()
   private val logger = mock<Logger>()
   private val expectedSingle = StockShareDataFactory.single()
+  private val expectedAll = StockShareDataFactory.listOf()
   private val expectedMarket = MarketStatus("", true)
   private val expectedError = RuntimeException()
 
@@ -122,6 +123,23 @@ class StockShareRepositoryTest {
       verifyZeroInteractions(remoteDataSource)
 
       Assertions.assertThat(it).isEqualTo(expectedMarket)
+    }
+  )
+
+  @Test
+  fun `should return all by code`() = testScenario(
+    scenario = {
+      whenever(localDataSource.getAllByCode(any())).thenReturn(expectedAll)
+    },
+    action = {
+      repository.getAllByCode("MGLU3")
+    },
+    assertions = {
+      verify(localDataSource).getAllByCode("MGLU3")
+      verifyNoMoreInteractions(localDataSource)
+      verifyZeroInteractions(remoteDataSource)
+
+      Assertions.assertThat(it).isEqualTo(expectedAll)
     }
   )
 

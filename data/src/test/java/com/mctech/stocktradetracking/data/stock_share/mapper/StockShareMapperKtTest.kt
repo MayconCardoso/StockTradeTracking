@@ -13,7 +13,9 @@ class StockShareMapperKtTest {
     val share = StockShare(
       id = 1,
       code = "MGLU3",
+      initialShareAmount = 200,
       shareAmount = 1000,
+      initialPurchasePrice = 100.0,
       purchasePrice = 45.89,
       salePrice = 50.91,
       purchaseDate = Calendar.getInstance().time,
@@ -27,7 +29,9 @@ class StockShareMapperKtTest {
 
     Assertions.assertThat(share.id).isEqualTo(target.id)
     Assertions.assertThat(share.code).isEqualTo(target.code)
+    Assertions.assertThat(share.initialShareAmount).isEqualTo(target.initialShareAmount)
     Assertions.assertThat(share.shareAmount).isEqualTo(target.shareAmount)
+    Assertions.assertThat(share.initialPurchasePrice).isEqualTo(target.initialPurchasePrice)
     Assertions.assertThat(share.purchasePrice).isEqualTo(target.purchasePrice)
     Assertions.assertThat(share.purchaseDate).isEqualTo(target.purchaseDate)
     Assertions.assertThat(share.salePrice).isEqualTo(target.salePrice)
@@ -42,7 +46,9 @@ class StockShareMapperKtTest {
     val share = StockShareDatabaseEntity(
       id = 1,
       code = "MGLU3",
+      initialShareAmount = 200,
       shareAmount = 1000,
+      initialPurchasePrice = 100.0,
       purchasePrice = 45.89,
       salePrice = 50.91,
       purchaseDate = Calendar.getInstance().time,
@@ -56,7 +62,9 @@ class StockShareMapperKtTest {
 
     Assertions.assertThat(share.id).isEqualTo(target.id)
     Assertions.assertThat(share.code).isEqualTo(target.code)
+    Assertions.assertThat(share.initialShareAmount).isEqualTo(target.initialShareAmount)
     Assertions.assertThat(share.shareAmount).isEqualTo(target.shareAmount)
+    Assertions.assertThat(share.initialPurchasePrice).isEqualTo(target.initialPurchasePrice)
     Assertions.assertThat(share.purchasePrice).isEqualTo(target.purchasePrice)
     Assertions.assertThat(share.purchaseDate).isEqualTo(target.purchaseDate)
     Assertions.assertThat(share.salePrice).isEqualTo(target.salePrice)
