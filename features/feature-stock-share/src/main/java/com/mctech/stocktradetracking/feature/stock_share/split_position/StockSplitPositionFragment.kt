@@ -39,8 +39,6 @@ class StockSplitPositionFragment : Fragment() {
       it.root
     }
   }
-
-
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     bindCommand(viewModel) { handleCommands(it) }
     bindState(viewModel.currentStockShare) { handleStockShareState(it) }
