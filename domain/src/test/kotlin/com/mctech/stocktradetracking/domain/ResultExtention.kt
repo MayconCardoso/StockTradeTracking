@@ -9,10 +9,7 @@ fun Result<*>.assertResultFailure(expectedException: Exception) {
 }
 
 fun <T> Result<T>.assertResultSuccess(expectedValue: T) {
-  val expectedResult =
-    Result.Success(
-      expectedValue
-    )
+  val expectedResult = Result.Success(expectedValue)
   val entity = (this as Result.Success).result
 
   Assertions.assertThat(this)
