@@ -89,11 +89,16 @@ class StockShareBuyFragment : Fragment() {
 
   private fun computeInvestment() {
     binding?.let { binding ->
+      val purchasePrice = binding.etSharePrice.getValue().toDoubleOrNull() ?: 0.0
+      val shareAmount = binding.etShareAmount.getValue().toLongOrNull() ?: 0
+
       val stockShare = StockShare(
         code = binding.etShareCode.getValue(),
-        purchasePrice = binding.etSharePrice.getValue().toDoubleOrNull() ?: 0.0,
-        shareAmount = binding.etShareAmount.getValue().toLongOrNull() ?: 0,
-        isPositionOpened = true
+        purchasePrice = purchasePrice,
+        shareAmount = shareAmount,
+        isPositionOpened = true,
+        initialShareAmount = shareAmount,
+        initialPurchasePrice = purchasePrice
       )
 
       binding.itemInvestmentAmount.text = stockShare.getInvestmentValueDescription()

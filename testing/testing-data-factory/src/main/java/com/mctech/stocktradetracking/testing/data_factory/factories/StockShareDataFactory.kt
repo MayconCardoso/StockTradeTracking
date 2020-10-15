@@ -16,6 +16,8 @@ object StockShareDataFactory {
   fun single(
     id: Long = 0,
     code: String = "",
+    initialShareAmount : Long = 50,
+    initialPurchasePrice : Double = 1.0,
     shareAmount: Long = 100,
     purchasePrice: Double = 0.0,
     salePrice: Double = 0.0,
@@ -25,8 +27,10 @@ object StockShareDataFactory {
   ) = StockShare(
     id = id,
     code = code,
+    initialShareAmount = initialShareAmount,
     shareAmount = shareAmount,
     purchasePrice = purchasePrice,
+    initialPurchasePrice = initialPurchasePrice,
     purchaseDate = purchaseDate,
     salePrice = salePrice,
     saleDate = saleDate,
@@ -44,7 +48,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           marketChange = 2.0,
           previousClose = 8.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
 
@@ -57,7 +63,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           marketChange = 2.0,
           previousClose = 8.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
     }
@@ -74,7 +82,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           previousClose = 10.0,
           marketChange = 2.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
 
@@ -87,7 +97,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           previousClose = 10.0,
           marketChange = 2.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
     }
@@ -104,7 +116,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           marketChange = 0.0,
           previousClose = 10.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
 
@@ -117,7 +131,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           marketChange = 0.0,
           previousClose = 10.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
     }
@@ -134,7 +150,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           marketChange = 2.0,
           previousClose = 8.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
 
@@ -147,7 +165,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           marketChange = 2.0,
           previousClose = 8.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
 
@@ -160,7 +180,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           marketChange = 2.0,
           previousClose = 8.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
 
@@ -173,7 +195,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           marketChange = 0.0,
           previousClose = 10.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
 
@@ -186,7 +210,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           marketChange = 0.0,
           previousClose = 10.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
 
@@ -199,7 +225,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           marketChange = 0.0,
           previousClose = 2.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
     }
@@ -216,7 +244,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           marketChange = 2.0,
           previousClose = 8.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
 
@@ -229,7 +259,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           marketChange = 0.0,
           previousClose = 10.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
 
@@ -242,7 +274,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           marketChange = 0.0,
           previousClose = 2.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
     }
@@ -259,7 +293,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           previousClose = 10.0,
           marketChange = 2.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
 
@@ -272,7 +308,9 @@ object StockShareDataFactory {
           purchaseDate = Calendar.getInstance().time,
           previousClose = 10.0,
           marketChange = 2.0,
-          isPositionOpened = true
+          isPositionOpened = true,
+          initialShareAmount = 100,
+          initialPurchasePrice = 20.0
         )
       )
     }

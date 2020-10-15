@@ -9,7 +9,7 @@ import com.mctech.stocktradetracking.data.timeline_balance.database.TimelineBala
 import com.mctech.stocktradetracking.data.timeline_balance.database.TimelineBalanceDatabaseEntity
 
 @Database(
-  version = 1,
+  version = 2,
   entities = [
     StockShareDatabaseEntity::class,
     TimelineBalanceDatabaseEntity::class
