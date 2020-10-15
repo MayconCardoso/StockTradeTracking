@@ -9,7 +9,7 @@ object Migrations {
     override fun migrate(database: SupportSQLiteDatabase) {
       database.execSQL("ALTER TABLE stock_share ADD COLUMN initialShareAmount INTEGER NOT NULL default 0")
       database.execSQL("ALTER TABLE stock_share ADD COLUMN initialPurchasePrice REAL NOT NULL default 0.0")
-      database.execSQL("UPDATE stock_share set initialShareAmount  = shareAmount")
+      database.execSQL("UPDATE stock_share set initialShareAmount = shareAmount")
       database.execSQL("UPDATE stock_share set initialPurchasePrice  = purchasePrice")
     }
   }
