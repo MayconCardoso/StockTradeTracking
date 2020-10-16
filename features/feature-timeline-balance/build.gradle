@@ -12,9 +12,9 @@ android {
 }
 
 dependencies {
-	implementation project(path: submodulesPlatform.domain)
-	implementation project(path: submodulesLibraries.designSystem)
-	implementation project(path: submodulesLibraries.chart)
+    implementation project(path: submodulesPlatform.domain)
+    implementation project(path: submodulesLibraries.designSystem)
+    implementation project(path: submodulesLibraries.chart)
 
     // Personal libs
     implementation globalDependencies.mvvmArchitectureCore

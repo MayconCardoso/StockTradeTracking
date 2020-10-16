@@ -1,9 +1,9 @@
 package com.mctech.stocktradetracking.library.chart.money
 
 
-object ChartMoneyVariationEditMode {
+internal class ChartMoneyVariationEditMode {
 
-  fun attach(chart: ChartMoneyVariationView) {
+  internal fun attach(chart: ChartMoneyVariationView) {
     if (!chart.isInEditMode) {
       return
     }
@@ -11,15 +11,20 @@ object ChartMoneyVariationEditMode {
     chart.setData(
       arrayListOf(
         MoneyVariationEntry(0.0),
+        MoneyVariationEntry(0.0),
+        MoneyVariationEntry(0.0),
         MoneyVariationEntry(315.46),
-        MoneyVariationEntry(2576.76),
-        MoneyVariationEntry(2520.01),
-        MoneyVariationEntry(10000.00),
-        MoneyVariationEntry(-44951.10),
-        MoneyVariationEntry(-28201.62),
+        MoneyVariationEntry(2276.76),
+        MoneyVariationEntry(-23.01),
         MoneyVariationEntry(-18526.86),
-        MoneyVariationEntry(12100.0),
-        MoneyVariationEntry(16796.76)
+        MoneyVariationEntry(-33526.86),
+        MoneyVariationEntry(16100.0),
+        MoneyVariationEntry(9000.76),
+        MoneyVariationEntry(18000.76),
+        MoneyVariationEntry(23000.76),
+        MoneyVariationEntry(11000.76),
+        MoneyVariationEntry(-10000.76),
+        MoneyVariationEntry(26000.76)
       )
     )
   }

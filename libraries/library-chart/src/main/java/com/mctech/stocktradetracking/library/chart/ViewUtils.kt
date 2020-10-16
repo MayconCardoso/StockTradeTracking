@@ -1,5 +1,6 @@
 package com.mctech.stocktradetracking.library.chart
 
+import android.content.Context
 import android.view.View
 
 fun measureDimension(desiredSize: Int, measureSpec: Int): Int {
@@ -12,3 +13,29 @@ fun measureDimension(desiredSize: Int, measureSpec: Int): Int {
     else -> desiredSize
   }
 }
+
+fun Context.dp(value: Int): Float {
+  val density = resources.displayMetrics.density
+  return value * density
+}
+
+fun View.dp(value: Int): Float {
+  val density = context.resources.displayMetrics.density
+  return value * density
+}
+
+fun View.pixel(value: Float): Float {
+  val density = context.resources.displayMetrics.density
+  return value / density
+}
+
+fun Context.pixel(value: Float): Float {
+  val density = resources.displayMetrics.density
+  return value / density
+}
+
+fun View.pixel(value: Int): Float {
+  val density = context.resources.displayMetrics.density
+  return value / density
+}
+

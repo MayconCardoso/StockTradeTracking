@@ -4,7 +4,7 @@ data class MoneyVariationEntry(
   val amount: Double
 )
 
-data class MoneyVariationView(
+internal data class MoneyVariationView(
   val data: MoneyVariationEntry,
   var y: Float
 )
