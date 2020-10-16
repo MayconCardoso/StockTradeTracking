@@ -9,8 +9,8 @@ apply plugin: 'com.adarshr.test-logger'
 android {
     defaultConfig {
         applicationId "com.mctech.stocktradetracking"
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "1.2"
         multiDexEnabled true
     }
     buildTypes {
