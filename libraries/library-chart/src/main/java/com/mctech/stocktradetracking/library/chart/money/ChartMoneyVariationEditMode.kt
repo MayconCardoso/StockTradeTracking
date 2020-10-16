@@ -10,7 +10,7 @@ internal class ChartMoneyVariationEditMode {
 
     chart.setData(
       arrayListOf(
-        MoneyVariationEntry(0.0),
+        MoneyVariationEntry(-10000.0),
         MoneyVariationEntry(0.0),
         MoneyVariationEntry(0.0),
         MoneyVariationEntry(315.46),

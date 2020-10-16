@@ -10,25 +10,66 @@ import kotlin.math.min
 internal class ChartMoneyVariationController(
   private val context: Context
 ) {
-  // Data values
+  /**
+   * Data collection set by client with all elements that must be drawn
+   */
   private val data by lazy { mutableListOf<MoneyVariationEntry>() }
+
+  /**
+   * Resolved data collection with drawn dimensions like height and width
+   */
   internal val dataElements by lazy { mutableListOf<MoneyVariationView>() }
-  private var minDataValue = 0.0
-  private var maxDataValue = 0.0
+
+  /**
+   * Min found value on collection that will be drawn near to the view bottom (height)
+   */
+  private var lowestDataValue = 0.0
+
+  /**
+   * Max found value on collection that will be drawn near to the view top (0)
+   */
+  private var highestDataValue = 0.0
+
+  /**
+   * The size in DP of circle radius used draw a marker in the end of each element.
+   */
   private val circleMarkerRadius by lazy { context.dp(CIRCLE_RADIOS) }
+
+  /**
+   * The view height size.
+   */
   private var viewHeight: Float = 0.0F
+
+  /**
+   * The view width size
+   */
   private var viewWidth: Int = 0
+
+  /**
+   * Computed value that represents the position of R$0.00 on the chart.
+   * It is used to defined the path direction and also the correct painter that will be used to draw the line and the circle marker.
+   */
   internal var centerZeroY = 0.0F
+
+  /**
+   * Computed value that represents the distance between each element (Element width)
+   */
   internal var distanceBetweenElements = 0.0F
 
+  /**
+   * Called to set the collection that must be drawn on chart.
+   */
   internal fun setData(data: List<MoneyVariationEntry>) {
     this.data.clear()
     this.data.addAll(data)
 
-    minDataValue = data.minBy { it.amount }?.amount ?: 0.0
-    maxDataValue = data.maxBy { it.amount }?.amount ?: 0.0
+    lowestDataValue = data.minBy { it.amount }?.amount ?: 0.0
+    highestDataValue = data.maxBy { it.amount }?.amount ?: 0.0
   }
 
+  /**
+   * Called to update the position of each element whenever the view changes its dimensions.
+   */
   internal fun updateItemsDimensions(width: Int, height: Int) {
     // Cache view dimensions.
     viewHeight = height.toFloat()
@@ -75,22 +116,22 @@ internal class ChartMoneyVariationController(
   }
 
   private fun computeRange(): Double {
-    return maxDataValue - minDataValue
+    return highestDataValue - lowestDataValue
   }
 
   private fun computeCenterZeroY(): Float {
     // There are only positive values
-    if (maxDataValue >= 0 && minDataValue >= 0) {
+    if (highestDataValue >= 0 && lowestDataValue >= 0) {
       return viewHeight
     }
 
     // There are only negative values
-    if (maxDataValue < 0 && minDataValue < 0) {
+    if (highestDataValue < 0 && lowestDataValue < 0) {
       return 0F + circleSizeOffset()
     }
 
     // There are both values, so I need to find the center based on values
-    return (maxDataValue * viewHeight / computeRange()).toFloat() + circleSizeOffset()
+    return (highestDataValue * viewHeight / computeRange()).toFloat() + circleSizeOffset()
   }
 }
 
