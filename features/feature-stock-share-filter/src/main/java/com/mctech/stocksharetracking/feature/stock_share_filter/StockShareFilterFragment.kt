@@ -16,87 +16,93 @@ import com.mctech.stocktradetracking.domain.stock_share_filter.entity.StockFilte
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class StockShareFilterFragment : Fragment(){
-    private val viewModel 	: StockShareFilterViewModel 		by viewModel()
-    private val navigator   : StockShareFilterNavigator         by inject()
-    private var binding   	: FragmentStockShareFilterBinding? 	= null
+class StockShareFilterFragment : Fragment() {
+  private val viewModel: StockShareFilterViewModel by viewModel()
+  private val navigator: StockShareFilterNavigator by inject()
+  private var binding: FragmentStockShareFilterBinding? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return FragmentStockShareFilterBinding.inflate(inflater, container, false).let {
-            binding = it
-            binding?.lifecycleOwner = this
-            it.root
-        }
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View {
+    return FragmentStockShareFilterBinding.inflate(inflater, container, false).let {
+      binding = it
+      binding?.lifecycleOwner = this
+      it.root
     }
+  }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        bindCommand(viewModel){ handleCommands(it) }
-        bindState(viewModel.currentFilter){ handleCurrentFilter(it) }
-        bindListeners()
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    bindCommand(viewModel) { handleCommands(it) }
+    bindState(viewModel.currentFilter) { handleCurrentFilter(it) }
+    bindListeners()
+  }
+
+  private fun handleCurrentFilter(filterState: ComponentState<StockFilter>) {
+    when (filterState) {
+      is ComponentState.Success -> {
+        setupCurrentFilterOnScreen(filterState.result)
+      }
     }
+  }
 
-    private fun handleCurrentFilter(filterState: ComponentState<StockFilter>) {
-        when(filterState){
-            is ComponentState.Success -> {
-                setupCurrentFilterOnScreen(filterState.result)
-            }
-        }
+  private fun handleCommands(command: ViewCommand) {
+    when (command) {
+      is StockShareFilterCommand.NavigateBack -> navigator.navigateBack()
     }
+  }
 
-    private fun handleCommands(command: ViewCommand) {
-        when(command){
-            is StockShareFilterCommand.NavigateBack -> navigator.navigateBack()
-        }
+  private fun bindListeners() {
+    binding?.apply {
+      btSalver.setOnClickListener {
+        saveCurrentFilterFromScreen(this)
+      }
     }
-
-    private fun bindListeners() {
-        binding?.apply {
-            btSalver.setOnClickListener {
-                saveCurrentFilterFromScreen(this)
-            }
-        }
-    }
+  }
 
 
-    private fun setupCurrentFilterOnScreen(result: StockFilter) {
-        binding?.cbGroup?.isChecked = result.isGroupingStock
+  private fun setupCurrentFilterOnScreen(result: StockFilter) {
+    binding?.cbGroup?.isChecked = result.isGroupingStock
 
-        binding?.rankingRadioGroup?.check(
-            when(result.rankingQualifier){
-                RankingQualifier.Percent -> R.id.rankingVariation
-                RankingQualifier.Balance -> R.id.rankingProfit
-            }
+    binding?.rankingRadioGroup?.check(
+      when (result.rankingQualifier) {
+        RankingQualifier.Percent -> R.id.rankingVariation
+        RankingQualifier.Balance -> R.id.rankingProfit
+      }
+    )
+
+    binding?.sortRadioGroup?.check(
+      when (result.sort) {
+        FilterSort.BalanceAsc -> R.id.sortProfitL
+        FilterSort.BalanceDesc -> R.id.sortProfitH
+        FilterSort.PercentAsc -> R.id.sortVariationL
+        FilterSort.PercentDesc -> R.id.sortVariationH
+        FilterSort.NameAsc -> R.id.sortNameA
+        FilterSort.NameDesc -> R.id.sortNameZ
+      }
+    )
+  }
+
+  private fun saveCurrentFilterFromScreen(binding: FragmentStockShareFilterBinding) {
+    viewModel.interact(
+      StockShareFilterInteraction.ApplyFilter(
+        StockFilter(
+          isGroupingStock = binding.cbGroup.isChecked,
+          rankingQualifier = when (binding.rankingRadioGroup.checkedRadioButtonId) {
+            R.id.rankingVariation -> RankingQualifier.Percent
+            else -> RankingQualifier.Balance
+          },
+          sort = when (binding.sortRadioGroup.checkedRadioButtonId) {
+            R.id.sortProfitL -> FilterSort.BalanceAsc
+            R.id.sortProfitH -> FilterSort.BalanceDesc
+            R.id.sortVariationL -> FilterSort.PercentAsc
+            R.id.sortVariationH -> FilterSort.PercentDesc
+            R.id.sortNameA -> FilterSort.NameAsc
+            else -> FilterSort.NameDesc
+          }
         )
-
-        binding?.sortRadioGroup?.check(
-            when(result.sort){
-                FilterSort.BalanceAsc   -> R.id.sortProfitL
-                FilterSort.BalanceDesc  -> R.id.sortProfitH
-                FilterSort.PercentAsc   -> R.id.sortVariationL
-                FilterSort.PercentDesc  -> R.id.sortVariationH
-                FilterSort.NameAsc      -> R.id.sortNameA
-                FilterSort.NameDesc     -> R.id.sortNameZ
-            }
-        )
-    }
-
-    private fun saveCurrentFilterFromScreen(binding: FragmentStockShareFilterBinding) {
-        viewModel.interact(StockShareFilterInteraction.ApplyFilter(
-            StockFilter(
-                isGroupingStock  = binding.cbGroup.isChecked,
-                rankingQualifier =  when(binding.rankingRadioGroup.checkedRadioButtonId){
-                    R.id.rankingVariation -> RankingQualifier.Percent
-                    else -> RankingQualifier.Balance
-                },
-                sort = when(binding.sortRadioGroup.checkedRadioButtonId){
-                    R.id.sortProfitL    -> FilterSort.BalanceAsc
-                    R.id.sortProfitH    -> FilterSort.BalanceDesc
-                    R.id.sortVariationL -> FilterSort.PercentAsc
-                    R.id.sortVariationH -> FilterSort.PercentDesc
-                    R.id.sortNameA      -> FilterSort.NameAsc
-                    else                -> FilterSort.NameDesc
-                }
-            )
-        ))
-    }
+      )
+    )
+  }
 }

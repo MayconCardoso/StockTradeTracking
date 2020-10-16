@@ -4,10 +4,10 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val stockShareFilterViewModelModule = module {
-    viewModel {
-        StockShareFilterViewModel(
-            observeCurrentFilterCase = get(),
-            saveStockShareFilterCase = get()
-        )
-    }
+  viewModel {
+    StockShareFilterViewModel(
+      observeCurrentFilterCase = get(),
+      saveStockShareFilterCase = get()
+    )
+  }
 }

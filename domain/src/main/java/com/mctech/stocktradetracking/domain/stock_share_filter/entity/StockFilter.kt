@@ -3,31 +3,31 @@ package com.mctech.stocktradetracking.domain.stock_share_filter.entity
 import java.io.Serializable
 
 data class StockFilter(
-    val isGroupingStock : Boolean,
-    val sort : FilterSort,
-    val rankingQualifier: RankingQualifier
+  val isGroupingStock: Boolean,
+  val sort: FilterSort,
+  val rankingQualifier: RankingQualifier
 ) : Serializable {
 
-    companion object Default {
-        operator fun invoke() = StockFilter(
-            isGroupingStock = true,
-            sort = FilterSort.BalanceDesc,
-            rankingQualifier = RankingQualifier.Balance
-        )
-    }
+  companion object Default {
+    operator fun invoke() = StockFilter(
+      isGroupingStock = true,
+      sort = FilterSort.BalanceDesc,
+      rankingQualifier = RankingQualifier.Balance
+    )
+  }
 
 }
 
-enum class FilterSort(val id : Int) : Serializable{
-    NameAsc(1),
-    NameDesc(2),
-    PercentAsc(3),
-    PercentDesc(4),
-    BalanceAsc(5),
-    BalanceDesc(6)
+enum class FilterSort(val id: Int) : Serializable {
+  NameAsc(1),
+  NameDesc(2),
+  PercentAsc(3),
+  PercentDesc(4),
+  BalanceAsc(5),
+  BalanceDesc(6)
 }
 
-enum class RankingQualifier(val id : Int){
-    Balance(1),
-    Percent(2)
+enum class RankingQualifier(val id: Int) {
+  Balance(1),
+  Percent(2)
 }

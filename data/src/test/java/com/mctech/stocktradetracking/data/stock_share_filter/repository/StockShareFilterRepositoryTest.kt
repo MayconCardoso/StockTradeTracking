@@ -16,52 +16,52 @@ import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class StockShareFilterRepositoryTest : BaseCoroutineTest() {
-    private val dataSource = mock<LocalStockShareFilterDataSource>()
-    private val expectedSingle = StockShareFilterDataFactory.single()
+  private val dataSource = mock<LocalStockShareFilterDataSource>()
+  private val expectedSingle = StockShareFilterDataFactory.single()
 
-    private lateinit var repository: StockShareFilterRepository
+  private lateinit var repository: StockShareFilterRepository
 
-    @Before
-    fun `before each test`() {
-        repository = StockShareFilterRepository(dataSource)
+  @Before
+  fun `before each test`() {
+    repository = StockShareFilterRepository(dataSource)
+  }
+
+  @Test
+  fun `should save filter`() = testScenario(
+    action = {
+      repository.saveFilter(expectedSingle)
+    },
+    assertions = {
+      verify(dataSource).saveFilter(expectedSingle)
+      verifyNoMoreInteractions(dataSource)
     }
+  )
 
-    @Test
-    fun `should save filter`() = testScenario(
-        action = {
-            repository.saveFilter(expectedSingle)
-        },
-        assertions = {
-            verify(dataSource).saveFilter(expectedSingle)
-            verifyNoMoreInteractions(dataSource)
-        }
-    )
+  @Test
+  fun `should delegate flow`() = testScenario(
+    action = {
+      repository.observeStockShareFilter()
+    },
+    assertions = {
+      verify(dataSource).observeStockShareFilter()
+      verifyNoMoreInteractions(dataSource)
+    }
+  )
 
-    @Test
-    fun `should delegate flow`() = testScenario(
-        action = {
-            repository.observeStockShareFilter()
-        },
-        assertions = {
-            verify(dataSource).observeStockShareFilter()
-            verifyNoMoreInteractions(dataSource)
-        }
-    )
-
-    @Test
-    fun `should return the same flow`() = testMockedFlowScenario(
-        observe = {
-            repository.observeStockShareFilter()
-        },
-        scenario = { mockedFlow ->
-            whenever(dataSource.observeStockShareFilter()).thenReturn(mockedFlow)
-        },
-        action = { emitter ->
-            emitter.emit(expectedSingle)
-        },
-        assertions = {
-            Assertions.assertThat(it.size).isEqualTo(1)
-            Assertions.assertThat(it.first()).isEqualTo(expectedSingle)
-        }
-    )
+  @Test
+  fun `should return the same flow`() = testMockedFlowScenario(
+    observe = {
+      repository.observeStockShareFilter()
+    },
+    scenario = { mockedFlow ->
+      whenever(dataSource.observeStockShareFilter()).thenReturn(mockedFlow)
+    },
+    action = { emitter ->
+      emitter.emit(expectedSingle)
+    },
+    assertions = {
+      Assertions.assertThat(it.size).isEqualTo(1)
+      Assertions.assertThat(it.first()).isEqualTo(expectedSingle)
+    }
+  )
 }

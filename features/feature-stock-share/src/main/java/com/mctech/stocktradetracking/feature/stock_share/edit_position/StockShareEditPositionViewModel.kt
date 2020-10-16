@@ -13,82 +13,88 @@ import com.mctech.stocktradetracking.domain.stock_share.interaction.EditStockSha
 import com.mctech.stocktradetracking.domain.stock_share.interaction.SaveStockShareCase
 
 class StockShareEditPositionViewModel constructor(
-    private val saveStockShareCase		: SaveStockShareCase,
-    private val editStockSharePriceCase	: EditStockSharePriceCase,
-    private val deleteStockShareCase	: DeleteStockShareCase,
-	private val closeStockShareCase		: CloseStockShareCase
+  private val saveStockShareCase: SaveStockShareCase,
+  private val editStockSharePriceCase: EditStockSharePriceCase,
+  private val deleteStockShareCase: DeleteStockShareCase,
+  private val closeStockShareCase: CloseStockShareCase
 ) : BaseViewModel() {
-	private var currentStock 		: StockShare? = null
+  var currentStock: StockShare? = null
 
-	private val _currentStockShare 	: MutableLiveData<ComponentState<StockShare>> = MutableLiveData(ComponentState.Initializing)
-	val currentStockShare : LiveData<ComponentState<StockShare>> = _currentStockShare
+  private val _currentStockShare: MutableLiveData<ComponentState<StockShare>> =
+    MutableLiveData(ComponentState.Initializing)
+  val currentStockShare: LiveData<ComponentState<StockShare>> = _currentStockShare
 
-	override suspend fun handleUserInteraction(interaction: UserInteraction) {
-		when(interaction){
-			is StockShareEditPositionInteraction.OpenStockShareDetails -> openStockShareInteraction(
-				interaction.item
-			)
-			is StockShareEditPositionInteraction.UpdateStockPrice -> updateStockPriceInteraction(
-				interaction.code,
-				interaction.amount,
-				interaction.purchasePrice,
-				interaction.currentPrice
-			)
-			is StockShareEditPositionInteraction.DeleteStockShare -> deleteCurrentStockShareInteraction()
-			is StockShareEditPositionInteraction.CloseStockPosition -> closeCurrentStockShareInteraction(
-				interaction.price
-			)
-		}
-	}
+  override suspend fun handleUserInteraction(interaction: UserInteraction) {
+    when (interaction) {
+      is StockShareEditPositionInteraction.OpenStockShareDetails -> openStockShareInteraction(
+        interaction.item
+      )
+      is StockShareEditPositionInteraction.UpdateStockPrice -> updateStockPriceInteraction(
+        interaction.code,
+        interaction.amount,
+        interaction.purchasePrice,
+        interaction.currentPrice
+      )
+      is StockShareEditPositionInteraction.DeleteStockShare -> deleteCurrentStockShareInteraction()
+      is StockShareEditPositionInteraction.CloseStockPosition -> closeCurrentStockShareInteraction(
+        interaction.price
+      )
+      is StockShareEditPositionInteraction.SplitStockShare -> {
+        currentStock?.let {
+          sendCommand(StockShareEditPositionCommand.NavigateToSplitScreen(it))
+        }
+      }
+    }
+  }
 
-	private fun openStockShareInteraction(item: StockShare) {
-		_currentStockShare.changeToSuccessState(item)
-		currentStock = item
-	}
+  private fun openStockShareInteraction(item: StockShare) {
+    _currentStockShare.changeToSuccessState(item)
+    currentStock = item
+  }
 
-	private suspend fun deleteCurrentStockShareInteraction() {
-		// Delete position
-		currentStock?.run {
-			deleteStockShareCase.execute(this)
-		}
+  private suspend fun deleteCurrentStockShareInteraction() {
+    // Delete position
+    currentStock?.run {
+      deleteStockShareCase.execute(this)
+    }
 
-		// Send command to get back
-		sendCommand(StockShareEditPositionCommand.NavigateBack)
-	}
+    // Send command to get back
+    sendCommand(StockShareEditPositionCommand.NavigateBack)
+  }
 
-	private suspend fun closeCurrentStockShareInteraction(price: Double?) {
-		// Delete position
-		currentStock?.run {
-			this.salePrice = price ?: this.salePrice
-			closeStockShareCase.execute(this)
-		}
+  private suspend fun closeCurrentStockShareInteraction(price: Double?) {
+    // Delete position
+    currentStock?.run {
+      this.salePrice = price ?: this.salePrice
+      closeStockShareCase.execute(this)
+    }
 
-		// Send command to get back
-		sendCommand(StockShareEditPositionCommand.NavigateBack)
-	}
+    // Send command to get back
+    sendCommand(StockShareEditPositionCommand.NavigateBack)
+  }
 
-	private suspend fun updateStockPriceInteraction(
-		code: String,
-		amount: Long,
-		purchasePrice: Double,
-		currentPrice: Double
-	) {
-		// Save item
-		currentStock?.run {
-			this.code = code
-			this.shareAmount = amount
-			this.purchasePrice = purchasePrice
+  private suspend fun updateStockPriceInteraction(
+    code: String,
+    amount: Long,
+    purchasePrice: Double,
+    currentPrice: Double
+  ) {
+    // Save item
+    currentStock?.run {
+      this.code = code
+      this.shareAmount = amount
+      this.purchasePrice = purchasePrice
 
-			saveStockShareCase.execute(this)
-		}
+      saveStockShareCase.execute(this)
+    }
 
-		// Update stock price
-		editStockSharePriceCase.execute(
-			shareCode = code,
-			value = currentPrice
-		)
+    // Update stock price
+    editStockSharePriceCase.execute(
+      shareCode = code,
+      value = currentPrice
+    )
 
-		// Send command to get back
-		sendCommand(StockShareEditPositionCommand.NavigateBack)
-	}
+    // Send command to get back
+    sendCommand(StockShareEditPositionCommand.NavigateBack)
+  }
 }

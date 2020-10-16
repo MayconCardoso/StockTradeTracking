@@ -73,8 +73,7 @@
             android:layout_marginBottom="8dp"
             android:text="@string/investment"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            app:layout_constraintTop_toBottomOf="@id/tlSharePrice"
-            />
+            app:layout_constraintTop_toBottomOf="@id/tlSharePrice" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/itemInvestmentAmount"

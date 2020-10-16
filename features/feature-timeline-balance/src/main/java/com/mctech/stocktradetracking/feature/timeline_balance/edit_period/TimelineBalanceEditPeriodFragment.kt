@@ -21,64 +21,70 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TimelineBalanceEditPeriodFragment : Fragment() {
 
-	private val viewModel 	: TimelineBalanceEditViewModel 			by viewModel()
-	private val navigator 	: TimelineBalanceNavigator 				by inject()
-	private var binding   	: FragmentTimelineEditPeriodBinding? 	= null
+  private val viewModel: TimelineBalanceEditViewModel by viewModel()
+  private val navigator: TimelineBalanceNavigator by inject()
+  private var binding: FragmentTimelineEditPeriodBinding? = null
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-		return FragmentTimelineEditPeriodBinding.inflate(inflater, container, false).let {
-			binding = it
-			binding?.lifecycleOwner = this
-			it.root
-		}
-	}
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View {
+    return FragmentTimelineEditPeriodBinding.inflate(inflater, container, false).let {
+      binding = it
+      binding?.lifecycleOwner = this
+      it.root
+    }
+  }
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		bindCommand(viewModel){ handleCommands(it) }
-		bindState(viewModel.currentPeriodState){ handleCurrentPeriodState(it) }
-		bindListeners()
-	}
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    bindCommand(viewModel) { handleCommands(it) }
+    bindState(viewModel.currentPeriodState) { handleCurrentPeriodState(it) }
+    bindListeners()
+  }
 
-	private fun handleCurrentPeriodState(state: ComponentState<TimelineBalance>) {
-		when(state){
-			is ComponentState.Initializing -> {
-				viewModel.interact(TimelineBalanceEditInteraction.OpenPeriodDetails(
-					timelinePeriodFromBundle(requireArguments())
-				))
-			}
-			is ComponentState.Success -> {
-				binding?.period = state.result
-				binding?.executePendingBindings()
-			}
-		}
-	}
+  private fun handleCurrentPeriodState(state: ComponentState<TimelineBalance>) {
+    when (state) {
+      is ComponentState.Initializing -> {
+        viewModel.interact(
+          TimelineBalanceEditInteraction.OpenPeriodDetails(
+            timelinePeriodFromBundle(requireArguments())
+          )
+        )
+      }
+      is ComponentState.Success -> {
+        binding?.period = state.result
+        binding?.executePendingBindings()
+      }
+    }
+  }
 
-	private fun handleCommands(command: ViewCommand) {
-		when(command){
-			is TimelineBalanceEditCommand.NavigationBack -> {
-				navigator.navigateBack()
-			}
-		}
-	}
+  private fun handleCommands(command: ViewCommand) {
+    when (command) {
+      is TimelineBalanceEditCommand.NavigationBack -> {
+        navigator.navigateBack()
+      }
+    }
+  }
 
-	private fun bindListeners() {
-		binding?.let { binding ->
-			binding.btSave.setOnClickListener {
-				viewModel.interact(
-					TimelineBalanceEditInteraction.EditPeriod(
-						binding.etPeriodTag.getValue(),
-						binding.etInvestment.getValue().toDouble(),
-						binding.etProfit.getValue().toDouble(),
-						binding.etFinalBalance.getValue().toDouble()
-					)
-				)
+  private fun bindListeners() {
+    binding?.let { binding ->
+      binding.btSave.setOnClickListener {
+        viewModel.interact(
+          TimelineBalanceEditInteraction.EditPeriod(
+            binding.etPeriodTag.getValue(),
+            binding.etInvestment.getValue().toDouble(),
+            binding.etProfit.getValue().toDouble(),
+            binding.etFinalBalance.getValue().toDouble()
+          )
+        )
 
-				activity?.currentFocus?.run {
-					if(this is EditText){
-						context?.closeKeyboard(this)
-					}
-				}
-			}
-		}
-	}
+        activity?.currentFocus?.run {
+          if (this is EditText) {
+            context?.closeKeyboard(this)
+          }
+        }
+      }
+    }
+  }
 }

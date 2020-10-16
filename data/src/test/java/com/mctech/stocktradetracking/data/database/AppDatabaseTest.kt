@@ -8,25 +8,25 @@ import org.junit.After
 import org.junit.Before
 
 @ExperimentalCoroutinesApi
-open class AppDatabaseTest : BaseCoroutineTest(){
+open class AppDatabaseTest : BaseCoroutineTest() {
 
-    lateinit var database: AppDatabase
+  lateinit var database: AppDatabase
 
 
-    @Before
-    fun initDb() {
-        database = Room
-            .inMemoryDatabaseBuilder(
-                InstrumentationRegistry.getInstrumentation().context,
-                AppDatabase::class.java
-            )
-            .allowMainThreadQueries()
-            .build()
-    }
+  @Before
+  fun initDb() {
+    database = Room
+      .inMemoryDatabaseBuilder(
+        InstrumentationRegistry.getInstrumentation().context,
+        AppDatabase::class.java
+      )
+      .allowMainThreadQueries()
+      .build()
+  }
 
-    @After
-    fun closeDb() {
-        database.close()
-    }
+  @After
+  fun closeDb() {
+    database.close()
+  }
 
 }

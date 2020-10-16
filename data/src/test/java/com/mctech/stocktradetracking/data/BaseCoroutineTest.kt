@@ -6,8 +6,8 @@ import org.junit.Rule
 @ExperimentalCoroutinesApi
 open class BaseCoroutineTest {
 
-    @get:Rule
-    val coroutinesTestRule =
-        CoroutinesMainTestRule()
+  @get:Rule
+  val coroutinesTestRule =
+    CoroutinesMainTestRule()
 
 }

@@ -6,15 +6,15 @@ import com.mctech.stocktradetracking.domain.stock_share.entity.MarketStatus
 import com.mctech.stocktradetracking.domain.stock_share.service.StockShareService
 
 class GetMarketStatusCase(
-    private val service: StockShareService,
-    private val logger: Logger
+  private val service: StockShareService,
+  private val logger: Logger
 ) {
-    suspend fun execute(): Result<MarketStatus> {
-        return try {
-            Result.Success(service.getMarketStatus())
-        } catch (ex: Exception) {
-            logger.e(e = ex)
-            Result.Failure(ex)
-        }
+  suspend fun execute(): Result<MarketStatus> {
+    return try {
+      Result.Success(service.getMarketStatus())
+    } catch (ex: Exception) {
+      logger.e(e = ex)
+      Result.Failure(ex)
     }
+  }
 }

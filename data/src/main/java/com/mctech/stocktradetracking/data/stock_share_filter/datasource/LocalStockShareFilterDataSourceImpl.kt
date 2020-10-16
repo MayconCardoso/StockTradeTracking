@@ -11,40 +11,40 @@ import kotlinx.coroutines.flow.asFlow
 @FlowPreview
 @ExperimentalCoroutinesApi
 class LocalStockShareFilterDataSourceImpl(
-    private val sharedPreferences: SharedPreferences,
-    private val gson: Gson
-) : LocalStockShareFilterDataSource{
+  private val sharedPreferences: SharedPreferences,
+  private val gson: Gson
+) : LocalStockShareFilterDataSource {
 
-    companion object{
-        const val PREFERENCE_KEY = "currentFilter"
+  companion object {
+    const val PREFERENCE_KEY = "currentFilter"
+  }
+
+  private val filterFlow by lazy {
+    ConflatedBroadcastChannel(
+      getCurrentFilter()
+    )
+  }
+
+  override fun observeStockShareFilter() = filterFlow.asFlow()
+
+  override suspend fun saveFilter(stockFilter: StockFilter) {
+    // Save new filter
+    saveCurrentFilter(stockFilter)
+
+    // Send it to observers.
+    filterFlow.send(stockFilter)
+  }
+
+  private fun saveCurrentFilter(stockFilter: StockFilter) {
+    sharedPreferences
+      .edit()
+      .putString(PREFERENCE_KEY, gson.toJson(stockFilter))
+      .apply()
+  }
+
+  private fun getCurrentFilter(): StockFilter? {
+    return sharedPreferences.getString(PREFERENCE_KEY, null)?.let {
+      gson.fromJson(it, StockFilter::class.java)
     }
-
-    private val filterFlow by lazy {
-        ConflatedBroadcastChannel(
-            getCurrentFilter()
-        )
-    }
-
-    override fun observeStockShareFilter() = filterFlow.asFlow()
-
-    override suspend fun saveFilter(stockFilter: StockFilter) {
-        // Save new filter
-        saveCurrentFilter(stockFilter)
-
-        // Send it to observers.
-        filterFlow.send(stockFilter)
-    }
-
-    private fun saveCurrentFilter(stockFilter: StockFilter) {
-        sharedPreferences
-            .edit()
-            .putString(PREFERENCE_KEY, gson.toJson(stockFilter))
-            .apply()
-    }
-
-    private fun getCurrentFilter(): StockFilter? {
-        return sharedPreferences.getString(PREFERENCE_KEY, null)?.let {
-            gson.fromJson(it, StockFilter::class.java)
-        }
-    }
+  }
 }

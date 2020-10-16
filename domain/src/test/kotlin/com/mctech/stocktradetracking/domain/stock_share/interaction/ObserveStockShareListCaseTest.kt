@@ -10,23 +10,23 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class ObserveStockShareListCaseTest{
-    private val service         = mock<StockShareService>()
-    private lateinit var useCase: ObserveStockShareListCase
+class ObserveStockShareListCaseTest {
+  private val service = mock<StockShareService>()
+  private lateinit var useCase: ObserveStockShareListCase
 
-    @Before
-    fun `before each test`() {
-        useCase = ObserveStockShareListCase(service)
+  @Before
+  fun `before each test`() {
+    useCase = ObserveStockShareListCase(service)
+  }
+
+  @Test
+  fun `should delegate calling`() = testScenario(
+    action = {
+      useCase.execute()
+    },
+    assertions = {
+      verify(service).observeStockShareList()
+      verifyNoMoreInteractions(service)
     }
-
-    @Test
-    fun `should delegate calling`() = testScenario(
-        action = {
-            useCase.execute()
-        },
-        assertions = {
-            verify(service).observeStockShareList()
-            verifyNoMoreInteractions(service)
-        }
-    )
+  )
 }

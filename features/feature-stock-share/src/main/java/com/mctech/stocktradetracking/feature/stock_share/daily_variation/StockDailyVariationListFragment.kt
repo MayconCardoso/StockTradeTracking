@@ -8,12 +8,16 @@ import com.mctech.stocktradetracking.feature.stock_share.list_position.StockShar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.core.qualifier.named
 
-class StockDailyVariationListFragment  : BaseShareListFragment<ItemStockDailyVariationListBinding>() {
+class StockDailyVariationListFragment :
+  BaseShareListFragment<ItemStockDailyVariationListBinding>() {
 
-	override val viewModel: StockShareListViewModel by sharedViewModel(named("dailyStockViewModel"))
+  override val viewModel: StockShareListViewModel by sharedViewModel(named("dailyStockViewModel"))
 
-	override fun createListItemBinding(parent: ViewGroup, inflater: LayoutInflater): ItemStockDailyVariationListBinding {
-		return ItemStockDailyVariationListBinding.inflate(inflater, parent, false)
-	}
+  override fun createListItemBinding(
+    parent: ViewGroup,
+    inflater: LayoutInflater
+  ): ItemStockDailyVariationListBinding {
+    return ItemStockDailyVariationListBinding.inflate(inflater, parent, false)
+  }
 
 }

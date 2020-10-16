@@ -4,10 +4,10 @@ import com.mctech.architecture.mvvm.x.core.UserInteraction
 
 sealed class TimelineBalanceAddInteraction : UserInteraction {
 
-    data class CreatePeriod(
-        val period: String,
-        val monthInvestment: Double,
-        val monthProfit: Double
-    ) : TimelineBalanceAddInteraction()
+  data class CreatePeriod(
+    val period: String,
+    val monthInvestment: Double,
+    val monthProfit: Double
+  ) : TimelineBalanceAddInteraction()
 
 }

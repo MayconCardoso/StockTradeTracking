@@ -5,18 +5,17 @@ import com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBala
 import com.mctech.stocktradetracking.domain.timeline_balance.service.TimelineBalanceService
 
 class CreatePeriodCase(
-	private val service : TimelineBalanceService,
-	private val logger 	: Logger
-){
-	suspend fun execute(period: TimelineBalance) {
-		try{
-			val parent = service.getLastPeriod()
+  private val service: TimelineBalanceService,
+  private val logger: Logger
+) {
+  suspend fun execute(period: TimelineBalance) {
+    try {
+      val parent = service.getLastPeriod()
 
-			period.parentPeriodId = parent?.id
-			service.createPeriod(period)
-		}
-		catch (ex : Exception){
-			logger.e(e = ex)
-		}
-	}
+      period.parentPeriodId = parent?.id
+      service.createPeriod(period)
+    } catch (ex: Exception) {
+      logger.e(e = ex)
+    }
+  }
 }

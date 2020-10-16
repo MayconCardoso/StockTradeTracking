@@ -11,81 +11,81 @@ import kotlinx.coroutines.test.runBlockingTest
 
 @ExperimentalCoroutinesApi
 fun <T> testScenario(
-    scenario        : suspend () -> Unit = {},
-    action          : suspend () -> T,
-    assertions      : suspend (result: T) -> Unit
+  scenario: suspend () -> Unit = {},
+  action: suspend () -> T,
+  assertions: suspend (result: T) -> Unit
 ) = runBlocking {
-    scenario.invoke()
-    assertions.invoke(action.invoke())
+  scenario.invoke()
+  assertions.invoke(action.invoke())
 }
 
 @ExperimentalCoroutinesApi
 fun <T> testMockedFlowScenario(
-    scenario        : suspend (Flow<T?>) -> Unit,
-    observe         : suspend () -> Flow<T>,
-    action          : suspend (FlowEmission<T?>) -> Unit,
-    assertions      : suspend (result: List<T>) -> Unit
+  scenario: suspend (Flow<T?>) -> Unit,
+  observe: suspend () -> Flow<T>,
+  action: suspend (FlowEmission<T?>) -> Unit,
+  assertions: suspend (result: List<T>) -> Unit
 ) = runBlockingTest {
-    val mockedFlow  = ConflatedBroadcastChannel<T?>()
-    val values      = mutableListOf<T>()
-    val emitter     = FlowEmission<T?>(mockedFlow)
+  val mockedFlow = ConflatedBroadcastChannel<T?>()
+  val values = mutableListOf<T>()
+  val emitter = FlowEmission<T?>(mockedFlow)
 
-    // Prepare flow
-    scenario.invoke(mockedFlow.asFlow())
+  // Prepare flow
+  scenario.invoke(mockedFlow.asFlow())
 
-    // Bind flow
+  // Bind flow
 
-    // Observe values.
-    val job = launch {
-        observe().collect {
-            it?.run(values::add)
-        }
+  // Observe values.
+  val job = launch {
+    observe().collect {
+      it?.run(values::add)
     }
+  }
 
-    // Perform action
-    action.invoke(emitter)
+  // Perform action
+  action.invoke(emitter)
 
-    // Check flow.
-    assertions(values)
+  // Check flow.
+  assertions(values)
 
-    // Finish flow.
-    job.cancel()
+  // Finish flow.
+  job.cancel()
 }
 
 
 @ExperimentalCoroutinesApi
 fun <T> testFlowScenario(
-    scenario        : suspend () -> Unit = {},
-    observe         : suspend () -> Flow<T>,
-    action          : suspend () -> Unit = {},
-    assertions      : suspend (result: List<T>) -> Unit
+  scenario: suspend () -> Unit = {},
+  observe: suspend () -> Flow<T>,
+  action: suspend () -> Unit = {},
+  assertions: suspend (result: List<T>) -> Unit
 ) = runBlockingTest {
-    val values      = mutableListOf<T>()
+  val values = mutableListOf<T>()
 
-    // Configure
-    scenario.invoke()
+  // Configure
+  scenario.invoke()
 
-    // Observe values.
-    val job = launch {
-        observe().collect {
-            it?.run(values::add)
-        }
+  // Observe values.
+  val job = launch {
+    observe().collect {
+      it?.run(values::add)
     }
+  }
 
-    // Perform action
-    action.invoke()
+  // Perform action
+  action.invoke()
 
-    // Check flow.
-    assertions(values)
+  // Check flow.
+  assertions(values)
 
-    // Finish flow.
-    job.cancel()
+  // Finish flow.
+  job.cancel()
 }
 
 
 @ExperimentalCoroutinesApi
-class FlowEmission<T>(private val flow : ConflatedBroadcastChannel<T?>) {
-    fun emit(item: T?) {
-        flow.offer(item)
-    }
+class FlowEmission<T>(private val flow: ConflatedBroadcastChannel<T?>) {
+  fun emit(item: T?) {
+    flow.offer(item)
+  }
 }

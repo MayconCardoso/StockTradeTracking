@@ -10,17 +10,17 @@ import org.junit.runner.Description
 
 @ExperimentalCoroutinesApi
 class CoroutinesMainTestRule(
-    val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
+  val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
 ) : InstantTaskExecutorRule() {
 
-    override fun starting(description: Description?) {
-        super.starting(description)
-        Dispatchers.setMain(testDispatcher)
-    }
+  override fun starting(description: Description?) {
+    super.starting(description)
+    Dispatchers.setMain(testDispatcher)
+  }
 
-    override fun finished(description: Description?) {
-        super.finished(description)
-        Dispatchers.resetMain()
-        testDispatcher.cleanupTestCoroutines()
-    }
+  override fun finished(description: Description?) {
+    super.finished(description)
+    Dispatchers.resetMain()
+    testDispatcher.cleanupTestCoroutines()
+  }
 }

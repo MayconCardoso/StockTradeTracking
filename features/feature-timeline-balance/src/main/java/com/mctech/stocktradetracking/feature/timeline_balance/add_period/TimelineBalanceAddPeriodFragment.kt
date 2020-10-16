@@ -17,48 +17,52 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TimelineBalanceAddPeriodFragment : Fragment() {
 
-	private val viewModel 	: TimelineBalanceAddViewModel 		by viewModel()
-	private val navigator 	: TimelineBalanceNavigator 			by inject()
-	private var binding   	: FragmentTimelineAddPeriodBinding? = null
+  private val viewModel: TimelineBalanceAddViewModel by viewModel()
+  private val navigator: TimelineBalanceNavigator by inject()
+  private var binding: FragmentTimelineAddPeriodBinding? = null
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-		return FragmentTimelineAddPeriodBinding.inflate(inflater, container, false).let {
-			binding = it
-			binding?.lifecycleOwner = this
-			it.root
-		}
-	}
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View {
+    return FragmentTimelineAddPeriodBinding.inflate(inflater, container, false).let {
+      binding = it
+      binding?.lifecycleOwner = this
+      it.root
+    }
+  }
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		bindCommand(viewModel){ handleCommands(it) }
-		bindListeners()
-	}
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    bindCommand(viewModel) { handleCommands(it) }
+    bindListeners()
+  }
 
-	private fun handleCommands(command: ViewCommand) {
-		when(command){
-			is TimelineBalanceAddCommand.NavigationBack -> {
-				navigator.navigateBack()
-			}
-		}
-	}
+  private fun handleCommands(command: ViewCommand) {
+    when (command) {
+      is TimelineBalanceAddCommand.NavigationBack -> {
+        navigator.navigateBack()
+      }
+    }
+  }
 
-	private fun bindListeners() {
-		binding?.let { binding ->
-			binding.btAddPeriod.setOnClickListener {
-				viewModel.interact(
-					TimelineBalanceAddInteraction.CreatePeriod(
-						binding.etPeriodTag.getValue(),
-						binding.etInvestment.getValue().toDouble(),
-						binding.etProfit.getValue().toDouble()
-					)
-				)
+  private fun bindListeners() {
+    binding?.let { binding ->
+      binding.btAddPeriod.setOnClickListener {
+        viewModel.interact(
+          TimelineBalanceAddInteraction.CreatePeriod(
+            binding.etPeriodTag.getValue(),
+            binding.etInvestment.getValue().toDouble(),
+            binding.etProfit.getValue().toDouble()
+          )
+        )
 
-				activity?.currentFocus?.run {
-					if(this is EditText){
-						context?.closeKeyboard(this)
-					}
-				}
-			}
-		}
-	}
+        activity?.currentFocus?.run {
+          if (this is EditText) {
+            context?.closeKeyboard(this)
+          }
+        }
+      }
+    }
+  }
 }

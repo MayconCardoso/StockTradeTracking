@@ -19,4 +19,10 @@
     <string name="confirmation">Confirmation</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="split">Split</string>
+    <string name="split_ratio">Split ratio</string>
+    <string name="split_price">Split price</string>
+    <string name="split_position">Split position</string>
+    <string name="confirm_split_position">If you continue you will be updating the amount of shares and the buy price according to the split ratio.\n\nAre you sure you want to split this stock?</string>
+    <string name="required">Required</string>
 </resources>
