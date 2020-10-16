@@ -5,23 +5,43 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PointF
 import com.mctech.stocktradetracking.library.chart.dp
-import kotlin.math.PI
-import kotlin.math.abs
+import com.mctech.stocktradetracking.library.chart.utils.computeCenterProjectionRatio
 import kotlin.math.acos
-import kotlin.math.sin
-import kotlin.math.sqrt
+import kotlin.math.asin
 
 internal class ChartMoneyVariationDrawer(
   private val context: Context
 ) {
-  private var currentXPosition = 0.0F
-  private var currentYPosition = 0.0F
+  /**
+   * Computed value that represents the position of R$0.00 on the chart.
+   * It is used to defined the path direction and also the correct painter that will be used to draw the line and the circle marker.
+   */
   private var centerZeroY = 0.0F
+
+  /**
+   * Computed value that represents the distance between each element (Element width)
+   */
   private var elementSize = 0.0F
+
+  /**
+   * Current relative X position on the chart. Used while drawing elements.
+   */
+  private var currentXPosition = 0.0F
+
+  /**
+   * Current relative Y position on the chart. Used while drawing elements.
+   */
+  private var currentYPosition = 0.0F
+
+  /**
+   * Resolved data collection with drawn dimensions like height and width
+   */
   private val dataElements = mutableListOf<MoneyVariationView>()
-  private val circleMarkerRadius by lazy {
-    context.dp(ChartMoneyVariationConstants.CIRCLE_RADIOS)
-  }
+
+  /**
+   * The size in DP of circle radius used draw a marker in the end of each element.
+   */
+  private val circleMarkerRadius by lazy { context.dp(ChartMoneyVariationConstants.CIRCLE_RADIOS) }
 
   internal fun prepare(
     centerZeroY: Float,
@@ -40,6 +60,9 @@ internal class ChartMoneyVariationDrawer(
     canvas.drawCircleIndicators(painter)
   }
 
+  /**
+   * Iterator that control and update the current position on screen.
+   */
   private fun drawData(draw: (data: MoneyVariationView) -> Unit) {
     currentYPosition = centerZeroY
     currentXPosition = 0.0F
@@ -53,17 +76,32 @@ internal class ChartMoneyVariationDrawer(
 
   private fun Canvas.drawVariationLines(painter: ChartMoneyVariationPainter) = drawData { element ->
     when {
+      // It was on profit path and will continue on it.
       element.isOnProfitPath() -> {
         drawMoneyVariationLine(painter.positivePaint, element.y)
       }
-      element.hasChangedFromProfitToLoss() -> {
-        drawMoneyVariationLine(painter.positivePaint, element.y)
-        //drawMoneyVariationLineWhenHitZero(painter.negativePaint, painter.positivePaint, element.y)
-      }
+
+      // It was on profit path but now it will be change to loss line.
       element.hasChangedFromLossToProfit() -> {
-        drawMoneyVariationLine(painter.negativePaint, element.y)
-        //drawMoneyVariationLineWhenHitZero(painter.positivePaint, painter.negativePaint, element.y)
+        drawMoneyVariationLineWhenHitZero(
+          firstPaint = painter.negativePaint,
+          secondPaint = painter.positivePaint,
+          finalY = element.y,
+          centerX = computeProfitCenterX(element.y)
+        )
       }
+
+      // It was on loss path but now it will be change to profit line.
+      element.hasChangedFromProfitToLoss() -> {
+        drawMoneyVariationLineWhenHitZero(
+          firstPaint = painter.positivePaint,
+          secondPaint = painter.negativePaint,
+          finalY = element.y,
+          centerX = computeLossCenterX(element.y)
+        )
+      }
+
+      // It was on loss path and will continue on it.
       element.isOnLossPath() -> {
         drawMoneyVariationLine(painter.negativePaint, element.y)
       }
@@ -92,55 +130,25 @@ internal class ChartMoneyVariationDrawer(
   private fun Canvas.drawMoneyVariationLineWhenHitZero(
     firstPaint: Paint,
     secondPaint: Paint,
+    centerX: Float,
     finalY: Float
   ) {
-    var y = abs(currentYPosition - finalY)
-
-    // Get points of triangle
-    val pointA = PointF(0F, currentYPosition)
-    val pointB = PointF(elementSize, y)
-    val pointC = PointF(0F, y)
-
-    // Calculate distance between points.
-    val a2 = lengthSquare(pointB, pointC)
-    val b2 = lengthSquare(pointA, pointC)
-    val c2 = lengthSquare(pointA, pointB)
-
-    // length of sides be a, b, c
-    val a = sqrt(a2)
-    val b = sqrt(b2)
-    val c = sqrt(c2)
-
-    // From Cosine law
-    var alpha = acos((b2 + c2 - a2) / (2 * b * c))
-    var betta = acos((a2 + c2 - b2) / (2 * a * c))
-
-    // Converting to degree
-    alpha = (alpha * 180F / PI).toFloat()
-    betta = (betta * 180F / PI).toFloat()
-
-    y = finalY - centerZeroY
-    val hype = y / sin(alpha)
-
-    val centerHitX = sqrt(hype * hype - y * y)
-
     drawLine(
       currentXPosition,
       currentYPosition,
-      currentXPosition + centerHitX,
+      centerX,
       centerZeroY,
       firstPaint
     )
 
     drawLine(
-      currentXPosition + centerHitX,
+      centerX,
       centerZeroY,
       currentXPosition + elementSize,
       finalY,
       secondPaint
     )
   }
-
 
   private fun Canvas.drawCircleIndicator(paint: Paint, finalY: Float) {
     drawCircle(
@@ -161,11 +169,27 @@ internal class ChartMoneyVariationDrawer(
     )
   }
 
-  private fun lengthSquare(p1: PointF, p2: PointF): Float {
-    val xDiff: Float = p1.x - p2.x
-    val yDiff: Float = p1.y - p2.y
-    return xDiff * xDiff + yDiff * yDiff
-  }
+  private fun computeLossCenterX(finalY: Float) = computeCenterProjectionRatio(
+    pointA = PointF(currentXPosition, currentYPosition),
+    pointB = PointF(currentXPosition + elementSize, finalY),
+    pointC = PointF(currentXPosition, finalY),
+    intersectionHeight = centerZeroY - currentYPosition,
+    currentXPosition = currentXPosition,
+    angleFunction = { value ->
+      acos(value)
+    }
+  )
+
+  private fun computeProfitCenterX(finalY: Float) = computeCenterProjectionRatio(
+    pointA = PointF(currentXPosition, currentYPosition),
+    pointB = PointF(currentXPosition + elementSize, finalY),
+    pointC = PointF(currentXPosition + elementSize, currentYPosition),
+    intersectionHeight = currentYPosition - centerZeroY,
+    currentXPosition = currentXPosition,
+    angleFunction = { value ->
+      asin(value)
+    }
+  )
 
   private fun MoneyVariationView.isOnProfitPath(): Boolean {
     return y <= centerZeroY && currentYPosition <= centerZeroY
@@ -175,11 +199,11 @@ internal class ChartMoneyVariationDrawer(
     return y > centerZeroY && currentYPosition > centerZeroY
   }
 
-  private fun MoneyVariationView.hasChangedFromProfitToLoss(): Boolean {
+  private fun MoneyVariationView.hasChangedFromLossToProfit(): Boolean {
     return y <= centerZeroY && currentYPosition > centerZeroY
   }
 
-  private fun MoneyVariationView.hasChangedFromLossToProfit(): Boolean {
+  private fun MoneyVariationView.hasChangedFromProfitToLoss(): Boolean {
     return y > centerZeroY && currentYPosition <= centerZeroY
   }
 }
