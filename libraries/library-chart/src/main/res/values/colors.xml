@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPositiveValue">#007E33</color>
+    <color name="colorNegativeValue">#CC0000</color>
+    <color name="colorCenterChartLine">#6E6E6E</color>
+</resources>

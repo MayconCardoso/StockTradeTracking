@@ -63,7 +63,8 @@
             android:id="@+id/tbBalanceTotalDesc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
             android:gravity="center"
             android:text="@string/balance"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -92,15 +93,27 @@
             android:id="@+id/tbVariationTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:text="@{finalBalance.finalVariationDescription}"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/tbBalanceTotal"
             app:layout_constraintStart_toStartOf="@id/tbBalanceTotal"
             app:layout_constraintTop_toBottomOf="@id/tbBalanceTotal"
             app:priceTextColor="@{finalBalance.finalProfit}"
             tools:text="5.43%"
             tools:textColor="@color/colorSuccessDark" />
+
+        <com.mctech.stocktradetracking.library.chart.money.ChartMoneyVariationView
+            android:id="@+id/chartView"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tbVariationTotal"
+            app:showOnSuccessWithNotEmptyData="@{viewModel.balanceChartList}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -112,7 +125,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tbVariationTotal"
+            app:layout_constraintTop_toBottomOf="@id/chartView"
             app:showOnSuccessWithNotEmptyData="@{viewModel.periodList}"
             tools:itemCount="20"
             tools:listitem="@layout/item_timeline_period_list"
