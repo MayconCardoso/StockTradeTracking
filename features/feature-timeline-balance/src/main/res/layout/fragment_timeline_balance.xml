@@ -113,7 +113,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tbVariationTotal"
-            app:showOnSuccessWithNotEmptyData="@{viewModel.periodList}" />
+            app:showOnSuccessWithNotEmptyData="@{viewModel.balanceChartList}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

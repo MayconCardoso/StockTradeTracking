@@ -57,6 +57,7 @@ class TimelineBalanceListFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     bindState(viewModel.periodList) { handlePeriodListState(it) }
     bindState(viewModel.finalBalance) { handleFinalBalanceState(it) }
+    bindState(viewModel.balanceChartList) { handleBalanceChartState(it) }
     bindListeners()
   }
 
@@ -65,10 +66,10 @@ class TimelineBalanceListFragment : Fragment() {
     viewModel.interact(TimelineBalanceListInteraction.LoadTimelineComponent)
   }
 
-  private fun handleFinalBalanceState(finalBalanceState: ComponentState<TimelineBalance?>) {
-    when (finalBalanceState) {
+  private fun handleFinalBalanceState(state: ComponentState<TimelineBalance?>) {
+    when (state) {
       is ComponentState.Success -> {
-        binding?.finalBalance = finalBalanceState.result
+        binding?.finalBalance = state.result
         binding?.executePendingBindings()
       }
     }
@@ -78,13 +79,20 @@ class TimelineBalanceListFragment : Fragment() {
     when (state) {
       is ComponentState.Success -> {
         renderStockList(state.result)
+      }
+    }
+  }
+
+  private fun handleBalanceChartState(state: ComponentState<List<TimelineBalance>>) {
+    when (state) {
+      is ComponentState.Success -> {
         renderChart(state.result)
       }
     }
   }
 
   private fun renderChart(result: List<TimelineBalance>) {
-    binding?.chartView?.setData(result.reversed().map { MoneyVariationEntry(it.getFinalProfit()) })
+    binding?.chartView?.setData(result.map { MoneyVariationEntry(it.getFinalProfit()) })
   }
 
   private fun renderStockList(result: List<TimelineBalance>) {

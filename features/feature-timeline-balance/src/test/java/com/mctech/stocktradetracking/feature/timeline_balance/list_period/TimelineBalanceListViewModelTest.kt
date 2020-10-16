@@ -36,6 +36,10 @@ class TimelineBalanceListViewModelTest : BaseViewModelTest() {
     assertLiveDataFlow(viewModel.finalBalance) {
       it.assertFlow(ComponentState.Initializing)
     }
+
+    assertLiveDataFlow(viewModel.balanceChartList) {
+      it.assertFlow(ComponentState.Initializing)
+    }
   }
 
   @Test
@@ -63,6 +67,14 @@ class TimelineBalanceListViewModelTest : BaseViewModelTest() {
         ComponentState.Success(expectedList.first())
       )
     }
+
+    assertLiveDataFlow(viewModel.balanceChartList) {
+      it.assertFlow(
+        ComponentState.Initializing,
+        ComponentState.Loading.FromEmpty,
+        ComponentState.Success(expectedList.reversed())
+      )
+    }
   }
 
   @Test
@@ -84,6 +96,14 @@ class TimelineBalanceListViewModelTest : BaseViewModelTest() {
     }
 
     assertLiveDataFlow(viewModel.finalBalance) {
+      it.assertFlow(
+        ComponentState.Initializing,
+        ComponentState.Loading.FromEmpty,
+        ComponentState.Error(expectedException)
+      )
+    }
+
+    assertLiveDataFlow(viewModel.balanceChartList) {
       it.assertFlow(
         ComponentState.Initializing,
         ComponentState.Loading.FromEmpty,
