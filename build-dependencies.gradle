@@ -33,6 +33,7 @@ ext {
             logger                          : ':libraries:library-logger',
             loggerAndroid                   : ':libraries:library-logger-android',
             designSystem                    : ':libraries:library-design-system',
+            chart                           : ':libraries:library-chart',
     ]
 
     submodulesFeatures = [

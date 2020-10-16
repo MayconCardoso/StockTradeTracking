@@ -17,6 +17,7 @@ import com.mctech.stocktradetracking.feature.timeline_balance.R
 import com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceNavigator
 import com.mctech.stocktradetracking.feature.timeline_balance.databinding.FragmentTimelineBalanceBinding
 import com.mctech.stocktradetracking.feature.timeline_balance.databinding.ItemTimelinePeriodListBinding
+import com.mctech.stocktradetracking.library.chart.money.MoneyVariationEntry
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -56,6 +57,7 @@ class TimelineBalanceListFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     bindState(viewModel.periodList) { handlePeriodListState(it) }
     bindState(viewModel.finalBalance) { handleFinalBalanceState(it) }
+    bindState(viewModel.balanceChartList) { handleBalanceChartState(it) }
     bindListeners()
   }
 
@@ -64,10 +66,10 @@ class TimelineBalanceListFragment : Fragment() {
     viewModel.interact(TimelineBalanceListInteraction.LoadTimelineComponent)
   }
 
-  private fun handleFinalBalanceState(finalBalanceState: ComponentState<TimelineBalance?>) {
-    when (finalBalanceState) {
+  private fun handleFinalBalanceState(state: ComponentState<TimelineBalance?>) {
+    when (state) {
       is ComponentState.Success -> {
-        binding?.finalBalance = finalBalanceState.result
+        binding?.finalBalance = state.result
         binding?.executePendingBindings()
       }
     }
@@ -77,6 +79,16 @@ class TimelineBalanceListFragment : Fragment() {
     when (state) {
       is ComponentState.Success -> {
         renderStockList(state.result)
+      }
+    }
+  }
+
+  private fun handleBalanceChartState(state: ComponentState<List<TimelineBalance>>) {
+    when (state) {
+      is ComponentState.Success -> {
+        binding?.chartView?.setData(state.result.map {
+          MoneyVariationEntry(it.getFinalProfit())
+        })
       }
     }
   }
