@@ -19,23 +19,7 @@ fun Context.dp(value: Int): Float {
   return value * density
 }
 
-fun View.dp(value: Int): Float {
-  val density = context.resources.displayMetrics.density
-  return value * density
-}
-
-fun View.pixel(value: Float): Float {
-  val density = context.resources.displayMetrics.density
-  return value / density
-}
-
 fun Context.pixel(value: Float): Float {
   val density = resources.displayMetrics.density
   return value / density
 }
-
-fun View.pixel(value: Int): Float {
-  val density = context.resources.displayMetrics.density
-  return value / density
-}
-

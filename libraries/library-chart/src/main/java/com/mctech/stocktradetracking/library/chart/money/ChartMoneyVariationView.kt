@@ -40,7 +40,7 @@ class ChartMoneyVariationView @JvmOverloads constructor(
 
   // Suggested height if it is not specified.
   private val suggestionHeight by lazy {
-    pixel(100).toInt()
+    context.pixel(100F).toInt()
   }
 
   // Start edit mode preview.
