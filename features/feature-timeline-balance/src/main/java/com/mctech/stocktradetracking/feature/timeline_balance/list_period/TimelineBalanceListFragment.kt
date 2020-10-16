@@ -86,13 +86,11 @@ class TimelineBalanceListFragment : Fragment() {
   private fun handleBalanceChartState(state: ComponentState<List<TimelineBalance>>) {
     when (state) {
       is ComponentState.Success -> {
-        renderChart(state.result)
+        binding?.chartView?.setData(state.result.map {
+          MoneyVariationEntry(it.getFinalProfit())
+        })
       }
     }
-  }
-
-  private fun renderChart(result: List<TimelineBalance>) {
-    binding?.chartView?.setData(result.map { MoneyVariationEntry(it.getFinalProfit()) })
   }
 
   private fun renderStockList(result: List<TimelineBalance>) {
