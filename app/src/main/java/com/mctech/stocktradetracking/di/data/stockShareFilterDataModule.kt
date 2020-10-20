@@ -10,21 +10,21 @@ import com.mctech.stocktradetracking.domain.stock_share_filter.service.StockShar
 import org.koin.dsl.module
 
 val stockShareFilterDataModule = module {
-    single {
-        val application : Application = get()
+  single {
+    val application: Application = get()
 
-        LocalStockShareFilterDataSourceImpl(
-            sharedPreferences = application.getSharedPreferences(
-                "StockFilter",
-                Context.MODE_PRIVATE
-            ),
-            gson = Gson()
-        ) as LocalStockShareFilterDataSource
-    }
+    LocalStockShareFilterDataSourceImpl(
+      sharedPreferences = application.getSharedPreferences(
+        "StockFilter",
+        Context.MODE_PRIVATE
+      ),
+      gson = Gson()
+    ) as LocalStockShareFilterDataSource
+  }
 
-    single {
-        StockShareFilterRepository(
-            dataSource = get()
-        ) as StockShareFilterService
-    }
+  single {
+    StockShareFilterRepository(
+      dataSource = get()
+    ) as StockShareFilterService
+  }
 }

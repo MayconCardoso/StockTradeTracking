@@ -8,15 +8,15 @@ import org.koin.dsl.module
 
 val navigatorModule = module {
 
-    single <StockShareNavigator> {
-        AppNavigatorHandler
-    }
+  single<StockShareNavigator> {
+    AppNavigatorHandler
+  }
 
-    single <TimelineBalanceNavigator> {
-        AppNavigatorHandler
-    }
+  single<TimelineBalanceNavigator> {
+    AppNavigatorHandler
+  }
 
-    single <StockShareFilterNavigator> {
-        AppNavigatorHandler
-    }
+  single<StockShareFilterNavigator> {
+    AppNavigatorHandler
+  }
 }

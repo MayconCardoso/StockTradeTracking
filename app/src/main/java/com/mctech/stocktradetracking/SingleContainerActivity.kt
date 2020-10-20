@@ -11,45 +11,45 @@ import com.mctech.stocktradetracking.navigation.AppNavigatorHandler
 
 class SingleContainerActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_container)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_container)
 
-        setUpNavigation()
-        setUpBottomNavigation()
-        setUpActionBar()
+    setUpNavigation()
+    setUpBottomNavigation()
+    setUpActionBar()
+  }
+
+  override fun onDestroy() {
+    AppNavigatorHandler.unbind()
+    super.onDestroy()
+  }
+
+  override fun onSupportNavigateUp(): Boolean {
+    return getNavigationController().navigateUp()
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    if (item.itemId == android.R.id.home) {
+      getNavigationController().navigateUp()
+      return true
     }
 
-    override fun onDestroy() {
-        AppNavigatorHandler.unbind()
-        super.onDestroy()
-    }
+    return super.onOptionsItemSelected(item)
+  }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return getNavigationController().navigateUp()
-    }
+  private fun getNavigationController() = Navigation.findNavController(this, R.id.nav_host_fragment)
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == android.R.id.home){
-            getNavigationController().navigateUp()
-            return true
-        }
+  private fun setUpNavigation() {
+    AppNavigatorHandler.bind(getNavigationController())
+  }
 
-        return super.onOptionsItemSelected(item)
-    }
+  private fun setUpBottomNavigation() {
+    val bottomNav: BottomNavigationView = findViewById(R.id.bottom_navigation_main)
+    setupWithNavController(bottomNav, getNavigationController())
+  }
 
-    private fun getNavigationController() = Navigation.findNavController(this, R.id.nav_host_fragment)
-
-    private fun setUpNavigation() {
-        AppNavigatorHandler.bind(getNavigationController())
-    }
-
-    private fun setUpBottomNavigation() {
-        val bottomNav: BottomNavigationView = findViewById(R.id.bottom_navigation_main)
-        setupWithNavController(bottomNav, getNavigationController())
-    }
-
-    private fun setUpActionBar() {
-        setupActionBarWithNavController(getNavigationController())
-    }
+  private fun setUpActionBar() {
+    setupActionBarWithNavController(getNavigationController())
+  }
 }

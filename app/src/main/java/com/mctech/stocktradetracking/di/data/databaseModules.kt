@@ -7,21 +7,21 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val databaseModule = module {
-    single {
-        Room.databaseBuilder(
-            androidContext(),
-            AppDatabase::class.java,
-            "stock-trade-tracking-database"
-        ).bindMigrations().build()
-    }
+  single {
+    Room.databaseBuilder(
+      androidContext(),
+      AppDatabase::class.java,
+      "stock-trade-tracking-database"
+    ).bindMigrations().build()
+  }
 
-    single {
-        val database: AppDatabase = get()
-        database.stockShareDao()
-    }
+  single {
+    val database: AppDatabase = get()
+    database.stockShareDao()
+  }
 
-    single {
-        val database: AppDatabase = get()
-        database.timelineBalanceDao()
-    }
+  single {
+    val database: AppDatabase = get()
+    database.timelineBalanceDao()
+  }
 }

@@ -5,7 +5,6 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'com.adarshr.test-logger'
 
-
 android {
     defaultConfig {
         applicationId "com.mctech.stocktradetracking"

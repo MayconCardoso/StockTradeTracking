@@ -9,23 +9,23 @@ import com.mctech.stocktradetracking.domain.stock_share.service.StockShareServic
 import org.koin.dsl.module
 
 val stockShareDataModule = module {
-    single {
-        LocalStockShareDataSourceImpl(
-            stockShareDao = get()
-        ) as LocalStockShareDataSource
-    }
+  single {
+    LocalStockShareDataSourceImpl(
+        stockShareDao = get()
+    ) as LocalStockShareDataSource
+  }
 
-    single {
-        RemoteStockShareDataSourceImpl(
-            api = get()
-        ) as RemoteStockShareDataSource
-    }
+  single {
+    RemoteStockShareDataSourceImpl(
+        api = get()
+    ) as RemoteStockShareDataSource
+  }
 
-    single {
-        StockShareRepository(
-            logger = get(),
-            localDataSource = get(),
-            remoteDataSource = get()
-        ) as StockShareService
-    }
+  single {
+    StockShareRepository(
+        logger = get(),
+        localDataSource = get(),
+        remoteDataSource = get()
+    ) as StockShareService
+  }
 }

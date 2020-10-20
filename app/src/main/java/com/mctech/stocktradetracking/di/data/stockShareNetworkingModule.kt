@@ -9,30 +9,30 @@ import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 
 val stockShareNetworkingModule = module {
-    single {
-        val logger = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-
-        // Create the OkHttp Client
-        OkHttpClient.Builder()
-            .addInterceptor(logger)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .build()
+  single {
+    val logger = HttpLoggingInterceptor().apply {
+      level = HttpLoggingInterceptor.Level.BODY
     }
 
-    single {
-        RetrofitBuilder(
-            apiURL = "https://stock-share-tracking.herokuapp.com/api/",
-            httpClient = get()
-        )
-    }
+    // Create the OkHttp Client
+    OkHttpClient.Builder()
+      .addInterceptor(logger)
+      .connectTimeout(30, TimeUnit.SECONDS)
+      .readTimeout(30, TimeUnit.SECONDS)
+      .writeTimeout(30, TimeUnit.SECONDS)
+      .build()
+  }
 
-    // Provide API
-    single<StockSharePriceAPI> {
-        val retrofit: Retrofit = get()
-        retrofit.create(StockSharePriceAPI::class.java)
-    }
+  single {
+    RetrofitBuilder(
+        apiURL = "https://stock-share-tracking.herokuapp.com/api/",
+        httpClient = get()
+    )
+  }
+
+  // Provide API
+  single<StockSharePriceAPI> {
+    val retrofit: Retrofit = get()
+    retrofit.create(StockSharePriceAPI::class.java)
+  }
 }

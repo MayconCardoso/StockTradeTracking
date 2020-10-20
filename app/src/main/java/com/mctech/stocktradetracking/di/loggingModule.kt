@@ -5,5 +5,5 @@ import com.mctech.library.logger.android.LogcatLogger
 import org.koin.dsl.module
 
 val loggingModule = module {
-    single<Logger> { LogcatLogger }
+  single<Logger> { LogcatLogger }
 }

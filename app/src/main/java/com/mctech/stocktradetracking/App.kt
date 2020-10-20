@@ -15,48 +15,48 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
 class App : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        initDependencyInjection()
-        initNtpServer()
+  override fun onCreate() {
+    super.onCreate()
+    initDependencyInjection()
+    initNtpServer()
+  }
+
+  private fun initDependencyInjection() {
+    startKoin {
+      androidLogger()
+      androidContext(this@App)
+      modules(
+          listOf(
+              // Libraries
+              loggingModule,
+              databaseModule,
+              navigatorModule,
+              coroutineScopeModule,
+
+              // Features
+              stockShareDataModule,
+              stockShareNetworkingModule,
+              stockShareViewModelModule,
+              stockShareUseCasesModule,
+
+              stockShareFilterDataModule,
+              stockShareFilterViewModelModule,
+              stockShareFilterUseCasesModule,
+
+              timelineBalanceDataModule,
+              timelineBalanceViewModel,
+              timelineUseCasesModule
+          )
+      )
     }
+  }
 
-    private fun initDependencyInjection() {
-        startKoin {
-            androidLogger()
-            androidContext(this@App)
-            modules(
-                listOf(
-                    // Libraries
-                    loggingModule,
-                    databaseModule,
-                    navigatorModule,
-                    coroutineScopeModule,
-
-                    // Features
-                    stockShareDataModule,
-                    stockShareNetworkingModule,
-                    stockShareViewModelModule,
-                    stockShareUseCasesModule,
-
-                    stockShareFilterDataModule,
-                    stockShareFilterViewModelModule,
-                    stockShareFilterUseCasesModule,
-
-                    timelineBalanceDataModule,
-                    timelineBalanceViewModel,
-                    timelineUseCasesModule
-                )
-            )
-        }
+  private fun initNtpServer() {
+    GlobalScope.launch(Dispatchers.IO) {
+      TrueTime.build()
+        .withNtpHost("time.google.com")
+        .withSharedPreferencesCache(this@App)
+        .initialize()
     }
-
-    private fun initNtpServer() {
-        GlobalScope.launch(Dispatchers.IO){
-            TrueTime.build()
-                .withNtpHost("time.google.com")
-                .withSharedPreferencesCache(this@App)
-                .initialize()
-        }
-    }
+  }
 }

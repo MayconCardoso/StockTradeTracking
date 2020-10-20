@@ -7,15 +7,15 @@ import com.mctech.stocktradetracking.domain.timeline_balance.service.TimelineBal
 import org.koin.dsl.module
 
 val timelineBalanceDataModule = module {
-    single {
-        LocalTimelineBalanceDataSource(
-            dao = get()
-        ) as TimelineBalanceDataSource
-    }
+  single {
+    LocalTimelineBalanceDataSource(
+        dao = get()
+    ) as TimelineBalanceDataSource
+  }
 
-    single {
-        TimelineBalanceRepository(
-            localDataSource = get()
-        ) as TimelineBalanceService
-    }
+  single {
+    TimelineBalanceRepository(
+        localDataSource = get()
+    ) as TimelineBalanceService
+  }
 }
