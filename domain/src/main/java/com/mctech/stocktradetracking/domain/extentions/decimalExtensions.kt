@@ -6,7 +6,10 @@ import java.text.NumberFormat
 import java.util.Locale
 
 fun Double.formatBrazilianCurrency(): String {
-  return NumberFormat.getCurrencyInstance(Locale("pt", "BR")).format(this).replace(" ", "")
+  return NumberFormat
+    .getCurrencyInstance(Locale("pt", "BR"))
+    .format(this)
+    .replace("\\s".toRegex(), "")
 }
 
 fun Double.round(decimals: Int = 2): Double {
