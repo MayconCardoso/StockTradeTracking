@@ -104,7 +104,7 @@ open class StockShareListViewModel constructor(
         StockShareListResult(list, filter)
       }
       .collect { result ->
-        computeStockScore(result.list)
+        computeStockScore(result)
         organizeStockListBeforeShowIt(result)
       }
   }
@@ -156,14 +156,14 @@ open class StockShareListViewModel constructor(
     _shareList.changeToSuccessState(stockShareList)
   }
 
-  private fun computeStockScore(stockShareList: List<StockShare>) {
+  private fun computeStockScore(result: StockShareListResult) {
     dataTransformerScope?.cancel()
 
     dataTransformerScope = viewModelScope + Job()
 
-    dataTransformerScope?.async { computeFinalBalance(stockShareList) }
-    dataTransformerScope?.async { computeBestStock(stockShareList) }
-    dataTransformerScope?.async { computeWorstStock(stockShareList) }
+    dataTransformerScope?.async { computeFinalBalance(result.list) }
+    dataTransformerScope?.async { computeBestStock(result) }
+    dataTransformerScope?.async { computeWorstStock(result) }
   }
 
   private fun computeFinalBalance(stockShareList: List<StockShare>) {
@@ -173,17 +173,17 @@ open class StockShareListViewModel constructor(
     )
   }
 
-  private fun computeWorstStock(stockShareList: List<StockShare>) {
+  private fun computeWorstStock(result: StockShareListResult) {
     _worstStockShare.changeToLoadingState()
     _worstStockShare.changeToSuccessState(
-      selectWorstStockShareCase.execute(stockShareList)
+      selectWorstStockShareCase.execute(result.list, result.filter)
     )
   }
 
-  private fun computeBestStock(stockShareList: List<StockShare>) {
+  private fun computeBestStock(result: StockShareListResult) {
     _bestStockShare.changeToLoadingState()
     _bestStockShare.changeToSuccessState(
-      selectBestStockShareCase.execute(stockShareList)
+      selectBestStockShareCase.execute(result.list, result.filter)
     )
   }
 
