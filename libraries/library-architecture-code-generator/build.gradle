@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.adarshr.test-logger'
 
 dependencies {
-    implementation globalDependencies.kotlinStdLib
-    implementation globalDependencies.featureArchitectureGenerator
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+    implementation "com.mctech.architecture:generator:$MCTECH_ARCHITECTUER_GENERATOR"
 
 }
