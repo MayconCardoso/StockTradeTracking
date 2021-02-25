@@ -19,7 +19,7 @@ fun Double.formatBrazilianCurrency(): String {
 
   val formatNumber = numberFormat
     .format(this)
-    .replace(" ", "")
+    .replace("\\s".toRegex(), "")
 
   return if(this >= 0) {
     "R$$formatNumber"
