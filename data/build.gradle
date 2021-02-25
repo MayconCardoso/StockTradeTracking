@@ -9,7 +9,7 @@ dependencies {
     implementation project(path: submodulesPlatform.domain)
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$KOTLIN_COROUTINES_CORE"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$KOTLIN_COROUTINES_CORE"
     implementation"androidx.lifecycle:lifecycle-livedata-ktx:$ANDROID_LIFECYCLE"

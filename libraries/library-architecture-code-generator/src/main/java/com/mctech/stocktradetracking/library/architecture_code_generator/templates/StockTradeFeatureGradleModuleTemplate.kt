@@ -31,7 +31,7 @@ class StockTradeFeatureGradleModuleTemplate(moduleFilePath: ModuleFilePath) :
 
     output.printTabulate("// Platform")
     output.printTabulate("implementation \"androidx.appcompat:appcompat:\$ANDROID_APCOMPACT\"")
-    output.printTabulate("implementation \"org.jetbrains.kotlin:kotlin-stdlib-jdk7:\$KOTLIN_VERSION\"")
+    output.printTabulate("implementation \"org.jetbrains.kotlin:kotlin-stdlib-jdk8:\$KOTLIN_VERSION\"")
     output.blankLine()
 
     output.printTabulate("// Android ARQ")
