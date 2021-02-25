@@ -16,9 +16,4 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION"
     implementation "com.google.android.material:material:$VIEW_MATERIAL_DESIGN"
     implementation "androidx.constraintlayout:constraintlayout:$VIEW_CONSTRAINT_LAYOUT"
-
-    implementation "javax.xml.bind:jaxb-api:2.3.1"
-    implementation "com.sun.xml.bind:jaxb-core:2.2.11"
-    implementation "com.sun.xml.bind:jaxb-impl:2.2.11"
-    implementation "javax.activation:activation:1.1.1"
 }
