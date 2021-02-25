@@ -28,7 +28,7 @@ alt="Stock Trade Logo" title="The logo himself" align="Center" />
 
 Below you can see a better representation of how the project is structured in terms of modules dependencies. If you look at the diagram arrows you are going to see that the domain layer does not depend on any other module. It is a pure Kotlin module. 
 
-![module-structure](.github/project_module_structure.png)
+![module-structure](.design/project_module_structure.png)
 
 ## Related Libs
 Here are some personal libraries used to develop this app:
