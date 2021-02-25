@@ -22,7 +22,7 @@ The code is structured in a multi-module fashion, with semantics guided by [Clea
 The domain is a horizontal module that defines all business rules and the core protocols to be implemented by low-level details, while aggregates them in high-level policies by using the [UseCase](http://www.plainionist.net/Implementing-Clean-Architecture-UseCases/) concept from Clean Architecture.
 
 <p align="center">
-  <img src=".github/android_studio_modules.png" 
+  <img src=".design/android_studio_modules.png" 
 alt="Stock Trade Logo" title="The logo himself" align="Center" />
 </p>
 
