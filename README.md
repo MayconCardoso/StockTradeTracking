@@ -14,7 +14,7 @@ Stock Trade Tracking is an app where you can register your [Ibovespa](https://pt
 
 It is a simple showcase for a modern and well-crafted Android application, powered by [Kotlin Coroutines](https://developer.android.com/kotlin/coroutines) and [Clean Architecture](https://www.amazon.com.br/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164). It is a real modularized MVVM application. 
 
-<img src="./.github/gif1.gif" alt="with-internet" width="200px"/> <img src="./.github/gif2.gif" alt="withou-internet" width="200px"/> <img src="./.github/gif3.gif" alt="withou-internet" width="200px"/>
+<img src=".design/gif1.gif" alt="with-internet" width="200px"/> <img src=".design/gif2.gif" alt="withou-internet" width="200px"/> <img src=".design/gif3.gif" alt="withou-internet" width="200px"/>
 
 ## Project Overview
 The code is structured in a multi-module fashion, with semantics guided by [Clean Architecture](https://www.amazon.com.br/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164).
