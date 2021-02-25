@@ -19,7 +19,7 @@ buildscript {
         VIEW_RECYCLER_VIEW = '1.0.0'
 
         GOOGLE_GSON = '2.8.6'
-        GOOGLE_ROOM = '2.2.4'
+        GOOGLE_ROOM = '2.2.6'
         GOOGLE_NAVIGATION_VERSION = '2.1.0'
 
         KOIN = '2.0.1'
