@@ -8,7 +8,7 @@ import java.util.Locale
 fun Double.formatBrazilianCurrency(): String {
   return NumberFormat
     .getCurrencyInstance(Locale("pt", "BR"))
-    .format(this).replace("\\s".toRegex(), "").replace(" ", "")
+    .format(this).replace(" ", "")
 }
 
 fun Double.round(decimals: Int = 2): Double {
