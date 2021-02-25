@@ -6,13 +6,8 @@ import java.text.DecimalFormat
 import java.util.Locale
 
 fun Double.formatBrazilianCurrency(): String {
-  if (this == 0.0) {
-    return "R$0,00"
-  }
-
-  val formatter = DecimalFormat.getInstance(Locale.GERMAN).apply {
-    (this as DecimalFormat).applyPattern("R$###,###,###.00")
-  }
+  val formatter: DecimalFormat = DecimalFormat.getInstance(Locale.GERMAN) as DecimalFormat
+  formatter.applyPattern("R$###,###,##0.00")
   return formatter.format(this)
 }
 
