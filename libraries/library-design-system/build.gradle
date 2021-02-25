@@ -16,4 +16,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION"
     implementation "com.google.android.material:material:$VIEW_MATERIAL_DESIGN"
     implementation "androidx.constraintlayout:constraintlayout:$VIEW_CONSTRAINT_LAYOUT"
+
+    implementation "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
+    implementation "org.glassfish.jaxb:jaxb-runtime:2.3.2"
 }
