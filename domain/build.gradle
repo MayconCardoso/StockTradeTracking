@@ -4,14 +4,14 @@ apply plugin: 'com.adarshr.test-logger'
 dependencies {
     implementation project(path: submodulesLibraries.logger)
 
-    implementation globalDependencies.kotlinStdLib
-    implementation globalDependencies.kotlinCoroutinesCore
-    implementation globalDependencies.gson
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$KOTLIN_COROUTINES_CORE"
+    implementation "com.google.code.gson:gson:$GOOGLE_GSON"
 
     testImplementation project(path: submodulesTest.dataFactory)
-    testImplementation globalTestDependencies.jUnit
-    testImplementation globalTestDependencies.assertJ
-    testImplementation globalTestDependencies.coroutines
-    testImplementation globalTestDependencies.mockitoKotlin
-    testImplementation globalTestDependencies.testArqCor
+    testImplementation "junit:junit:$JUNIT"
+    testImplementation "org.assertj:assertj-core:$ASSERT_J"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$NHAARMAN_MOCKITO"
+    testImplementation "androidx.arch.core:core-testing:$ANDROID_ARCHITECTURE"
 }

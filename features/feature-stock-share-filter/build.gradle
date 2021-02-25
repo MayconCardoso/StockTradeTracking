@@ -16,27 +16,27 @@ dependencies {
     implementation project(path: submodulesLibraries.designSystem)
 
     // Personal libs
-    implementation globalDependencies.mvvmArchitectureCore
-    implementation globalDependencies.mvvmArchitectureCoreKtx
-    implementation globalDependencies.mvvmArchitectureViewKtx
-    implementation globalDependencies.mvvmArchitectureCoreDatabinding
-    implementation globalDependencies.mvvmArchitectureCoreTesting
+    implementation "com.mctech.architecture.mvvm:x-core:$MCTECH_MVVM_ARCHITECTURE"
+    implementation "com.mctech.architecture.mvvm:x-core-ktx:$MCTECH_MVVM_ARCHITECTURE"
+    implementation "com.mctech.architecture.mvvm:x-view-ktx:$MCTECH_MVVM_ARCHITECTURE"
+    implementation "com.mctech.architecture.mvvm:x-core-databinding:$MCTECH_MVVM_ARCHITECTURE"
+    implementation "com.mctech.architecture.mvvm:x-core-testing:$MCTECH_MVVM_ARCHITECTURE"
 
     // Platform
-    implementation globalDependencies.appCompact
-    implementation globalDependencies.kotlinStdLib
+    implementation "androidx.appcompat:appcompat:$ANDROID_APCOMPACT"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
 
     // Android ARQ
-    implementation globalDependencies.lifeCycleLiveRuntime
-    implementation globalDependencies.lifeCycleLiveExtensions
-    implementation globalDependencies.lifeCycleViewModel
-    implementation globalDependencies.lifeCycleLiveData
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$ANDROID_LIFECYCLE"
+    implementation "androidx.lifecycle:lifecycle-extensions:$ANDROID_LIFECYCLE_EXTENSION"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$ANDROID_LIFECYCLE"
+    implementation"androidx.lifecycle:lifecycle-livedata-ktx:$ANDROID_LIFECYCLE"
 
     // View
-    implementation globalDependencies.materialDesign
-    implementation globalDependencies.constraintLayout
+    implementation "com.google.android.material:material:$VIEW_MATERIAL_DESIGN"
+    implementation "androidx.constraintlayout:constraintlayout:$VIEW_CONSTRAINT_LAYOUT"
 
     // KOIN
-    implementation globalDependencies.koin
-    implementation globalDependencies.koinViewModel
+    implementation "org.koin:koin-android:$KOIN"
+    implementation "org.koin:koin-androidx-viewmodel:$KOIN"
 }
