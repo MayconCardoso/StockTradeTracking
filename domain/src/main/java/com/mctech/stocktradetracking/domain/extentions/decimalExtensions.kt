@@ -8,7 +8,7 @@ import java.util.Locale
 fun Double.formatBrazilianCurrency(): String {
   // Simple format was not working on CI for some reason.
   // So temporarily we need to do this whole thing to make it possible to run CI.
-  val numberFormat = DecimalFormat.getCurrencyInstance(Locale("pt", "BR"))
+  val numberFormat = DecimalFormat.getCurrencyInstance(Locale.GERMAN)
   val decimalFormatSymbols = (numberFormat as DecimalFormat).decimalFormatSymbols
 
   // Remove symbol
