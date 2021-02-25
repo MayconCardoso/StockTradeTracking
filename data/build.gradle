@@ -9,30 +9,30 @@ dependencies {
     implementation project(path: submodulesPlatform.domain)
 
     // Kotlin
-    implementation globalDependencies.kotlinStdLib
-    implementation globalDependencies.kotlinCoroutinesCore
-    implementation globalDependencies.kotlinCoroutinesAndroid
-    implementation globalDependencies.lifeCycleLiveData
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$KOTLIN_COROUTINES_CORE"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$KOTLIN_COROUTINES_CORE"
+    implementation"androidx.lifecycle:lifecycle-livedata-ktx:$ANDROID_LIFECYCLE"
 
     // Networking
-    implementation globalDependencies.mvvmArchitectureCoreNetworking
-    implementation globalDependencies.retrofit
-    implementation globalDependencies.retrofitGsonConverter
-    implementation globalDependencies.trueTime
+    implementation "com.mctech.architecture.mvvm:x-core-networking:$MCTECH_MVVM_ARCHITECTURE"
+    implementation "com.squareup.retrofit2:retrofit:$RETROFIT"
+    implementation "com.squareup.retrofit2:converter-gson:$RETROFIT"
+    implementation "com.github.instacart.truetime-android:library:$TRUE_TIME"
 
     // Database
-    implementation globalDependencies.roomRuntime
-    implementation globalDependencies.roomKtx
-    kapt globalDependencies.roomCompiler
+    implementation "androidx.room:room-runtime:$GOOGLE_ROOM"
+    implementation "androidx.room:room-ktx:$GOOGLE_ROOM"
+    kapt "androidx.room:room-compiler:$GOOGLE_ROOM"
 
     // Testing
     testImplementation project(path: submodulesTest.dataFactory)
-    testImplementation globalTestDependencies.jUnit
-    testImplementation globalTestDependencies.testCore
-    testImplementation globalTestDependencies.testRunner
-    testImplementation globalTestDependencies.assertJ
-    testImplementation globalTestDependencies.coroutines
-    testImplementation globalTestDependencies.mockitoKotlin
-    testImplementation globalTestDependencies.testArqCor
-    testImplementation globalTestDependencies.roboletric
+    testImplementation "junit:junit:$JUNIT"
+    testImplementation "androidx.test:core:$ANDROID_CORE"
+    testImplementation "androidx.test:runner:$ANDROID_RUNNER"
+    testImplementation "org.assertj:assertj-core:$ASSERT_J"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$NHAARMAN_MOCKITO"
+    testImplementation "androidx.arch.core:core-testing:$ANDROID_ARCHITECTURE"
+    testImplementation "org.robolectric:robolectric:$ROBOLETRIC"
 }

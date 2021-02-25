@@ -3,6 +3,6 @@ apply plugin: 'com.adarshr.test-logger'
 
 dependencies {
     implementation project(path: submodulesPlatform.domain)
-    implementation globalDependencies.kotlinStdLib
-    implementation globalTestDependencies.coroutines
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES"
 }

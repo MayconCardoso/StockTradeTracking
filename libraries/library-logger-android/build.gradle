@@ -4,6 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.adarshr.test-logger'
 
 dependencies {
-    implementation globalDependencies.kotlinStdLib
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
     implementation project(path: submodulesLibraries.logger)
 }

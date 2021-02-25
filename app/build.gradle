@@ -33,34 +33,33 @@ dependencies {
     implementation project(path: submodulesLibraries.loggerAndroid)
     implementation project(path: submodulesLibraries.designSystem)
 
-    // Features
     implementation project(path: submodulesFeatures.stockShare)
     implementation project(path: submodulesFeatures.stockShareFilter)
     implementation project(path: submodulesFeatures.timelineBalance)
 
     // View
-    implementation globalDependencies.recyclerView
-    implementation globalDependencies.swipeRefresh
-    implementation globalDependencies.materialDesign
-    implementation globalDependencies.constraintLayout
+    implementation "androidx.recyclerview:recyclerview:$VIEW_RECYCLER_VIEW"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$VIEW_SWIPE_REFRESH"
+    implementation "com.google.android.material:material:$VIEW_MATERIAL_DESIGN"
+    implementation "androidx.constraintlayout:constraintlayout:$VIEW_CONSTRAINT_LAYOUT"
 
     // Navigation
-    implementation globalDependencies.navigationFragment
-    implementation globalDependencies.navigationFragmentUi
+    implementation "androidx.navigation:navigation-fragment-ktx:$GOOGLE_NAVIGATION_VERSION"
+    implementation "androidx.navigation:navigation-ui-ktx:$GOOGLE_NAVIGATION_VERSION"
 
     // Koin
-    implementation globalDependencies.koin
-    implementation globalDependencies.koinViewModel
+    implementation "org.koin:koin-android:$KOIN"
+    implementation "org.koin:koin-androidx-viewmodel:$KOIN"
 
     // Networking
-    implementation globalDependencies.mvvmArchitectureCoreNetworking
-    implementation globalDependencies.okHttp
-    implementation globalDependencies.okHttpLoggin
-    implementation globalDependencies.retrofit
-    implementation globalDependencies.retrofitGsonConverter
-    implementation globalDependencies.trueTime
+    implementation "com.mctech.architecture.mvvm:x-core-networking:$MCTECH_MVVM_ARCHITECTURE"
+    implementation "com.squareup.okhttp3:okhttp:$OKHTTP"
+    implementation "com.squareup.okhttp3:logging-interceptor:$OKHTTP"
+    implementation "com.squareup.retrofit2:retrofit:$RETROFIT"
+    implementation "com.squareup.retrofit2:converter-gson:$RETROFIT"
+    implementation "com.github.instacart.truetime-android:library:$TRUE_TIME"
 
     // Database
-    implementation globalDependencies.roomRuntime
-    implementation globalDependencies.roomKtx
+    implementation "androidx.room:room-runtime:$GOOGLE_ROOM"
+    implementation "androidx.room:room-ktx:$GOOGLE_ROOM"
 }
