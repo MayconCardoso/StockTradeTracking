@@ -22,7 +22,7 @@ buildscript {
         GOOGLE_ROOM = '2.2.4'
         GOOGLE_NAVIGATION_VERSION = '2.1.0'
 
-        KOIN = '2.0.1'
+        KOIN = '2.2.2'
         RETROFIT = '2.6.2'
         OKHTTP = '4.2.0'
         TRUE_TIME = '3.4'
