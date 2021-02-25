@@ -6,27 +6,14 @@ import java.text.DecimalFormat
 import java.util.Locale
 
 fun Double.formatBrazilianCurrency(): String {
-  // Simple format was not working on CI for some reason.
-  // So temporarily we need to do this whole thing to make it possible to run CI.
-  val numberFormat = DecimalFormat.getCurrencyInstance(Locale.GERMAN)
-  val decimalFormatSymbols = (numberFormat as DecimalFormat).decimalFormatSymbols
-
-  // Remove symbol
-  decimalFormatSymbols.currencySymbol = ""
-
-  // Setup formatter
-  numberFormat.decimalFormatSymbols = decimalFormatSymbols
-
-  val formatNumber = numberFormat
-    .format(this)
-    .replace("\\s".toRegex(), "")
-
-  return if(this >= 0) {
-    "R$$formatNumber"
+  if (this == 0.0) {
+    return "R$0,00"
   }
-  else{
-    "-R$${formatNumber.substring(1)}"
+
+  val formatter = DecimalFormat.getInstance(Locale.GERMAN).apply {
+    (this as DecimalFormat).applyPattern("R$###,###,###.00")
   }
+  return formatter.format(this)
 }
 
 fun Double.round(decimals: Int = 2): Double {
