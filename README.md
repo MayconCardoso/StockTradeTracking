@@ -5,7 +5,7 @@
 [![kotlin](https://img.shields.io/github/languages/top/MayconCardoso/StockTradeTracking.svg?style=for-the-badge)](https://kotlinlang.org/)
 [![License Apache-2.0](https://img.shields.io/github/license/MayconCardoso/StockTradeTracking.svg?style=for-the-badge&color=yellow)](https://opensource.org/licenses/Apache-2.0) 
 
-<img src=".github/stock-trade.png" 
+<img src=".design/stock-trade.png" 
 alt="Stock Trade Logo" title="The logo himself" align="Right" />
 
 ## About
