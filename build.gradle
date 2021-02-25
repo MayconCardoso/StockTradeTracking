@@ -24,7 +24,7 @@ buildscript {
 
         KOIN = '2.0.1'
         RETROFIT = '2.6.2'
-        OKHTTP = '4.2.0'
+        OKHTTP = '4.9.1'
         TRUE_TIME = '3.4'
 
         MCTECH_KEYBOARD = '1.0.6'
