@@ -16,14 +16,14 @@ buildscript {
         VIEW_MATERIAL_DESIGN = '1.1.0-alpha09'
         VIEW_SWIPE_REFRESH = '1.1.0-alpha03'
         VIEW_CONSTRAINT_LAYOUT = '2.0.4'
-        VIEW_RECYCLER_VIEW = '1.0.0'
+        VIEW_RECYCLER_VIEW = '1.1.0'
 
         GOOGLE_GSON = '2.8.6'
-        GOOGLE_ROOM = '2.2.4'
-        GOOGLE_NAVIGATION_VERSION = '2.1.0'
+        GOOGLE_ROOM = '2.2.6'
+        GOOGLE_NAVIGATION_VERSION = '2.3.3'
 
-        KOIN = '2.0.1'
-        RETROFIT = '2.6.2'
+        KOIN = '2.2.2'
+        RETROFIT = '2.9.0'
         OKHTTP = '4.2.0'
         TRUE_TIME = '3.4'
 
@@ -34,16 +34,16 @@ buildscript {
         //==============================================================================================
         // Versions - Tests
         //==============================================================================================
-        JUNIT = '4.12'
+        JUNIT = '4.13.2'
         ANDROID_CORE = '1.0.0'
-        ANDROID_RUNNER = '1.2.0'
+        ANDROID_RUNNER = '1.3.0'
         ANDROID_ARCHITECTURE = '2.1.0'
         NHAARMAN_MOCKITO = '2.1.0'
         ROBOLETRIC = '4.3.1'
         MOCKITO_INLINE = '2.21.0'
         ASSERT_J = '3.11.1'
         COROUTINES = '1.3.1'
-        BARISTA = '2.10.0'
+        BARISTA = '3.7.0'
 
         //==============================================================================================
         // SUBMODULES

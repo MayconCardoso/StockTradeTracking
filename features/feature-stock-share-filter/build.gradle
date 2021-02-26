@@ -24,7 +24,7 @@ dependencies {
 
     // Platform
     implementation "androidx.appcompat:appcompat:$ANDROID_APCOMPACT"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION"
 
     // Android ARQ
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$ANDROID_LIFECYCLE"

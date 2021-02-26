@@ -13,7 +13,7 @@ android {
 
 dependencies {
     implementation "androidx.appcompat:appcompat:$ANDROID_APCOMPACT"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION"
     implementation "com.google.android.material:material:$VIEW_MATERIAL_DESIGN"
     implementation "androidx.constraintlayout:constraintlayout:$VIEW_CONSTRAINT_LAYOUT"
 }
