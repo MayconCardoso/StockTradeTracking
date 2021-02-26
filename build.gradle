@@ -20,7 +20,7 @@ buildscript {
 
         GOOGLE_GSON = '2.8.6'
         GOOGLE_ROOM = '2.2.6'
-        GOOGLE_NAVIGATION_VERSION = '2.1.0'
+        GOOGLE_NAVIGATION_VERSION = '2.3.3'
 
         KOIN = '2.0.1'
         RETROFIT = '2.9.0'
