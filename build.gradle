@@ -23,8 +23,8 @@ buildscript {
         GOOGLE_NAVIGATION_VERSION = '2.1.0'
 
         KOIN = '2.0.1'
-        RETROFIT = '2.6.2'
         OKHTTP = '4.9.1'
+        RETROFIT = '2.9.0'
         TRUE_TIME = '3.4'
 
         MCTECH_KEYBOARD = '1.0.6'
