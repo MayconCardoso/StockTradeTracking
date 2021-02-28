@@ -104,7 +104,6 @@ subprojects {
         if (project.hasProperty('android')) {
             android {
                 buildToolsVersion buildTools
-                compileSdkVersion compileSdk
 
                 defaultConfig {
                     minSdkVersion minSdk
