@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: circleci/android:api-29
+      - image: circleci/android@sha256:ab59a0f2ec42bbdc356fc3b2af7819515bf447817f76bcea2572b406fbe96633
     environment:
       JVM_OPTS: -Xmx3200m
 
