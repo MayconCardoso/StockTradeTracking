@@ -22,9 +22,9 @@ buildscript {
         GOOGLE_ROOM = '2.2.6'
         GOOGLE_NAVIGATION_VERSION = '2.3.3'
 
+        OKHTTP = '4.9.1'
         KOIN = '2.2.2'
         RETROFIT = '2.9.0'
-        OKHTTP = '4.2.0'
         TRUE_TIME = '3.4'
 
         MCTECH_KEYBOARD = '1.0.6'
