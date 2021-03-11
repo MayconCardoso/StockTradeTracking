@@ -24,7 +24,6 @@ import com.mctech.stocktradetracking.domain.stock_share.interaction.strategies.S
 import com.mctech.stocktradetracking.domain.stock_share_filter.entity.StockFilter
 import com.mctech.stocktradetracking.domain.stock_share_filter.interaction.ObserveCurrentFilterCase
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
@@ -36,7 +35,6 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.plus
 
-@ExperimentalCoroutinesApi
 open class StockShareListViewModel constructor(
   private val observeStockListCase: ObserveStockListStrategy,
   private val observeCurrentFilterCase: ObserveCurrentFilterCase,

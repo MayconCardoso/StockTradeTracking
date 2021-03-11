@@ -10,7 +10,7 @@ class SelectWorstDailyStockShareCase(
   private val groupStockShareListCase: GroupStockShareListCase
 ) : SelectStockStrategy {
   override fun execute(stockShareList: List<StockShare>, filter: StockFilter): SelectedStock? {
-    return groupStockShareListCase.transform(stockShareList).minBy {
+    return groupStockShareListCase.transform(stockShareList).minByOrNull {
       selectMinByFilter(filter, it)
     }?.let {
       SelectedStock(

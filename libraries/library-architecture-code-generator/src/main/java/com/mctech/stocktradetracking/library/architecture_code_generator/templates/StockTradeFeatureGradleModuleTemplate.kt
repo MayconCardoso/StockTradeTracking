@@ -12,7 +12,6 @@ class StockTradeFeatureGradleModuleTemplate(moduleFilePath: ModuleFilePath) :
   override fun generate() = writeFile(this) { output ->
     output.println("apply plugin: 'com.android.library'")
     output.println("apply plugin: 'kotlin-android'")
-    output.println("apply plugin: 'kotlin-android-extensions'")
     output.println("apply plugin: 'kotlin-kapt'")
     output.blankLine()
 

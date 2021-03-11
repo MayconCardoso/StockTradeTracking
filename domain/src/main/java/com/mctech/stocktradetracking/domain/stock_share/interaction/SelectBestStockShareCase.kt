@@ -10,7 +10,7 @@ class SelectBestStockShareCase(
   private val groupStockShareListCase: GroupStockShareListCase
 ) : SelectStockStrategy {
   override fun execute(stockShareList: List<StockShare>, filter: StockFilter): SelectedStock? {
-    return groupStockShareListCase.transform(stockShareList).maxBy {
+    return groupStockShareListCase.transform(stockShareList).maxByOrNull {
       selectMaxByFilter(filter, it)
     }?.let {
       SelectedStock(

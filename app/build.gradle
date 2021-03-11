@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'androidx.navigation.safeargs'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.adarshr.test-logger'
 
 android {
@@ -17,11 +16,8 @@ android {
             minifyEnabled false
         }
     }
-    android {
-        dataBinding {
-            enabled = true
-            enabledForTests = true
-        }
+    buildFeatures {
+        dataBinding true
     }
 }
 

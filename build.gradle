@@ -4,7 +4,7 @@ buildscript {
         // Versions - Application
         //==============================================================================================
         KOTLIN_VERSION = '1.4.31'
-        KOTLIN_COROUTINES_CORE = '1.4.2-native-mt'
+        KOTLIN_COROUTINES_CORE = '1.4.3'
 
         ANDROID_BUILD_TOOLS = '4.1.2'
         ANDROID_APCOMPACT = '1.2.0'
@@ -80,7 +80,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$ANDROID_BUILD_TOOLS"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
-        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$GOOGLE_NAVIGATION_VERSION"
         classpath "com.vanniktech:gradle-android-junit-jacoco-plugin:0.16.0"
         classpath 'com.adarshr:gradle-test-logger-plugin:2.1.1'
     }
