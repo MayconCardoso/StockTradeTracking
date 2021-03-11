@@ -3,7 +3,6 @@ package com.mctech.stocktradetracking.library.architecture_code_generator.featur
 import com.mctech.architecture.generator.builder.ComponentStateBuilder
 import com.mctech.architecture.generator.builder.FeatureGenerator
 import com.mctech.architecture.generator.builder.UseCaseBuilder
-import com.mctech.architecture.generator.builder.newFeature
 import com.mctech.architecture.generator.class_contract.Parameter
 import com.mctech.architecture.generator.class_contract.Type
 import com.mctech.stocktradetracking.library.architecture_code_generator.ProjectSettings
@@ -11,10 +10,10 @@ import com.mctech.stocktradetracking.library.architecture_code_generator.Project
 object StockShareFeature {
   fun create() {
 
-    FeatureGenerator(
+    FeatureGenerator.newFeature(
       settings = ProjectSettings.featureSettings,
       featureName = "StockShare"
-    ).newFeature {
+    ) {
       // ==========================================================================
       // DO NOT CHANGE THE CUSTOM TEMPLATES
       // IT WILL CREATE THE RIGHT FILE FOR THE CURRENT PROJECT

@@ -27,7 +27,7 @@ buildscript {
 
         MCTECH_KEYBOARD = '1.0.6'
         MCTECH_MVVM_ARCHITECTURE = '1.5.3'
-        MCTECH_ARCHITECTUER_GENERATOR = '1.1.4'
+        MCTECH_ARCHITECTUER_GENERATOR = '2.0.0'
 
         //==============================================================================================
         // Versions - Tests
