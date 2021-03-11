@@ -19,7 +19,6 @@ dependencies {
     implementation "com.mctech.architecture.mvvm:x-core-ktx:$MCTECH_MVVM_ARCHITECTURE"
     implementation "com.mctech.architecture.mvvm:x-view-ktx:$MCTECH_MVVM_ARCHITECTURE"
     implementation "com.mctech.architecture.mvvm:x-core-databinding:$MCTECH_MVVM_ARCHITECTURE"
-    implementation "com.mctech.architecture.mvvm:x-core-testing:$MCTECH_MVVM_ARCHITECTURE"
     implementation "com.mctech.library.keyboard:visibilitymonitor:$MCTECH_KEYBOARD"
     implementation "com.mctech.library.keyboard:visibilitymonitor-ktx:$MCTECH_KEYBOARD"
 
@@ -31,7 +30,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$ANDROID_LIFECYCLE"
     implementation "androidx.lifecycle:lifecycle-extensions:$ANDROID_LIFECYCLE_EXTENSION"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$ANDROID_LIFECYCLE"
-    implementation"androidx.lifecycle:lifecycle-livedata-ktx:$ANDROID_LIFECYCLE"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$ANDROID_LIFECYCLE"
 
     // View
     implementation "androidx.recyclerview:recyclerview:$VIEW_RECYCLER_VIEW"

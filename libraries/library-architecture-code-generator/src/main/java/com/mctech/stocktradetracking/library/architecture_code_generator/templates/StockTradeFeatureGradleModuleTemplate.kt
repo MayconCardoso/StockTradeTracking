@@ -25,7 +25,6 @@ class StockTradeFeatureGradleModuleTemplate(moduleFilePath: ModuleFilePath) :
     output.printTabulate("implementation \"com.mctech.architecture.mvvm:x-core-ktx:\$MCTECH_MVVM_ARCHITECTURE\"")
     output.printTabulate("implementation \"com.mctech.architecture.mvvm:x-view-ktx:\$MCTECH_MVVM_ARCHITECTURE\"")
     output.printTabulate("implementation \"com.mctech.architecture.mvvm:x-core-databinding:\$MCTECH_MVVM_ARCHITECTURE\"")
-    output.printTabulate("implementation \"com.mctech.architecture.mvvm:x-core-testing:\$MCTECH_MVVM_ARCHITECTURE\"")
     output.blankLine()
 
     output.printTabulate("// Platform")
