@@ -12,7 +12,6 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
 
-
         <activity android:name=".SingleContainerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

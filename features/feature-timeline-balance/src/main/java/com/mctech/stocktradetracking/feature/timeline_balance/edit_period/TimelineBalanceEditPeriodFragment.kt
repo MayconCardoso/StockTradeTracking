@@ -16,6 +16,7 @@ import com.mctech.stocktradetracking.domain.timeline_balance.entity.TimelineBala
 import com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceNavigator
 import com.mctech.stocktradetracking.feature.timeline_balance.databinding.FragmentTimelineEditPeriodBinding
 import com.mctech.stocktradetracking.feature.timeline_balance.timelinePeriodFromBundle
+import com.mctech.stocktradetracking.library.design_system.entension.getDoubleValue
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -73,9 +74,9 @@ class TimelineBalanceEditPeriodFragment : Fragment() {
         viewModel.interact(
           TimelineBalanceEditInteraction.EditPeriod(
             binding.etPeriodTag.getValue(),
-            binding.etInvestment.getValue().toDouble(),
-            binding.etProfit.getValue().toDouble(),
-            binding.etFinalBalance.getValue().toDouble()
+            binding.etInvestment.getDoubleValue(),
+            binding.etProfit.getDoubleValue(),
+            binding.etFinalBalance.getDoubleValue()
           )
         )
 

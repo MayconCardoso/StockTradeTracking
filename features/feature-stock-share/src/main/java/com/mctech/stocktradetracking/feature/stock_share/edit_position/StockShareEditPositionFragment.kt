@@ -21,6 +21,8 @@ import com.mctech.stocktradetracking.feature.stock_share.R
 import com.mctech.stocktradetracking.feature.stock_share.StockShareNavigator
 import com.mctech.stocktradetracking.feature.stock_share.databinding.FragmentStockShareEditPriceBinding
 import com.mctech.stocktradetracking.feature.stock_share.stockShareFromBundle
+import com.mctech.stocktradetracking.library.design_system.entension.getDoubleValue
+import com.mctech.stocktradetracking.library.design_system.entension.getLongValue
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -124,9 +126,9 @@ class StockShareEditPositionFragment : Fragment() {
         viewModel.interact(
           StockShareEditPositionInteraction.UpdateStockPrice(
             binding.etShareCode.getValue(),
-            binding.etShareAmount.getValue().toLong(),
-            binding.etSharePurchasePrice.getValue().toDouble(),
-            binding.etSharePrice.getValue().toDouble()
+            binding.etShareAmount.getLongValue(),
+            binding.etSharePurchasePrice.getDoubleValue(),
+            binding.etSharePrice.getDoubleValue()
           )
         )
 

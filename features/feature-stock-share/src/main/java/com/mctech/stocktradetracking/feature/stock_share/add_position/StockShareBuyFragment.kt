@@ -15,6 +15,8 @@ import com.mctech.library.view.ktx.getValue
 import com.mctech.stocktradetracking.domain.stock_share.entity.StockShare
 import com.mctech.stocktradetracking.feature.stock_share.StockShareNavigator
 import com.mctech.stocktradetracking.feature.stock_share.databinding.FragmentStockShareBuyBinding
+import com.mctech.stocktradetracking.library.design_system.entension.getDoubleValue
+import com.mctech.stocktradetracking.library.design_system.entension.getLongValue
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -73,8 +75,8 @@ class StockShareBuyFragment : Fragment() {
         viewModel.interact(
           StockShareBuyInteraction.AddPosition(
             binding.etShareCode.getValue(),
-            binding.etShareAmount.getValue().toLong(),
-            binding.etSharePrice.getValue().toDouble()
+            binding.etShareAmount.getLongValue(),
+            binding.etSharePrice.getDoubleValue()
           )
         )
 
@@ -89,8 +91,8 @@ class StockShareBuyFragment : Fragment() {
 
   private fun computeInvestment() {
     binding?.let { binding ->
-      val purchasePrice = binding.etSharePrice.getValue().toDoubleOrNull() ?: 0.0
-      val shareAmount = binding.etShareAmount.getValue().toLongOrNull() ?: 0
+      val purchasePrice = binding.etSharePrice.getDoubleValue()
+      val shareAmount = binding.etShareAmount.getLongValue()
 
       val stockShare = StockShare(
         code = binding.etShareCode.getValue(),

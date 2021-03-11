@@ -12,6 +12,7 @@ import com.mctech.library.keyboard.visibilitymonitor.extentions.closeKeyboard
 import com.mctech.library.view.ktx.getValue
 import com.mctech.stocktradetracking.feature.timeline_balance.TimelineBalanceNavigator
 import com.mctech.stocktradetracking.feature.timeline_balance.databinding.FragmentTimelineAddPeriodBinding
+import com.mctech.stocktradetracking.library.design_system.entension.getDoubleValue
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -52,8 +53,8 @@ class TimelineBalanceAddPeriodFragment : Fragment() {
         viewModel.interact(
           TimelineBalanceAddInteraction.CreatePeriod(
             binding.etPeriodTag.getValue(),
-            binding.etInvestment.getValue().toDouble(),
-            binding.etProfit.getValue().toDouble()
+            binding.etInvestment.getDoubleValue(),
+            binding.etProfit.getDoubleValue()
           )
         )
 
@@ -65,4 +66,6 @@ class TimelineBalanceAddPeriodFragment : Fragment() {
       }
     }
   }
+
+
 }
