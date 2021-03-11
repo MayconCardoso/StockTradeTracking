@@ -41,7 +41,7 @@ buildscript {
         MOCKITO_INLINE = '3.8.0'
         ASSERT_J = '3.19.0'
         COROUTINES = '1.4.2-native-mt'
-        BARISTA = '3.8.0'
+        BARISTA = '3.9.0'
 
         //==============================================================================================
         // SUBMODULES
