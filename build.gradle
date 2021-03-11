@@ -18,7 +18,7 @@ buildscript {
 
         GOOGLE_GSON = '2.8.6'
         GOOGLE_ROOM = '2.2.6'
-        GOOGLE_NAVIGATION_VERSION = '2.3.3'
+        GOOGLE_NAVIGATION_VERSION = '2.3.4'
 
         OKHTTP = '4.9.1'
         KOIN = '2.2.2'
