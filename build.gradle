@@ -82,7 +82,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$GOOGLE_NAVIGATION_VERSION"
         classpath "com.vanniktech:gradle-android-junit-jacoco-plugin:0.16.0"
-        classpath 'com.adarshr:gradle-test-logger-plugin:2.1.1'
+        classpath 'com.adarshr:gradle-test-logger-plugin:3.0.0'
     }
 }
 
