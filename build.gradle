@@ -17,7 +17,7 @@ buildscript {
         VIEW_RECYCLER_VIEW = '1.1.0'
 
         GOOGLE_GSON = '2.8.6'
-        GOOGLE_ROOM = '2.2.6'
+        GOOGLE_ROOM = '2.3.0'
         GOOGLE_NAVIGATION_VERSION = '2.3.4'
 
         OKHTTP = '4.9.1'
