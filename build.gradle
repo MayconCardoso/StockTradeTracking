@@ -6,7 +6,7 @@ buildscript {
         KOTLIN_VERSION = '1.4.31'
         KOTLIN_COROUTINES_CORE = '1.4.3'
 
-        ANDROID_BUILD_TOOLS = '4.1.2'
+        ANDROID_BUILD_TOOLS = '4.2.0'
         ANDROID_APCOMPACT = '1.2.0'
         ANDROID_LIFECYCLE = '2.3.0'
         ANDROID_LIFECYCLE_EXTENSION = '2.2.0'
