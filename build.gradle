@@ -14,7 +14,7 @@ buildscript {
         VIEW_MATERIAL_DESIGN = '1.1.0'
         VIEW_SWIPE_REFRESH = '1.2.0-alpha01'
         VIEW_CONSTRAINT_LAYOUT = '2.0.4'
-        VIEW_RECYCLER_VIEW = '1.1.0'
+        VIEW_RECYCLER_VIEW = '1.2.1'
 
         GOOGLE_GSON = '2.8.6'
         GOOGLE_ROOM = '2.2.6'
