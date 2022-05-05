@@ -11,7 +11,7 @@ buildscript {
         ANDROID_LIFECYCLE = '2.3.0'
         ANDROID_LIFECYCLE_EXTENSION = '2.2.0'
 
-        VIEW_MATERIAL_DESIGN = '1.1.0'
+        VIEW_MATERIAL_DESIGN = '1.6.0'
         VIEW_SWIPE_REFRESH = '1.2.0-alpha01'
         VIEW_CONSTRAINT_LAYOUT = '2.0.4'
         VIEW_RECYCLER_VIEW = '1.1.0'
